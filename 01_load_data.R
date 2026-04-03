@@ -50,3 +50,28 @@ session_summary %>%
 table_abandon <- table(session_summary$mode, session_summary$abandoned)
 
 chisq.test(table_abandon)
+
+# Count session outcomes
+session_summary %>%
+  summarise(
+    started_and_completed = sum(started & completed),
+    started_not_completed = sum(started & !completed),
+    not_started = sum(!started)
+  )
+
+# Session outcome by mode
+session_summary %>%
+  group_by(mode) %>%
+  summarise(
+    started_and_completed = sum(started & completed),
+    started_not_completed = sum(started & !completed),
+    not_started = sum(!started),
+    abandonment_rate = started_not_completed / (started_and_completed + started_not_completed)
+  )
+
+session_summary %>%
+  group_by(mode) %>%
+  summarise(
+    intervention_rate = mean(had_intervention),
+    avg_intervention_count = mean(intervention_count)
+  )
