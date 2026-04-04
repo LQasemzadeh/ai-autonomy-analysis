@@ -148,3 +148,33 @@ time_summary_clean %>%
 # Compare completion time across modes
 kruskal.test(completion_time ~ mode, data = time_summary_clean)
 pairwise.wilcox.test(time_summary_clean$completion_time, time_summary_clean$mode)
+
+unique(data$action)
+
+# Session-level error & submit flags
+error_summary <- data %>%
+  group_by(session_id, mode) %>%
+  summarise(
+    had_error = any(action == "ERROR_SHOWN"),
+    had_submit = any(action == "SUBMIT_CLICK"),
+    .groups = "drop"
+  )
+
+error_summary_clean <- error_summary %>%
+  filter(had_submit == TRUE)
+
+error_summary_clean %>%
+  group_by(mode) %>%
+  summarise(
+    error_rate = mean(had_error)
+  )
+
+kruskal.test(had_error ~ mode, data = error_summary_clean)
+
+error_table <- table(error_summary_clean$mode, error_summary_clean$had_error)
+error_table
+
+pairwise.prop.test(
+  x = error_table[, "TRUE"],
+  n = rowSums(error_table)
+)
