@@ -178,3 +178,34 @@ pairwise.prop.test(
   x = error_table[, "TRUE"],
   n = rowSums(error_table)
 )
+
+# Intervention rate
+session_summary %>%
+  group_by(mode) %>%
+  summarise(
+    intervention_rate = mean(had_intervention)
+  )
+
+kruskal.test(had_intervention ~ mode, data = session_summary)
+
+intervention_table <- table(session_summary$mode, session_summary$had_intervention)
+
+pairwise.prop.test(
+  x = intervention_table[, "TRUE"],
+  n = rowSums(intervention_table)
+)
+
+# Intervention count
+session_summary %>%
+  group_by(mode) %>%
+  summarise(
+    avg_intervention = mean(intervention_count),
+    median_intervention = median(intervention_count)
+  )
+
+kruskal.test(intervention_count ~ mode, data = session_summary)
+
+pairwise.wilcox.test(
+  session_summary$intervention_count,
+  session_summary$mode
+)
