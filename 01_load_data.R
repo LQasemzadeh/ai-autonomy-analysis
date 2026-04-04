@@ -1,3 +1,6 @@
+#Load libraries
+library(dplyr)
+
 data <- read.csv("data/study_logs_rows.csv", stringsAsFactors = FALSE)
 
 head(data)
@@ -19,8 +22,6 @@ table(data$mode)
 # Check task validity
 table(data$action == "TASK_STARTED")
 table(data$action == "TASK_COMPLETED")
-
-library(dplyr)
 
 # build session-level summary
 session_summary <- data %>%
@@ -75,3 +76,75 @@ session_summary %>%
     intervention_rate = mean(had_intervention),
     avg_intervention_count = mean(intervention_count)
   )
+
+data$timestamp_iso <- as.POSIXct(data$timestamp_iso)
+# Calculate completion time for completed sessions only
+time_summary <- data %>%
+  group_by(session_id, mode) %>%
+  summarise(
+    started = any(action == "TASK_STARTED"),
+    completed = any(action == "TASK_COMPLETED"),
+    start_time = if (any(action == "TASK_STARTED")) min(timestamp_iso[action == "TASK_STARTED"]) else as.POSIXct(NA),
+    end_time = if (any(action == "TASK_COMPLETED")) max(timestamp_iso[action == "TASK_COMPLETED"]) else as.POSIXct(NA),
+    .groups = "drop"
+  ) %>%
+  filter(started == TRUE, completed == TRUE) %>%
+  mutate(
+    completion_time = as.numeric(difftime(end_time, start_time, units = "secs"))
+  )
+
+summary(time_summary$completion_time)
+
+# inspect one completed session
+data %>%
+  filter(session_id == time_summary$session_id[1]) %>%
+  select(session_id, mode, action, timestamp_iso)
+
+data %>%
+  filter(session_id == time_summary$session_id[1]) %>%
+  select(session_id, mode, action, client_ts_ms)
+
+data$client_ts_sec <- data$client_ts_ms / 1000
+head(data$client_ts_sec)
+
+# Calculate completion time for completed sessions only
+time_summary <- data %>%
+  group_by(session_id, mode) %>%
+  summarise(
+    started = any(action == "TASK_STARTED"),
+    completed = any(action == "TASK_COMPLETED"),
+    start_time = if (any(action == "TASK_STARTED")) min(client_ts_sec[action == "TASK_STARTED"]) else NA,
+    end_time   = if (any(action == "TASK_COMPLETED")) max(client_ts_sec[action == "TASK_COMPLETED"]) else NA,
+    .groups = "drop"
+  ) %>%
+  filter(started == TRUE, completed == TRUE) %>%
+  mutate(
+    completion_time = end_time - start_time
+  )
+
+summary(time_summary$completion_time)
+
+# compare completion time by mode
+time_summary %>%
+  group_by(mode) %>%
+  summarise(
+    avg_time = mean(completion_time),
+    median_time = median(completion_time)
+  )
+time_summary %>%
+  arrange(desc(completion_time)) %>%
+  head(10)
+
+time_summary_clean <- time_summary %>%
+  filter(completion_time <= 300)
+
+time_summary_clean %>%
+  group_by(mode) %>%
+  summarise(
+    avg_time = mean(completion_time),
+    median_time = median(completion_time)
+  )
+
+# Compare completion time across modes
+kruskal.test(completion_time ~ mode, data = time_summary_clean)
+pairwise.wilcox.test(time_summary_clean$completion_time, time_summary_clean$mode)
