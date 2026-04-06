@@ -53,3 +53,5 @@ rsconnect/
 
 # ignore raw data
 data/
+*.pdf
+*.docx
