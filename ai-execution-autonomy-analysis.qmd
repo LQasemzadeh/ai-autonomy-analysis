@@ -1,9 +1,37 @@
 ---
 title: "The Impact of AI Execution Autonomy on User Performance and Intervention Behavior"
 author: "Ladan"
+
 format:
-  pdf: default
-  docx: default
+  pdf:
+    pdf-engine: xelatex
+    documentclass: article
+    fontsize: 11pt
+    linestretch: 1.5
+    geometry:
+      - left=2.5cm
+      - right=2.5cm
+      - top=2cm
+      - bottom=2cm
+    include-in-header:
+      text: |
+        \usepackage{fontspec}
+        \setmainfont{Arial}
+
+        \usepackage{fancyhdr}
+        \pagestyle{fancy}
+        \fancyhf{}
+        \lhead{AI Execution Autonomy}
+        \rhead{\thepage}
+
+        \usepackage{titlesec}
+        \titleformat{\section}{\bfseries\fontsize{14}{16}\selectfont}{\thesection}{1em}{}
+        \titleformat{\subsection}{\bfseries\fontsize{12}{14}\selectfont}{\thesubsection}{1em}{}
+
+        \setlength{\parindent}{0.75cm}
+        \usepackage{ragged2e}
+        \justifying
+
 execute:
   echo: true
 ---
