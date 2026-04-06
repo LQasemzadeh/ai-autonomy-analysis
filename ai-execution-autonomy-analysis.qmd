@@ -1,39 +1,30 @@
 ---
-title: "The Impact of AI Execution Autonomy on User Performance and Intervention Behavior"
+title: "A Behavioral Evaluation of AI Execution Autonomy: Effects on System Performance and User Intervention"
 author: "Ladan"
 
 format:
-  pdf:
-    pdf-engine: xelatex
-    documentclass: article
-    fontsize: 11pt
-    linestretch: 1.5
-    geometry:
-      - left=2.5cm
-      - right=2.5cm
-      - top=2cm
-      - bottom=2cm
-    include-in-header:
-      text: |
-        \usepackage{fontspec}
-        \setmainfont{Arial}
-
-        \usepackage{fancyhdr}
-        \pagestyle{fancy}
-        \fancyhf{}
-        \lhead{AI Execution Autonomy}
-        \rhead{\thepage}
-
-        \usepackage{titlesec}
-        \titleformat{\section}{\bfseries\fontsize{14}{16}\selectfont}{\thesection}{1em}{}
-        \titleformat{\subsection}{\bfseries\fontsize{12}{14}\selectfont}{\thesubsection}{1em}{}
-
-        \setlength{\parindent}{0.75cm}
-        \usepackage{ragged2e}
-        \justifying
+  docx:
+    refrence-doc: template.dpcx
+    toc: true
+    toc-depth: 3
+    number-sections: true
 
 execute:
-  echo: true
+  echo: false
 ---
 
-## 
+**Introduction**
+
+Artificial intelligence (AI) systems are increasingly integrated into digital workflows, evolving from tools that support human decision-making toward systems capable of autonomously executing actions. This shift reflects a transition from assistance-oriented systems to execution-oriented systems, where AI not only provides recommendations but actively performs tasks within a workflow. Consequently, the focus shifts from supporting user decisions to assessing how effectively such systems execute tasks under varying levels of autonomy.
+
+The distribution of control between humans and automated systems has been widely studied in human–automation interaction research. Prior work has demonstrated that different levels of automation influence both task outcomes and human behavior depending on how decision authority is allocated between user and system (Parasuraman et al., 2000; Sheridan & Verplank, 1978). However, existing research has primarily focused on assistive systems and subjective constructs such as trust or perceived usefulness, rather than on objective, behavior-based outcomes in execution-oriented contexts.
+
+With the emergence of AI systems capable of directly executing actions, a critical question arises: whether increasing execution autonomy leads to improved system performance. While higher autonomy may increase efficiency, it may also introduce risks such as error propagation, reduced transparency, and diminished user awareness (Endsley, 2017). Despite these implications, there is limited empirical evidence examining how different levels of AI execution autonomy affect task outcomes in practical digital workflows.
+
+This study addresses this gap by investigating the impact of AI execution autonomy on system performance within a controlled task environment. System performance is evaluated through observable task outcomes, including completion time, error rate, and task abandonment, which reflect how effectively the system performs under different autonomy conditions.
+
+In addition, user intervention behavior is analyzed as a behavioral indicator of system performance. Rather than constituting a separate objective, intervention patterns are interpreted as responses to system behavior. Frequent interventions may signal low system reliability, whereas reduced intervention may indicate either effective system performance or uncritical reliance. Therefore, intervention behavior is examined in conjunction with task outcomes to provide a more comprehensive assessment of system effectiveness.
+
+To isolate the effect of execution autonomy, three distinct levels—manual, assistance, and execution—are implemented, representing different distributions of decision authority between user and system. A controlled experimental design is employed, and user interactions are captured through system-generated logs, enabling objective, behavior-based analysis.
+
+The contribution of this research lies in providing a system-centered and empirically grounded evaluation of AI execution autonomy. By linking task outcomes with user intervention patterns, the study offers evidence on when increasing AI autonomy improves system performance and when human oversight remains necessary. These findings aim to support more informed design decisions in AI-powered system.
