@@ -1,6 +1,6 @@
 # AI Execution Autonomy Analysis
 
-This project investigates how different levels of AI execution autonomy (Manual, Assistance, Execution) affect user performance and intervention behavior in a controlled task environment.
+This project investigates how different levels of AI execution autonomy (Manual, Assistance, Execution) affect system performance and intervention behavior in a controlled task environment.
 
 ## Research Focus
 - How does AI autonomy impact task completion time and error rates?
