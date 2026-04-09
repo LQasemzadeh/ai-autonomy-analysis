@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Ladan">
+
+<title>The Impact of AI Execution Autonomy on User Task Performance and Intervention Behavior in Digital Workflows</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="ai-execution-autonomy-analysis_files/libs/clipboard/clipboard.min.js"></script>
+<script src="ai-execution-autonomy-analysis_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="ai-execution-autonomy-analysis_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="ai-execution-autonomy-analysis_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="ai-execution-autonomy-analysis_files/libs/quarto-html/popper.min.js"></script>
+<script src="ai-execution-autonomy-analysis_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="ai-execution-autonomy-analysis_files/libs/quarto-html/anchor.min.js"></script>
+<link href="ai-execution-autonomy-analysis_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="ai-execution-autonomy-analysis_files/libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="ai-execution-autonomy-analysis_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="ai-execution-autonomy-analysis_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="ai-execution-autonomy-analysis_files/libs/bootstrap/bootstrap-d6a003b94517c951b2d65075d42fb01b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="ai-execution-autonomy-analysis.docx"><i class="bi bi-file-word"></i>MS Word</a></li></ul></div></div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">The Impact of AI Execution Autonomy on User Task Performance and Intervention Behavior in Digital Workflows</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Ladan </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><strong>Introduction</strong></p>
+<p>Artificial intelligence (AI) systems are increasingly embedded in digital workflows, evolving from tools that provide decision support toward systems capable of autonomously executing actions. In many contemporary applications, AI no longer functions merely as a source of information or recommendations but actively participates in shaping and executing decisions. This shift from assistance to autonomous execution fundamentally changes the distribution of control, responsibility, and risk between human users and technical systems.</p>
+<p>The distribution of decision authority between humans and automated systems has long been a central concern in human–automation interaction research. Early work by Sheridan and Verplank (1978), as well as later frameworks by Parasuraman, Sheridan, and Wickens (2000), conceptualize automation as a continuum of autonomy, ranging from full human control to full system control. These models demonstrate that different levels of automation can significantly influence human performance, error behavior, and reliance on automated systems. However, much of this research has primarily focused on assistive systems in which humans retain primary decision authority.</p>
+<p>More recent research in human–computer interaction has increasingly emphasized subjective constructs such as trust, perceived usefulness, and user satisfaction (Lee &amp; See, 2004; Hoff &amp; Bashir, 2015). While these perspectives provide valuable insights, they offer limited understanding of how users behave in concrete task execution scenarios, particularly in systems where AI assumes execution authority. As a result, there remains a lack of empirical, behavior-based evidence on how execution autonomy affects observable task outcomes and user intervention behavior in real interaction contexts.</p>
+<p>This study addresses this gap by investigating how different levels of AI execution autonomy affect user task performance and intervention behavior in AI-assisted digital workflows. Specifically, three autonomy levels are examined—manual, assistance, and execution—which represent distinct distributions of decision authority between the user and the system. The analysis focuses on measurable behavioral outcomes, including task completion time, detected errors, abandonment, and intervention frequency, enabling a systematic comparison across conditions.</p>
+<p>This leads to the following research question:</p>
+<p>“How does the level of AI execution autonomy affect user task performance and intervention behavior in AI-assisted digital workflows?”</p>
+<p>The study adopts a controlled experimental design in which user interactions are captured through system-generated logs. Instead of relying on self-reported measures, behavioral data is used to assess how users perform tasks and how often they intervene under different autonomy conditions. By operationalizing AI execution autonomy as a system-level property—rather than as a feature of a specific model—the study isolates the effect of execution authority within a controlled task environment. This reflects how AI systems are typically implemented in real-world applications, where autonomy emerges from system design rather than from the underlying model alone.</p>
+<p>The contribution of this study lies in providing a behaviorally grounded, log-based analysis of AI execution autonomy. By capturing real user interactions in a controlled setting, the study enables a systematic comparison of task performance and intervention behavior across autonomy levels. The findings contribute to a more empirical understanding of how autonomy shapes human–AI interaction and provide practical insights for designing AI-assisted systems that balance efficiency and user control.</p>
+<p><strong>2 Theory</strong></p>
+<p><strong>2.1 AI Execution Autonomy</strong></p>
+<p>The concept of automation has long been described as a continuum reflecting different levels of system involvement in decision-making. Early frameworks conceptualize automation as a spectrum ranging from full human control to full system control, emphasizing how the allocation of decision authority affects human performance and behavior (Sheridan &amp; Verplank, 1978; Parasuraman et al., 2000).</p>
+<p>Building on this perspective, AI execution autonomy can be defined as the extent to which a system is capable of independently determining and executing task-related actions within a workflow. In contrast to traditional assistive systems, execution-oriented AI systems increasingly assume responsibility not only for providing information but also for generating and implementing decisions.</p>
+<p>In this study, three levels of execution autonomy are distinguished: manual, assistance, and execution. These levels represent qualitatively different distributions of control between the user and the system.</p>
+<p>In the manual condition, all task-related decisions are made by the user, while the system functions solely as a validation mechanism by enforcing constraints and displaying error messages. In the assistance condition, the system generates a valid default configuration and supports the user through suggestions, while allowing full modification via editable parameters. In the execution condition, the system autonomously determines all task parameters and presents a final configuration, restricting user interaction to acceptance, rejection, or regeneration of outcomes. These conditions enable a systematic comparison of how different levels of autonomy influence user behavior during task execution.</p>
+<p><strong>2.2 User Task Performance</strong></p>
+<p>User task performance refers to the extent to which users are able to successfully and efficiently complete a task within a given system environment. In the context of human–AI interaction, performance is not solely determined by user capabilities but emerges from the interaction between user actions and system behavior (Parasuraman et al., 2000).</p>
+<p>To capture performance in an objective and observable manner, this study focuses on behavioral outcome measures derived from system interaction logs. Specifically, user task performance is operationalized using three indicators: task completion time, error occurrence, and task abandonment.</p>
+<p>Task completion time reflects efficiency and is defined as the duration between the initiation and completion of a task. Error occurrence captures whether users perform invalid actions that violate system constraints, such as selecting incompatible exam combinations or exceeding allowed limits. Task abandonment represents task failure and is defined as cases in which users initiate but do not complete the task.</p>
+<p>By relying on log-based behavioral data rather than subjective self-reports, this study provides a more direct assessment of performance as it occurs during real system interaction.</p>
+<p><strong>2.3 Intervention Behavior</strong></p>
+<p>In addition to task performance, user interaction with AI systems can be characterized by the extent to which users intervene in system-generated processes. Intervention behavior reflects the degree to which users actively modify, override, or reject system outputs during task execution.</p>
+<p>In human–automation interaction research, intervention is closely related to monitoring and control processes, particularly in situations where users retain partial authority over automated systems (Lee &amp; See, 2004). High levels of intervention may indicate reduced reliance on the system, perceived inadequacy of system outputs, or a need for greater user control.</p>
+<p>In this study, intervention behavior is operationalized through observable interaction events captured in system logs. These include edits of system-generated configurations, overrides of suggested parameters, and rejection or regeneration of system outputs (e.g., skipping a suggested configuration). These measures allow for a quantitative assessment of how frequently and in what ways users intervene under different levels of AI execution autonomy.</p>
+<p><strong>2.4 Research Gap and Hypotheses</strong></p>
+<p>Despite extensive research on human–AI interaction, existing literature has primarily focused on subjective constructs such as trust, perceived usefulness, and user attitudes toward automated systems (Lee &amp; See, 2004; Hoff &amp; Bashir, 2015). While these approaches provide valuable insights into user perception, they offer limited understanding of how users behave during actual task execution.</p>
+<p>Moreover, prior research has largely concentrated on assistive systems, where users retain primary decision authority, rather than execution-oriented systems in which AI assumes control over task outcomes. As a result, there remains a lack of empirical, behavior-based evidence on how different levels of AI execution autonomy influence observable user performance and intervention patterns in practical workflows.</p>
+<p>To address this gap, the present study examines the behavioral effects of varying levels of AI execution autonomy using log-based interaction data. Based on this framework, the following hypotheses are proposed:</p>
+<p><strong>H1:</strong> Higher levels of AI execution autonomy improve user task performance, as reflected in reduced completion time, lower error occurrence, and lower abandonment rates. <strong>H2:</strong> Higher levels of AI execution autonomy reduce user intervention during task execution.</p>
+<p><strong>3 Methods</strong></p>
+<p><strong>3.1 Study Design</strong></p>
+<p>This study employed a <strong>between-subject experimental design</strong> with three conditions representing different levels of AI execution autonomy: Manual, Assistance, and Execution.</p>
+<p>Participants were randomly assigned to one of the three conditions and completed a single task within the assigned condition. The between-subject design was chosen to avoid learning effects and to ensure that user behavior was not influenced by prior exposure to other autonomy levels.</p>
+<p><strong>3.2 Prototype and Logging</strong></p>
+<p>A web-based exam registration system was developed to simulate a realistic academic workflow. The system required users to select a semester, choose an exam period, and configure a valid set of exams under predefined constraints.</p>
+<p>User interactions were logged using a backend logging system implemented with Supabase. The logging system captured event-level interaction data, including:</p>
+<pre><code>•   user actions (e.g., TASK_STARTED, TASK_COMPLETED, ERROR_SHOWN, FIELD_EDIT, OVERRIDE, AI_SUGGESTION_REJECTED)
+
+•   timestamps (client-side and server-side)
+
+•   session identifiers
+
+•   assigned condition (mode)</code></pre>
+<p>The collected data was stored as structured event logs and exported as CSV files for analysis. This approach enabled a detailed reconstruction of user behavior during task execution.</p>
+<p><strong>3.3 Variables</strong></p>
+<p>The independent variable (IV) in this study was the level of AI execution autonomy, with three levels:</p>
+<pre><code>•   Manual
+
+•   Assistance
+
+•   Execution</code></pre>
+<p>The dependent variables (DVs) captured objective behavioral outcomes derived from interaction logs:</p>
+<pre><code>•   **Task completion time**
+
+•   **Error occurrence**
+
+•   **Task abandonment**
+
+•   **Intervention behavior**</code></pre>
+<p>These variables were operationalized based on observable interaction events.</p>
+<p><strong>3.4 Sample</strong></p>
+<p>A total of 231 participants were included in the study. The participant distribution across conditions is shown in Table 1.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Table 1. Number of participants (including repeated entries) per condition</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Condition</th>
+<th style="text-align: right;">Participants</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: right;">228</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Assistance</td>
+<td style="text-align: right;">75</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Execution</td>
+<td style="text-align: right;">76</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Information</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">manual</td>
+<td style="text-align: right;">76</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>An important issue in the dataset is the presence of the “Information” mode, which theoretically should not exist as an active interaction condition. Therefore, it is necessary to investigate why this mode appears in the logs and what type of events have been recorded under it. To assess this, a validity check was conducted by filtering all entries associated with the “Information” mode and inspecting their session IDs and logged actions.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 2
+  session_id action   
+  &lt;chr&gt;      &lt;chr&gt;    
+1 S-7QR92FMR PAGE_VIEW
+2 S-KY2JLRYQ PAGE_VIEW
+3 S-NT977W23 PAGE_VIEW
+4 S-OQKZ8TJ1 PAGE_VIEW</code></pre>
+</div>
+</div>
+<p>The inspection showed that the “Information” mode contained only four log entries, all of which were recorded as <code>PAGE_VIEW</code> events. This indicates that these entries reflect passive page access rather than meaningful task-related interaction. Therefore, the “Information” mode was treated as invalid and excluded from further analysis to ensure data quality, cleanliness and consistency.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Table 2. Number of participants after data cleaning (excluding Information condition)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Condition</th>
+<th style="text-align: right;">Participants</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: right;">224</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Assistance</td>
+<td style="text-align: right;">75</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Execution</td>
+<td style="text-align: right;">76</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">manual</td>
+<td style="text-align: right;">76</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Repeated participation was intended to be prevented by the system design. However, to ensure data validity, an additional check was conducted at the session level, since repeated participation may still occur despite implemented controls in the experimental environment. Therefore, sessions were used to verify that each participant contributed only one observation and to avoid overcounting repeated entries.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Table 3. Number of unique sessions (one per participant) per condition</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Condition</th>
+<th style="text-align: right;">Sessions</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Assistance</td>
+<td style="text-align: right;">75</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Execution</td>
+<td style="text-align: right;">76</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">manual</td>
+<td style="text-align: right;">76</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The results show a balanced distribution of unique sessions across conditions, indicating that each participant contributed only one observation and that no overcounting occurred.</p>
+<p><strong>3.5 Measures</strong></p>
+<p>All dependent variables were derived from event-based interaction logs and computed at the session level.</p>
+<p><strong>Task Completion Time</strong></p>
+<p>Task completion time was defined as the duration between the start and completion of a task.</p>
+<p>It was calculated as:</p>
+<p>completion_time = end_time − start_time</p>
+<p>where:</p>
+<pre><code>•   start_time corresponds to the timestamp of the TASK_STARTED event
+
+•   end_time corresponds to the timestamp of the TASK_COMPLETED event</code></pre>
+<p>Only sessions in which both events were present were included in this measure.</p>
+<p>👉 ✔ کارت عالیه که اینو با client_ts_sec حساب کردی</p>
+<p>👉 ✔ حتماً همینو نگه دار (دقیق‌تر از server timeه)</p>
+<p><strong>Error Occurrence</strong></p>
+<p>Error occurrence was defined as whether a user triggered at least one system error during task execution.</p>
+<p>Errors were identified using the ERROR_SHOWN event.</p>
+<p>For each session, error occurrence was computed as a binary variable:</p>
+<pre><code>•   1 = at least one error occurred
+
+•   0 = no errors occurred</code></pre>
+<p>Only sessions in which users attempted submission were considered in this measure.</p>
+<p><strong>Task Abandonment</strong></p>
+<p>Task abandonment was defined as cases in which a user started but did not complete the task.</p>
+<p>It was computed as:</p>
+<p>abandoned = TASK_STARTED == TRUE and TASK_COMPLETED == FALSE</p>
+<p>This measure captures task failure or disengagement during the interaction process.</p>
+<p><strong>Intervention Behavior</strong></p>
+<p>Intervention behavior reflects the extent to which users actively modified or rejected system-generated outputs.</p>
+<p>It was operationalized using multiple interaction events:</p>
+<pre><code>•   FIELD_EDIT
+
+•   OVERRIDE
+
+•   AI_SUGGESTION_REJECTED</code></pre>
+<p>For each session, the following measures were computed:</p>
+<pre><code>•   **Intervention occurrence** (binary): whether any intervention occurred
+
+•   **Intervention count**: total number of intervention actions</code></pre>
+<p>Intervention count was calculated as:</p>
+<p>intervention_count = edits + overrides + rejections</p>
+<p>This multi-metric approach allows for a more comprehensive assessment of user interaction behavior under different autonomy conditions.</p>
+<p><strong>3.6 Data Preparation and Analysis</strong></p>
+<p>Data analysis was conducted using R. Raw event logs were aggregated to the session level to compute behavioral metrics.</p>
+<p>Non-task sessions (e.g., incomplete or invalid sessions) were excluded from the analysis.</p>
+<p>Descriptive statistics were computed for all dependent variables. Due to non-normal distributions, non-parametric statistical tests were applied:</p>
+<pre><code>•   Kruskal–Wallis test for group comparisons
+
+•   Pairwise Wilcoxon tests for post-hoc analysis
+
+•   Chi-square tests and proportion tests for binary variables</code></pre>
+<p>All analyses were performed using standard R packages, including dplyr for data manipulation.</p>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -1,0 +1,268 @@
+/* =========================
+   CLEAN WEB ARTICLE STYLE
+   Quarto HTML
+   ========================= */
+
+html {
+  font-size: 11pt;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+  color: #111111;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11pt;
+  line-height: 1.7;
+}
+
+/* kill extra Quarto layout behavior */
+#quarto-content,
+.quarto-container,
+.page-columns,
+.page-layout-article,
+main.content,
+.content,
+#quarto-document-content,
+#title-block-header {
+  box-sizing: border-box;
+}
+
+/* main content width and large white-space around it */
+#title-block-header,
+#quarto-document-content,
+main.content,
+nav[role="doc-toc"],
+#TOC {
+  max-width: 900px;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* very generous top spacing */
+#title-block-header {
+  padding-top: 110px;
+  padding-left: 40px;
+  padding-right: 40px;
+  margin-bottom: 60px !important;
+  text-align: center;
+}
+
+/* title */
+.quarto-title-block .title {
+  font-size: 16pt;
+  font-weight: 700;
+  line-height: 1.35;
+  margin: 0 0 18px 0;
+  text-align: center;
+}
+
+/* hide ugly metadata heading */
+.quarto-title-meta-heading {
+  display: none !important;
+}
+
+.quarto-title-block .author,
+.quarto-title-block .date,
+.quarto-title-meta {
+  font-size: 11pt;
+  text-align: center;
+  margin: 0;
+}
+
+/* toc if present */
+nav[role="doc-toc"],
+#TOC {
+  padding-left: 40px;
+  padding-right: 40px;
+  margin-bottom: 50px !important;
+  font-size: 10pt;
+  line-height: 1.5;
+}
+
+#TOC > h2,
+nav[role="doc-toc"] > h2 {
+  font-size: 12pt;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+#TOC ul,
+nav[role="doc-toc"] ul {
+  padding-left: 1.2rem;
+  margin: 0;
+}
+
+/* article body */
+#quarto-document-content,
+main.content {
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-bottom: 100px;
+}
+
+/* paragraphs */
+p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  text-align: justify;
+  text-indent: 0.75cm;
+  hyphens: auto;
+}
+
+/* no indent after headings */
+h1 + p,
+h2 + p,
+h3 + p,
+h4 + p,
+h5 + p,
+h6 + p {
+  text-indent: 0;
+}
+
+/* headings */
+h1, h2, h3, h4, h5, h6 {
+  color: #111111;
+  font-weight: 700;
+  line-height: 1.35;
+  margin-top: 28px;
+  margin-bottom: 12px;
+  text-align: left;
+}
+
+h1 {
+  font-size: 14pt;
+}
+
+h2, h3, h4, h5, h6 {
+  font-size: 12pt;
+}
+
+/* tables */
+table {
+  width: auto;
+  border-collapse: collapse;
+  font-size: 10pt;
+  line-height: 1.6;
+  margin: 24px auto 8px auto;
+}
+
+caption {
+  caption-side: bottom;
+  text-align: left;
+  font-style: italic;
+  font-size: 10pt;
+  margin-bottom: 8px;
+}
+
+th,
+td {
+  padding: 8px 10px;
+  text-align: center;
+  vertical-align: top;
+  border: none;
+}
+
+thead th {
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+}
+
+tbody tr:last-child td {
+  border-bottom: 1px solid #000;
+}
+
+/* figures */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 24px auto;
+}
+
+figcaption {
+  font-size: 10pt;
+  line-height: 1.5;
+  text-align: left;
+}
+
+/* code */
+pre, code {
+  font-size: 10pt;
+}
+
+/* horizontal rule */
+hr {
+  border: none;
+  border-top: 1px solid #dddddd;
+  margin: 28px 0;
+}
+
+/* links */
+a {
+  color: #1f4e79;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* large screen: even more breathing room */
+@media (min-width: 1200px) {
+  #title-block-header,
+  #quarto-document-content,
+  main.content,
+  nav[role="doc-toc"],
+  #TOC {
+    max-width: 980px;
+  }
+
+  #title-block-header {
+    padding-top: 130px;
+  }
+
+  #quarto-document-content,
+  main.content,
+  nav[role="doc-toc"],
+  #TOC {
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+}
+
+/* mobile */
+@media (max-width: 768px) {
+  #title-block-header,
+  #quarto-document-content,
+  main.content,
+  nav[role="doc-toc"],
+  #TOC {
+    max-width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  #title-block-header {
+    padding-top: 40px;
+    margin-bottom: 30px !important;
+  }
+
+  #quarto-document-content,
+  main.content {
+    padding-bottom: 40px;
+  }
+
+  p {
+    text-indent: 0;
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+
+

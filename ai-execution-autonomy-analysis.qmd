@@ -3,8 +3,13 @@ title: "The Impact of AI Execution Autonomy on User Task Performance and Interve
 author: "Ladan"
 
 format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    css: styles.css
+
   docx:
-    refrence-doc: template.dpcx
     toc: true
     toc-depth: 3
     number-sections: true
@@ -12,6 +17,67 @@ format:
 execute:
   echo: false
 ---
+
+```{r}
+
+#| label: setup
+#| include: false
+
+suppressPackageStartupMessages({
+  library(dplyr)
+  library(knitr)
+  library(ggplot2)
+  library(readr)
+})
+
+```
+
+```{r}
+#| label: data-prep
+#| include: false
+
+logs <- readr::read_csv("data/study_logs_rows.csv", show_col_types = FALSE)
+data <- logs
+
+session_summary <- logs |>
+  dplyr::group_by(session_id, mode) |>
+  dplyr::summarise(
+    started = any(action == "TASK_STARTED"),
+    completed = any(action == "TASK_COMPLETED"),
+    error_count = sum(action == "ERROR_SHOWN"),
+    field_edit_count = sum(action == "FIELD_EDIT"),
+    override_count = sum(action == "OVERRIDE"),
+    rejected_count = sum(action == "AI_SUGGESTION_REJECTED"),
+    intervention_count = field_edit_count + override_count + rejected_count,
+    had_intervention = intervention_count > 0,
+    abandoned = started & !completed,
+    .groups = "drop"
+  )
+```
+
+```{r}
+#| label: sample-setup
+#| include: false
+
+participant_table <- session_summary |>
+  dplyr::group_by(mode) |>
+  dplyr::summarise(
+    N_participants = dplyr::n(),
+    .groups = "drop"
+  )
+
+session_table <- logs |>
+  dplyr::group_by(mode) |>
+  dplyr::summarise(
+    N_sessions = dplyr::n_distinct(participant_id),
+    .groups = "drop"
+  )
+
+total_participants <- sum(participant_table$N_participants)
+total_sessions <- sum(session_table$N_sessions)
+```
+
+
 
 **Introduction**
 
@@ -71,3 +137,235 @@ To address this gap, the present study examines the behavioral effects of varyin
 
 **H1:** Higher levels of AI execution autonomy improve user task performance, as reflected in reduced completion time, lower error occurrence, and lower abandonment rates.
 **H2:** Higher levels of AI execution autonomy reduce user intervention during task execution.
+
+**3 Methods**
+
+**3.1 Study Design**
+
+This study employed a **between-subject experimental design** with three conditions representing different levels of AI execution autonomy: Manual, Assistance, and Execution.
+
+Participants were randomly assigned to one of the three conditions and completed a single task within the assigned condition. The between-subject design was chosen to avoid learning effects and to ensure that user behavior was not influenced by prior exposure to other autonomy levels.
+
+**3.2 Prototype and Logging**
+
+A web-based exam registration system was developed to simulate a realistic academic workflow. The system required users to select a semester, choose an exam period, and configure a valid set of exams under predefined constraints.
+
+User interactions were logged using a backend logging system implemented with Supabase. The logging system captured event-level interaction data, including:
+
+	•	user actions (e.g., TASK_STARTED, TASK_COMPLETED, ERROR_SHOWN, FIELD_EDIT, OVERRIDE, AI_SUGGESTION_REJECTED)
+
+	•	timestamps (client-side and server-side)
+
+	•	session identifiers
+
+	•	assigned condition (mode)
+
+The collected data was stored as structured event logs and exported as CSV files for analysis. This approach enabled a detailed reconstruction of user behavior during task execution.
+
+**3.3 Variables**
+
+The independent variable (IV) in this study was the level of AI execution autonomy, with three levels:
+
+	•	Manual
+
+	•	Assistance
+
+	•	Execution
+
+The dependent variables (DVs) captured objective behavioral outcomes derived from interaction logs:
+
+	•	**Task completion time**
+
+	•	**Error occurrence**
+
+	•	**Task abandonment**
+
+	•	**Intervention behavior**
+
+These variables were operationalized based on observable interaction events.
+
+**3.4 Sample**
+
+A total of `r total_participants` participants were included in the study. The participant distribution across conditions is shown in Table 1.
+
+```{r}
+#| echo: false
+
+participant_table_pretty <- participant_table |>
+  dplyr::rename(
+    Condition = mode,
+    Participants = N_participants
+  )
+
+total_row <- tibble(
+  Condition = "Total",
+  Participants = n_distinct(data$session_id)
+)
+
+participant_table_pretty <- rbind(
+  total_row,
+  participant_table_pretty
+)
+
+knitr::kable(
+  participant_table_pretty,
+  caption = "Table 1. Number of participants (including repeated entries) per condition"
+)
+```
+An important issue in the dataset is the presence of the "Information" mode, which theoretically should not exist as an active interaction condition. Therefore, it is necessary to investigate why this mode appears in the logs and what type of events have been recorded under it.
+To assess this, a validity check was conducted by filtering all entries associated with the "Information" mode and inspecting their session IDs and logged actions.
+
+```{r}
+data %>%
+  filter(mode == "Information") %>%
+  select(session_id, action) %>%
+  arrange(session_id)
+```
+
+The inspection showed that the "Information" mode contained only four log entries, all of which were recorded as `PAGE_VIEW` events. This indicates that these entries reflect passive page access rather than meaningful task-related interaction. Therefore, the "Information" mode was treated as invalid and excluded from further analysis to ensure data quality, cleanliness and consistency.
+
+```{r}
+data_clean <- data %>%
+  filter(mode != "Information")
+```
+
+```{r}
+participant_table_clean <- data_clean %>%
+  distinct(session_id, mode) %>%
+  count(mode, name = "N_participants")
+
+session_table_clean <- data_clean %>%
+  distinct(session_id, mode) %>%
+  count(mode, name = "N_sessions")
+```
+
+
+```{r}
+participant_table_pretty <- participant_table_clean |>
+  dplyr::rename(
+    Condition = mode,
+    Participants = N_participants
+  )
+
+total_row <- tibble(
+  Condition = "Total",
+  Participants = n_distinct(data_clean$session_id)
+)
+
+participant_table_pretty <- dplyr::bind_rows(
+  total_row,
+  participant_table_pretty
+)
+
+knitr::kable(
+  participant_table_pretty,
+  caption = "Table 2. Number of participants after data cleaning (excluding Information condition)"
+)
+
+```
+Repeated participation was intended to be prevented by the system design. However, to ensure data validity, an additional check was conducted at the session level, since repeated participation may still occur despite implemented controls in the experimental environment. Therefore, sessions were used to verify that each participant contributed only one observation and to avoid overcounting repeated entries.
+
+```{r}
+#| echo: false
+
+session_table_pretty <- session_table_clean |>
+  dplyr::rename(
+    Condition = mode,
+    Sessions = N_sessions
+  )
+
+knitr::kable(
+  session_table_pretty,
+  caption = "Table 3. Number of unique sessions (one per participant) per condition"
+)
+```
+
+The results show a balanced distribution of unique sessions across conditions, indicating that each participant contributed only one observation and that no overcounting occurred.
+
+**3.5 Measures**
+
+All dependent variables were derived from event-based interaction logs and computed at the session level.
+
+**Task Completion Time**
+
+Task completion time was defined as the duration between the start and completion of a task.
+
+It was calculated as:
+
+completion_time = end_time − start_time
+
+where:
+
+	•	start_time corresponds to the timestamp of the TASK_STARTED event
+
+	•	end_time corresponds to the timestamp of the TASK_COMPLETED event
+
+Only sessions in which both events were present were included in this measure.
+
+👉 ✔ کارت عالیه که اینو با client_ts_sec حساب کردی
+
+👉 ✔ حتماً همینو نگه دار (دقیق‌تر از server timeه)
+
+**Error Occurrence**
+
+Error occurrence was defined as whether a user triggered at least one system error during task execution.
+
+Errors were identified using the ERROR_SHOWN event.
+
+For each session, error occurrence was computed as a binary variable:
+
+	•	1 = at least one error occurred
+
+	•	0 = no errors occurred
+
+Only sessions in which users attempted submission were considered in this measure.
+
+**Task Abandonment**
+
+Task abandonment was defined as cases in which a user started but did not complete the task.
+
+It was computed as:
+
+abandoned = TASK_STARTED == TRUE and TASK_COMPLETED == FALSE
+
+This measure captures task failure or disengagement during the interaction process.
+
+**Intervention Behavior**
+
+Intervention behavior reflects the extent to which users actively modified or rejected system-generated outputs.
+
+It was operationalized using multiple interaction events:
+
+	•	FIELD_EDIT
+
+	•	OVERRIDE
+
+	•	AI_SUGGESTION_REJECTED
+
+For each session, the following measures were computed:
+
+	•	**Intervention occurrence** (binary): whether any intervention occurred
+
+	•	**Intervention count**: total number of intervention actions
+
+Intervention count was calculated as:
+
+intervention_count = edits + overrides + rejections
+
+This multi-metric approach allows for a more comprehensive assessment of user interaction behavior under different autonomy conditions.
+
+**3.6 Data Preparation and Analysis**
+
+Data analysis was conducted using R. Raw event logs were aggregated to the session level to compute behavioral metrics.
+
+Non-task sessions (e.g., incomplete or invalid sessions) were excluded from the analysis.
+
+Descriptive statistics were computed for all dependent variables. Due to non-normal distributions, non-parametric statistical tests were applied:
+
+	•	Kruskal–Wallis test for group comparisons
+
+	•	Pairwise Wilcoxon tests for post-hoc analysis
+
+	•	Chi-square tests and proportion tests for binary variables
+
+All analyses were performed using standard R packages, including dplyr for data manipulation.
