@@ -13,6 +13,7 @@ format:
     toc: true
     toc-depth: 3
     number-sections: true
+    reference-doc: pfh-reference.docx
 
 execute:
   echo: false
