@@ -245,56 +245,102 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <p>The results show a balanced distribution of unique sessions across conditions, indicating that each participant contributed only one observation and that no overcounting occurred.</p>
 <p><strong>3.5 Measures</strong></p>
-<p>All dependent variables were derived from event-based interaction logs and computed at the session level.</p>
-<p><strong>Task Completion Time</strong></p>
-<p>Task completion time was defined as the duration between the start and completion of a task.</p>
-<p>It was calculated as:</p>
-<p>completion_time = end_time − start_time</p>
-<p>where:</p>
-<pre><code>•   start_time corresponds to the timestamp of the TASK_STARTED event
-
-•   end_time corresponds to the timestamp of the TASK_COMPLETED event</code></pre>
-<p>Only sessions in which both events were present were included in this measure.</p>
-<p>👉 ✔ کارت عالیه که اینو با client_ts_sec حساب کردی</p>
-<p>👉 ✔ حتماً همینو نگه دار (دقیق‌تر از server timeه)</p>
-<p><strong>Error Occurrence</strong></p>
-<p>Error occurrence was defined as whether a user triggered at least one system error during task execution.</p>
-<p>Errors were identified using the ERROR_SHOWN event.</p>
-<p>For each session, error occurrence was computed as a binary variable:</p>
-<pre><code>•   1 = at least one error occurred
-
-•   0 = no errors occurred</code></pre>
-<p>Only sessions in which users attempted submission were considered in this measure.</p>
-<p><strong>Task Abandonment</strong></p>
-<p>Task abandonment was defined as cases in which a user started but did not complete the task.</p>
-<p>It was computed as:</p>
-<p>abandoned = TASK_STARTED == TRUE and TASK_COMPLETED == FALSE</p>
-<p>This measure captures task failure or disengagement during the interaction process.</p>
-<p><strong>Intervention Behavior</strong></p>
-<p>Intervention behavior reflects the extent to which users actively modified or rejected system-generated outputs.</p>
-<p>It was operationalized using multiple interaction events:</p>
-<pre><code>•   FIELD_EDIT
-
-•   OVERRIDE
-
-•   AI_SUGGESTION_REJECTED</code></pre>
-<p>For each session, the following measures were computed:</p>
-<pre><code>•   **Intervention occurrence** (binary): whether any intervention occurred
-
-•   **Intervention count**: total number of intervention actions</code></pre>
-<p>Intervention count was calculated as:</p>
-<p>intervention_count = edits + overrides + rejections</p>
-<p>This multi-metric approach allows for a more comprehensive assessment of user interaction behavior under different autonomy conditions.</p>
-<p><strong>3.6 Data Preparation and Analysis</strong></p>
-<p>Data analysis was conducted using R. Raw event logs were aggregated to the session level to compute behavioral metrics.</p>
-<p>Non-task sessions (e.g., incomplete or invalid sessions) were excluded from the analysis.</p>
-<p>Descriptive statistics were computed for all dependent variables. Due to non-normal distributions, non-parametric statistical tests were applied:</p>
-<pre><code>•   Kruskal–Wallis test for group comparisons
-
-•   Pairwise Wilcoxon tests for post-hoc analysis
-
-•   Chi-square tests and proportion tests for binary variables</code></pre>
-<p>All analyses were performed using standard R packages, including dplyr for data manipulation.</p>
+<p>All dependent variables were derived from system-generated event logs and aggregated at the session level.</p>
+<p>Task completion time was defined as the time interval between task start and task completion within a session. Specifically, it reflects the elapsed time between the first <code>TASK_STARTED</code> event and the corresponding <code>TASK_COMPLETED</code> event. As this measure requires a valid endpoint, it was calculated only for sessions that were completed successfully.</p>
+<p>To complement this efficiency-based measure, task abandonment was included as an indicator of unsuccessful task progression. Task abandonment was defined as sessions in which users initiated but did not complete the task. Thus, a session was classified as abandoned when a <code>TASK_STARTED</code> event was recorded without a corresponding <code>TASK_COMPLETED</code> event. Figure 1 provides an overview of overall task progression across all 224 participants. It shows the number of participants who entered the system but did not start the task, those who started the task but did not complete it, and those who started and successfully completed the task.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-task-progress-overall" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-task-progress-overall-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="ai-execution-autonomy-analysis_files/figure-html/fig-task-progress-overall-1.png" class="img-fluid figure-img" width="528">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-task-progress-overall-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Overall task progression across all participants.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Building on this general overview, Figure 1 first showed overall task progression across the full sample and indicated that 64 participants did not start the task at all. The following analysis therefore focuses only on the 160 participants who initiated the task. Among these started sessions, the aim is to examine how task outcomes were distributed across the three autonomy conditions by distinguishing between participants who started but did not complete the task and those who started and successfully completed it. To display these condition-specific differences more clearly, a grouped bar chart was used in Figure 2.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-task-outcome-by-mode" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-task-outcome-by-mode-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="ai-execution-autonomy-analysis_files/figure-html/fig-task-outcome-by-mode-1.png" class="img-fluid figure-img" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-task-outcome-by-mode-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Distribution of completed and abandoned task outcomes among started sessions across the three autonomy conditions.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Figure 2 shows the distribution of task outcomes among participants who started the task, separated by autonomy condition. Across all three conditions, completed sessions outnumbered abandoned sessions. The Execution condition showed the highest number of completed sessions and the lowest number of abandoned sessions, whereas the manual condition showed the highest number of abandoned sessions.</p>
+<p>Error occurrence was operationalized through ERROR_SHOWN events. Sessions were included in this analysis if a task had been started, regardless of whether the task was later completed or abandoned. This approach ensured that validation problems encountered during task execution were captured independently of final task outcome. Abandoned sessions were retained in the analysis because errors themselves may have contributed to task abandonment. We further examined whether error occurrence differed between completed and abandoned sessions. As shown in Figure 3, a 100% stacked bar chart was used to compare the proportion of sessions with and without errors across the two task outcomes. This visualization makes it possible to assess what percentage of completed sessions contained at least one error and what percentage of abandoned sessions contained at least one error.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-error-by-outcome" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-error-by-outcome-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="ai-execution-autonomy-analysis_files/figure-html/fig-error-by-outcome-1.png" class="img-fluid figure-img" width="528">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-error-by-outcome-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Error occurrence in completed and abandoned sessions.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Figure 3 shows the proportion of sessions with and without errors across completed and abandoned started sessions. A higher proportion of abandoned sessions contained at least one error (37%) compared with completed sessions (28%). This pattern suggests that validation errors may have contributed to task abandonment, although no causal conclusion can be drawn from this descriptive comparison alone. To further refine this analysis, error occurrence was examined separately for each autonomy condition. This makes it possible to compare how the proportion of sessions with and without errors differed between completed and abandoned sessions within the Manual, Assistance, and Execution conditions.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-error-by-outcome-mode" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-error-by-outcome-mode-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="ai-execution-autonomy-analysis_files/figure-html/fig-error-by-outcome-mode-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-error-by-outcome-mode-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Proportion of sessions with and without errors in completed and abandoned sessions across autonomy conditions.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Figure 4 shows that error occurrence varied substantially across autonomy conditions. The Manual condition displayed the highest proportion of sessions with errors in both completed and abandoned sessions, whereas the Execution condition showed the lowest error proportions overall. The Assistance condition fell between these two extremes. At the same time, the relationship between error occurrence and task outcome was not uniform across conditions, suggesting that the role of validation errors may differ depending on the level of AI execution autonomy.</p>
+<p>Intervention behavior was operationalized as active user interference with the task configuration or the system output. At the session level, intervention was defined based on the occurrence of FIELD_EDIT, OVERRIDE, and AI_SUGGESTION_REJECTED events. For the following descriptive overview, a binary intervention indicator was used to distinguish between sessions with at least one intervention and sessions without any intervention. Only started sessions were included in this analysis, regardless of whether the task was later completed or abandoned. Intervention should be measured for all started sessions, because it reflects user behavior during task execution rather than successful task completion. Figure 5 shows the proportion of sessions with and without intervention across the three autonomy conditions.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-intervention-by-mode" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-intervention-by-mode-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="ai-execution-autonomy-analysis_files/figure-html/fig-intervention-by-mode-1.png" class="img-fluid figure-img" width="595">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-intervention-by-mode-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Proportion of sessions with and without intervention across autonomy conditions.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Figure 5 shows that intervention occurred in the large majority of started sessions across all three autonomy conditions. The proportion of sessions with at least one intervention was consistently high in the Manual, Assistance, and Execution conditions, indicating that user intervention was common regardless of autonomy level. At the descriptive level, only minor differences between conditions were observed.</p>
+<p>This pattern may indicate that the binary intervention measure captured a very broad range of user actions, thereby limiting its ability to differentiate more clearly between autonomy conditions. Alternatively, it may suggest that intervention was generally required across conditions due to the structure of the task. These interpretations are considered in the discussion.</p>
+<p>Figure 6 provides a more fine-grained view of intervention behavior by showing the distribution of intervention counts across the three autonomy conditions. In contrast to the binary intervention indicator used in Figure 5, this analysis captures how often users intervened within a session. Only started sessions were included, as intervention could only occur once task execution had begun.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-intervention-count-by-mode" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-intervention-count-by-mode-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="ai-execution-autonomy-analysis_files/figure-html/fig-intervention-count-by-mode-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-intervention-count-by-mode-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Distribution of intervention counts across autonomy conditions.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
 
 </main>
 <!-- /main column -->
