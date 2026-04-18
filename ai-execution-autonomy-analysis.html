@@ -345,7 +345,279 @@ Figure&nbsp;6: Distribution of intervention counts across autonomy conditions.
 <p><strong>3.6 Data Preparation and Analysis</strong></p>
 <p>The raw dataset consisted of event-level interaction logs. Prior to analysis, all entries associated with the <code>Information</code> mode were excluded because they reflected passive <code>PAGE_VIEW</code> events rather than meaningful task-related interaction. In addition, repeated participation was checked at the participant-session level, and no repeated entries were identified. After this cleaning step, the data were aggregated to the session level, so that each session represented one participant’s interaction within one assigned condition.</p>
 <p>Based on this session-level aggregation, summary variables were derived for task progress, task completion, abandonment, error occurrence, and intervention behavior. Sessions in which the task was not started were retained for the descriptive overview of overall task progression, but they were excluded from analyses that required actual task execution. Accordingly, abandonment, error occurrence, and intervention behavior were analyzed only for started sessions. Task completion time was calculated only for completed sessions, as this measure required both a valid start point and a valid end point.</p>
-<p>Statistical analyses were selected according to the measurement level of the respective variables. Differences in task completion time across autonomy conditions were assessed using the Kruskal–Wallis test, followed by pairwise Wilcoxon rank-sum tests as post-hoc comparisons where appropriate. Differences in abandonment across conditions were examined using a chi-square test of independence. For error occurrence and intervention occurrence, proportion-based comparisons were conducted across conditions using proportion tests.</p>
+<p>Statistical analyses will be conducted according to the measurement level of the respective variables. As task completion time represents a continuous outcome across three autonomy conditions, differences will be examined using a non-parametric Kruskal–Wallis test, followed by pairwise Wilcoxon rank-sum tests where appropriate. Abandonment, error occurrence, and intervention occurrence will be analyzed as categorical outcomes using chi-square and proportion-based tests.</p>
+<p><strong>4 Results</strong></p>
+<p>This section reports the empirical results in relation to the two hypotheses of the study. First, the effects of AI execution autonomy on task performance are examined, including completion time, detected errors, and task completion versus abandonment. Second, the effects on intervention behavior are presented, covering intervention occurrence, intervention frequency, and the different types of intervention observed across conditions.</p>
+<p><strong>4.1 H1: Task Performance</strong></p>
+<p>To evaluate H1, task performance was examined across the three autonomy conditions using three outcome dimensions: completion time, detected errors, and task completion versus abandonment. Together, these measures provide an overview of how efficiently and successfully participants performed the task under different levels of AI execution autonomy.</p>
+<p><strong>4.1.1 Completion Time</strong></p>
+<p>Task completion time was operationalized as the elapsed time between the beginning and the successful completion of task execution within a session. For this measure, <code>TASK_STARTED</code> was treated as the starting point of task execution, and <code>TASK_COMPLETED</code> was treated as the endpoint indicating successful task completion. Because the analysis focused on elapsed interaction time within the system, completion time was calculated using the client-side timestamp variable (<code>client_ts_ms</code>). This timestamp was used because it directly reflects the temporal order and duration of user interactions during task execution. Accordingly, completion time was defined only for sessions in which both a valid task start and a valid task completion event were recorded.</p>
+<div class="cell">
+<div id="tbl-completion-time-summary" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-completion-time-summary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Table 4. Descriptive summary of completion time (in seconds) across autonomy conditions.
+</figcaption>
+<div aria-describedby="tbl-completion-time-summary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Condition</th>
+<th style="text-align: right;">Mean</th>
+<th style="text-align: right;">Median</th>
+<th style="text-align: right;">Min</th>
+<th style="text-align: right;">Max</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">manual</td>
+<td style="text-align: right;">36.07</td>
+<td style="text-align: right;">27.42</td>
+<td style="text-align: right;">12.77</td>
+<td style="text-align: right;">100.97</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Assistance</td>
+<td style="text-align: right;">26.08</td>
+<td style="text-align: right;">18.44</td>
+<td style="text-align: right;">6.99</td>
+<td style="text-align: right;">95.84</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Execution</td>
+<td style="text-align: right;">84.82</td>
+<td style="text-align: right;">11.82</td>
+<td style="text-align: right;">5.34</td>
+<td style="text-align: right;">2964.74</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-completion-time-by-mode" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-completion-time-by-mode-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="ai-execution-autonomy-analysis_files/figure-html/fig-completion-time-by-mode-1.png" class="img-fluid figure-img" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-completion-time-by-mode-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Distribution of task completion time across autonomy conditions.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Because the initial descriptive summary and visualization suggested substantial skewness in completion time—particularly due to very large values in the Execution condition—an additional inspection of extreme cases was conducted before proceeding to inferential analysis. Specifically, the longest completion times were reviewed, and the number of sessions exceeding predefined thresholds was examined. This step was intended to assess whether unusually large completion times reflected meaningful observations or extreme cases that might distort the descriptive distribution and subsequent statistical comparison.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Top 10 longest completion times</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">session_id</th>
+<th style="text-align: left;">mode</th>
+<th style="text-align: right;">completion_time</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">S-E1WBD47E</td>
+<td style="text-align: left;">Execution</td>
+<td style="text-align: right;">2964.736</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">S-21WAOP00</td>
+<td style="text-align: left;">manual</td>
+<td style="text-align: right;">100.968</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">S-F5OFN5A6</td>
+<td style="text-align: left;">Assistance</td>
+<td style="text-align: right;">95.845</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">S-O1IMAN9C</td>
+<td style="text-align: left;">manual</td>
+<td style="text-align: right;">94.098</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">S-ZWN4PELR</td>
+<td style="text-align: left;">manual</td>
+<td style="text-align: right;">89.414</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">S-FRQ1PFYO</td>
+<td style="text-align: left;">Assistance</td>
+<td style="text-align: right;">84.200</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">S-7HPZY5JW</td>
+<td style="text-align: left;">Assistance</td>
+<td style="text-align: right;">67.739</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">S-HXUZS215</td>
+<td style="text-align: left;">Execution</td>
+<td style="text-align: right;">67.577</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">S-8A4U6AVO</td>
+<td style="text-align: left;">Assistance</td>
+<td style="text-align: right;">66.537</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">S-4GNOB2GI</td>
+<td style="text-align: left;">manual</td>
+<td style="text-align: right;">55.040</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Check of extreme completion times</caption>
+<thead>
+<tr class="header">
+<th style="text-align: right;">total_completed_sessions</th>
+<th style="text-align: right;">above_300_sec</th>
+<th style="text-align: right;">above_600_sec</th>
+<th style="text-align: right;">max_time</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">109</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2964.736</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The inspection showed that only one completed session exceeded 300 seconds, with a completion time of approximately 2965 seconds. As this value was substantially larger than all other observations and strongly distorted the descriptive distribution, it was treated as an extreme outlier and excluded from the completion-time analysis. All remaining completed sessions were retained for the subsequent descriptive and inferential analyses.</p>
+<div class="cell">
+<div id="tbl-completion-time-summary-clean" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-completion-time-summary-clean-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Descriptive summary of cleaned completion time (in seconds) across autonomy conditions.
+</figcaption>
+<div aria-describedby="tbl-completion-time-summary-clean-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Condition</th>
+<th style="text-align: right;">Mean</th>
+<th style="text-align: right;">Median</th>
+<th style="text-align: right;">Min</th>
+<th style="text-align: right;">Max</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">manual</td>
+<td style="text-align: right;">36.07</td>
+<td style="text-align: right;">27.42</td>
+<td style="text-align: right;">12.77</td>
+<td style="text-align: right;">100.97</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Assistance</td>
+<td style="text-align: right;">26.08</td>
+<td style="text-align: right;">18.44</td>
+<td style="text-align: right;">6.99</td>
+<td style="text-align: right;">95.84</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Execution</td>
+<td style="text-align: right;">17.84</td>
+<td style="text-align: right;">10.79</td>
+<td style="text-align: right;">5.34</td>
+<td style="text-align: right;">67.58</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-completion-time-by-mode-clean" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-completion-time-by-mode-clean-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="ai-execution-autonomy-analysis_files/figure-html/fig-completion-time-by-mode-clean-1.png" class="img-fluid figure-img" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-completion-time-by-mode-clean-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: Distribution of cleaned task completion time across autonomy conditions.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Descriptive results suggested a gradual decrease in completion time across autonomy conditions. Median completion time was highest in the Manual condition (27.42 s), followed by the Assistance condition (18.44 s), and lowest in the Execution condition (10.79 s). Mean completion times showed the same ordering, although they were consistently higher than the medians, indicating a slightly right-skewed distribution.</p>
+<p>Because completion time was compared across three autonomy conditions and showed a slightly right-skewed distribution, a non-parametric Kruskal–Wallis test was used to examine whether completion time differed significantly between conditions.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Kruskal–Wallis test for completion time across autonomy conditions.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">p-value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">21.506</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">&lt; .001</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>A Kruskal–Wallis test showed a statistically significant difference in completion time across the three autonomy conditions, H(2) = 21.51, p &lt; .001. This indicates that task completion time varied significantly depending on the level of AI execution autonomy.</p>
+<p>Because the Kruskal–Wallis test indicated a significant overall difference in completion time across conditions, additional post-hoc comparisons were conducted to determine which specific pairs of autonomy conditions differed from each other. Pairwise Wilcoxon rank-sum tests were used for this purpose, with Bonferroni adjustment applied to control for multiple comparisons.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Pairwise Wilcoxon post-hoc comparisons for completion time.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Comparison</th>
+<th style="text-align: left;">p-value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Assistance vs manual</td>
+<td style="text-align: left;">0.0136</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Execution vs manual</td>
+<td style="text-align: left;">&lt; .001</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Execution vs Assistance</td>
+<td style="text-align: left;">0.0367</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Post-hoc pairwise Wilcoxon comparisons showed that all pairwise comparisons were statistically significant. Completion time was significantly lower in the Assistance condition than in the Manual condition (p = .0136), significantly lower in the Execution condition than in the Manual condition (p &lt; .001), and significantly lower in the Execution condition than in the Assistance condition (p = .0367). These results indicate a stepwise reduction in completion time as AI execution autonomy increased.</p>
 
 </main>
 <!-- /main column -->

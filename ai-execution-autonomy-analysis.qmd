@@ -643,5 +643,232 @@ The raw dataset consisted of event-level interaction logs. Prior to analysis, al
 
 Based on this session-level aggregation, summary variables were derived for task progress, task completion, abandonment, error occurrence, and intervention behavior. Sessions in which the task was not started were retained for the descriptive overview of overall task progression, but they were excluded from analyses that required actual task execution. Accordingly, abandonment, error occurrence, and intervention behavior were analyzed only for started sessions. Task completion time was calculated only for completed sessions, as this measure required both a valid start point and a valid end point.
 
-Statistical analyses were selected according to the measurement level of the respective variables. Differences in task completion time across autonomy conditions were assessed using the Kruskal–Wallis test, followed by pairwise Wilcoxon rank-sum tests as post-hoc comparisons where appropriate. Differences in abandonment across conditions were examined using a chi-square test of independence. For error occurrence and intervention occurrence, proportion-based comparisons were conducted across conditions using proportion tests.
+Statistical analyses will be conducted according to the measurement level of the respective variables. As task completion time represents a continuous outcome across three autonomy conditions, differences will be examined using a non-parametric Kruskal–Wallis test, followed by pairwise Wilcoxon rank-sum tests where appropriate. Abandonment, error occurrence, and intervention occurrence will be analyzed as categorical outcomes using chi-square and proportion-based tests.
 
+
+**4 Results**
+
+This section reports the empirical results in relation to the two hypotheses of the study. First, the effects of AI execution autonomy on task performance are examined, including completion time, detected errors, and task completion versus abandonment. Second, the effects on intervention behavior are presented, covering intervention occurrence, intervention frequency, and the different types of intervention observed across conditions.
+
+**4.1 H1: Task Performance**
+
+To evaluate H1, task performance was examined across the three autonomy conditions using three outcome dimensions: completion time, detected errors, and task completion versus abandonment. Together, these measures provide an overview of how efficiently and successfully participants performed the task under different levels of AI execution autonomy.
+
+**4.1.1 Completion Time**
+
+Task completion time was operationalized as the elapsed time between the beginning and the successful completion of task execution within a session. For this measure, `TASK_STARTED` was treated as the starting point of task execution, and `TASK_COMPLETED` was treated as the endpoint indicating successful task completion. Because the analysis focused on elapsed interaction time within the system, completion time was calculated using the client-side timestamp variable (`client_ts_ms`). This timestamp was used because it directly reflects the temporal order and duration of user interactions during task execution. Accordingly, completion time was defined only for sessions in which both a valid task start and a valid task completion event were recorded.
+
+```{r}
+#| label: completion-time-setup
+#| include: false
+
+data_clean <- data |>
+  dplyr::filter(mode != "Information") |>
+  dplyr::mutate(
+    client_ts_sec = client_ts_ms / 1000
+  )
+
+completion_time_data <- data_clean |>
+  dplyr::group_by(session_id, mode) |>
+  dplyr::summarise(
+    started = any(action == "TASK_STARTED"),
+    completed = any(action == "TASK_COMPLETED"),
+    start_time = if (any(action == "TASK_STARTED")) {
+      min(client_ts_sec[action == "TASK_STARTED"], na.rm = TRUE)
+    } else {
+      NA_real_
+    },
+    end_time = if (any(action == "TASK_COMPLETED")) {
+      max(client_ts_sec[action == "TASK_COMPLETED"], na.rm = TRUE)
+    } else {
+      NA_real_
+    },
+    .groups = "drop"
+  ) |>
+  dplyr::filter(started == TRUE, completed == TRUE) |>
+  dplyr::mutate(
+    completion_time = end_time - start_time,
+    mode = factor(mode, levels = c("manual", "Assistance", "Execution"))
+  )
+```
+
+```{r}
+#| label: tbl-completion-time-summary
+#| echo: false
+
+completion_time_summary <- completion_time_data |>
+  dplyr::group_by(mode) |>
+  dplyr::summarise(
+    Mean = round(mean(completion_time, na.rm = TRUE), 2),
+    Median = round(median(completion_time, na.rm = TRUE), 2),
+    Min = round(min(completion_time, na.rm = TRUE), 2),
+    Max = round(max(completion_time, na.rm = TRUE), 2),
+    .groups = "drop"
+  ) |>
+  dplyr::rename(
+    Condition = mode
+  )
+
+knitr::kable(
+  completion_time_summary,
+  caption = "Table 4. Descriptive summary of completion time (in seconds) across autonomy conditions."
+)
+```
+
+```{r}
+#| label: fig-completion-time-by-mode
+#| echo: false
+#| fig-cap: "Distribution of task completion time across autonomy conditions."
+#| fig-width: 6
+#| fig-height: 4.2
+
+ggplot(completion_time_data, aes(x = mode, y = completion_time, fill = mode)) +
+  geom_boxplot(width = 0.6, outlier.alpha = 0.4, show.legend = FALSE) +
+  geom_jitter(width = 0.12, alpha = 0.25, size = 1.5, show.legend = FALSE) +
+  labs(
+    x = "Autonomy condition",
+    y = "Completion time (seconds)"
+  ) +
+  scale_fill_manual(values = c(
+    "manual" = "#8DA0CB",
+    "Assistance" = "#66C2A5",
+    "Execution" = "#FC8D62"
+  )) +
+  theme_minimal(base_size = 11)
+```
+
+Because the initial descriptive summary and visualization suggested substantial skewness in completion time—particularly due to very large values in the Execution condition—an additional inspection of extreme cases was conducted before proceeding to inferential analysis. Specifically, the longest completion times were reviewed, and the number of sessions exceeding predefined thresholds was examined. This step was intended to assess whether unusually large completion times reflected meaningful observations or extreme cases that might distort the descriptive distribution and subsequent statistical comparison.
+
+```{r}
+#| label: completion-time-outliers-check
+#| echo: false
+
+completion_time_data |>
+  dplyr::arrange(desc(completion_time)) |>
+  dplyr::select(session_id, mode, completion_time) |>
+  head(10) |>
+  knitr::kable(caption = "Top 10 longest completion times")
+```
+
+```{r}
+#| label: completion-time-threshold-check
+#| echo: false
+
+completion_time_data |>
+  dplyr::summarise(
+    total_completed_sessions = dplyr::n(),
+    above_300_sec = sum(completion_time > 300),
+    above_600_sec = sum(completion_time > 600),
+    max_time = max(completion_time, na.rm = TRUE)
+  ) |>
+  knitr::kable(caption = "Check of extreme completion times")
+```
+The inspection showed that only one completed session exceeded 300 seconds, with a completion time of approximately 2965 seconds. As this value was substantially larger than all other observations and strongly distorted the descriptive distribution, it was treated as an extreme outlier and excluded from the completion-time analysis. All remaining completed sessions were retained for the subsequent descriptive and inferential analyses.
+
+```{r}
+#| label: completion-time-clean
+#| include: false
+
+completion_time_data_clean <- completion_time_data |>
+  dplyr::filter(completion_time <= 300)
+```
+
+```{r}
+#| label: tbl-completion-time-summary-clean
+#| echo: false
+
+completion_time_summary_clean <- completion_time_data_clean |>
+  dplyr::group_by(mode) |>
+  dplyr::summarise(
+    Mean = round(mean(completion_time, na.rm = TRUE), 2),
+    Median = round(median(completion_time, na.rm = TRUE), 2),
+    Min = round(min(completion_time, na.rm = TRUE), 2),
+    Max = round(max(completion_time, na.rm = TRUE), 2),
+    .groups = "drop"
+  ) |>
+  dplyr::rename(
+    Condition = mode
+  )
+
+knitr::kable(
+  completion_time_summary_clean,
+  caption = "Descriptive summary of cleaned completion time (in seconds) across autonomy conditions."
+)
+```
+
+```{r}
+#| label: fig-completion-time-by-mode-clean
+#| echo: false
+#| fig-cap: "Distribution of cleaned task completion time across autonomy conditions."
+#| fig-width: 6
+#| fig-height: 4.2
+
+ggplot(completion_time_data_clean, aes(x = mode, y = completion_time, fill = mode)) +
+  geom_boxplot(width = 0.6, outlier.alpha = 0.4, show.legend = FALSE) +
+  geom_jitter(width = 0.12, alpha = 0.25, size = 1.5, show.legend = FALSE) +
+  labs(
+    x = "Autonomy condition",
+    y = "Completion time (seconds)"
+  ) +
+  scale_fill_manual(values = c(
+    "manual" = "#8DA0CB",
+    "Assistance" = "#66C2A5",
+    "Execution" = "#FC8D62"
+  )) +
+  theme_minimal(base_size = 11)
+```
+
+Descriptive results suggested a gradual decrease in completion time across autonomy conditions. Median completion time was highest in the Manual condition (27.42 s), followed by the Assistance condition (18.44 s), and lowest in the Execution condition (10.79 s). Mean completion times showed the same ordering, although they were consistently higher than the medians, indicating a slightly right-skewed distribution.
+
+Because completion time was compared across three autonomy conditions and showed a slightly right-skewed distribution, a non-parametric Kruskal–Wallis test was used to examine whether completion time differed significantly between conditions.
+
+```{r}
+#| label: completion-time-kruskal
+#| echo: false
+
+kruskal_completion <- kruskal.test(completion_time ~ mode, data = completion_time_data_clean)
+
+kruskal_result_table <- tibble::tibble(
+  Statistic = round(as.numeric(kruskal_completion$statistic), 3),
+  `df` = as.numeric(kruskal_completion$parameter),
+  `p-value` = ifelse(kruskal_completion$p.value < .001, "< .001",
+                     round(kruskal_completion$p.value, 4))
+)
+
+knitr::kable(
+  kruskal_result_table,
+  caption = "Kruskal–Wallis test for completion time across autonomy conditions.",
+  align = c("c", "c", "c")
+)
+```
+A Kruskal–Wallis test showed a statistically significant difference in completion time across the three autonomy conditions, H(2) = 21.51, p < .001. This indicates that task completion time varied significantly depending on the level of AI execution autonomy.
+
+Because the Kruskal–Wallis test indicated a significant overall difference in completion time across conditions, additional post-hoc comparisons were conducted to determine which specific pairs of autonomy conditions differed from each other. Pairwise Wilcoxon rank-sum tests were used for this purpose, with Bonferroni adjustment applied to control for multiple comparisons.
+
+```{r}
+#| label: completion-time-posthoc
+#| echo: false
+#| warning: false
+
+pairwise_completion <- pairwise.wilcox.test(
+  x = completion_time_data_clean$completion_time,
+  g = completion_time_data_clean$mode,
+  p.adjust.method = "bonferroni"
+)
+
+pairwise_table <- as.data.frame(as.table(pairwise_completion$p.value)) |>
+  dplyr::filter(!is.na(Freq)) |>
+  dplyr::transmute(
+    Comparison = paste(Var1, "vs", Var2),
+    `p-value` = ifelse(Freq < .001, "< .001", round(Freq, 4))
+  )
+
+knitr::kable(
+  pairwise_table,
+  caption = "Pairwise Wilcoxon post-hoc comparisons for completion time."
+)
+```
+
+Post-hoc pairwise Wilcoxon comparisons showed that all pairwise comparisons were statistically significant. Completion time was significantly lower in the Assistance condition than in the Manual condition (p = .0136), significantly lower in the Execution condition than in the Manual condition (p < .001), and significantly lower in the Execution condition than in the Assistance condition (p = .0367). These results indicate a stepwise reduction in completion time as AI execution autonomy increased.
+
+  
