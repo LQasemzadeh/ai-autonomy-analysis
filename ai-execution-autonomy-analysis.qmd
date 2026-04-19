@@ -871,4 +871,125 @@ knitr::kable(
 
 Post-hoc pairwise Wilcoxon comparisons showed that all pairwise comparisons were statistically significant. Completion time was significantly lower in the Assistance condition than in the Manual condition (p = .0136), significantly lower in the Execution condition than in the Manual condition (p < .001), and significantly lower in the Execution condition than in the Assistance condition (p = .0367). These results indicate a stepwise reduction in completion time as AI execution autonomy increased.
 
-  
+**4.1.2 Detected Errors**
+
+Detected errors were operationalized on the basis of `ERROR_SHOWN` events. For the present analysis, sessions were included if the task had been started, regardless of whether it was later completed or abandoned. At the session level, error occurrence was treated as a binary outcome indicating whether at least one validation error was recorded during task execution.
+
+```{r}
+#| label: fig-error-by-mode
+#| echo: false
+#| fig-cap: "Proportion of started sessions with and without detected errors across autonomy conditions."
+#| fig-width: 6
+#| fig-height: 4.2
+
+error_by_mode <- data_clean |>
+  dplyr::group_by(session_id, mode) |>
+  dplyr::summarise(
+    started = any(action == "TASK_STARTED"),
+    had_error = any(action == "ERROR_SHOWN"),
+    .groups = "drop"
+  ) |>
+  dplyr::filter(started) |>
+  dplyr::mutate(
+    error_status = dplyr::case_when(
+      had_error ~ "At least one error",
+      !had_error ~ "No error"
+    ),
+    mode = factor(mode, levels = c("manual", "Assistance", "Execution")),
+    error_status = factor(error_status, levels = c("No error", "At least one error"))
+  ) |>
+  dplyr::count(mode, error_status, name = "n") |>
+  dplyr::group_by(mode) |>
+  dplyr::mutate(
+    proportion = n / sum(n),
+    label = paste0(round(proportion * 100), "%")
+  ) |>
+  dplyr::ungroup()
+
+ggplot(error_by_mode, aes(x = mode, y = proportion, fill = error_status)) +
+  geom_col(position = "fill", width = 0.65) +
+  geom_text(
+    aes(label = label),
+    position = position_fill(vjust = 0.5),
+    size = 4
+  ) +
+  labs(
+    x = "Autonomy condition",
+    y = "Proportion of sessions",
+    fill = "Detected errors"
+  ) +
+  scale_y_continuous(labels = scales::percent) +
+  scale_fill_manual(values = c(
+    "No error" = "#8DA0CB",
+    "At least one error" = "#FC8D62"
+  )) +
+  theme_minimal(base_size = 11)
+```
+
+Figure 9 shows the proportion of started sessions with and without at least one detected error across the three autonomy conditions. Descriptively, the Manual condition showed the highest proportion of sessions with errors, the Assistance condition fell in between, and the Execution condition showed the lowest proportion.
+To examine whether detected error occurrence differed significantly across autonomy conditions, a chi-square test of independence was conducted. Because error occurrence was treated as a categorical session-level outcome, this test was appropriate for assessing differences in the distribution of error presence across conditions.
+
+```{r}
+#| label: error-chi-square
+#| echo: false
+
+error_test_data <- data_clean |>
+  dplyr::group_by(session_id, mode) |>
+  dplyr::summarise(
+    started = any(action == "TASK_STARTED"),
+    had_error = any(action == "ERROR_SHOWN"),
+    .groups = "drop"
+  ) |>
+  dplyr::filter(started) |>
+  dplyr::mutate(
+    mode = factor(mode, levels = c("manual", "Assistance", "Execution"))
+  )
+
+error_table <- table(error_test_data$mode, error_test_data$had_error)
+
+chi_error <- chisq.test(error_table)
+
+chi_error_table <- tibble::tibble(
+  Statistic = round(as.numeric(chi_error$statistic), 3),
+  `df` = as.numeric(chi_error$parameter),
+  `p-value` = ifelse(chi_error$p.value < .001, "< .001",
+                     round(chi_error$p.value, 4))
+)
+
+knitr::kable(
+  chi_error_table,
+  caption = "Chi-square test for detected errors across autonomy conditions.",
+  align = c("c", "c", "c")
+)
+```
+
+Because the chi-square test indicated an overall difference across conditions, additional pairwise proportion tests were conducted to determine which specific pairs of autonomy conditions differed in detected error occurrence. Bonferroni adjustment was applied to control for multiple comparisons.
+
+```{r}
+#| label: error-pairwise-prop
+#| echo: false
+
+pairwise_error <- pairwise.prop.test(
+  x = error_table[, "TRUE"],
+  n = rowSums(error_table),
+  p.adjust.method = "bonferroni"
+)
+
+pairwise_error_table <- as.data.frame(as.table(pairwise_error$p.value)) |>
+  dplyr::filter(!is.na(Freq)) |>
+  dplyr::transmute(
+    Comparison = paste(Var1, "vs", Var2),
+    `p-value` = ifelse(Freq < .001, "< .001", round(Freq, 4))
+  )
+
+knitr::kable(
+  pairwise_error_table,
+  caption = "Pairwise proportion tests for detected errors."
+)
+```
+
+
+The chi-square test showed that detected error occurrence differed significantly across autonomy conditions, χ²(2) = 25.53, p < .001. Post-hoc pairwise proportion tests showed that the Manual condition differed significantly from both the Assistance condition (p < .001) and the Execution condition (p < .001). However, no significant difference was found between the Assistance and Execution conditions (p = 1.00). Overall, these results indicate that started sessions in the Manual condition were substantially more likely to contain at least one detected error, whereas the Assistance and Execution conditions were associated with markedly lower error occurrence.
+
+Descriptively, the proportion of started sessions with at least one detected error decreased from the Manual condition to the Assistance condition and further to the Execution condition. However, this reduction was statistically significant only when comparing the Manual condition with the other two conditions.
+
