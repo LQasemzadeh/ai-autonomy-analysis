@@ -4,6 +4,7 @@ author: "Ladan"
 
 format:
   html:
+    output-file: "index.html"
     toc: true
     toc-depth: 3
     number-sections: true
@@ -80,7 +81,7 @@ total_sessions <- sum(session_table$N_sessions)
 
 
 
-**Introduction**
+# Introduction
 
 Artificial intelligence (AI) systems are increasingly embedded in digital workflows, evolving from tools that provide decision support toward systems capable of autonomously executing actions. In many contemporary applications, AI no longer functions merely as a source of information or recommendations but actively participates in shaping and executing decisions. This shift from assistance to autonomous execution fundamentally changes the distribution of control, responsibility, and risk between human users and technical systems.
 
@@ -98,9 +99,9 @@ The study adopts a controlled experimental design in which user interactions are
 
 The contribution of this study lies in providing a behaviorally grounded, log-based analysis of AI execution autonomy. By capturing real user interactions in a controlled setting, the study enables a systematic comparison of task performance and intervention behavior across autonomy levels. The findings contribute to a more empirical understanding of how autonomy shapes human–AI interaction and provide practical insights for designing AI-assisted systems that balance efficiency and user control.
 
-**2 Theory**
+# Theory
 
-**2.1 AI Execution Autonomy**
+## AI Execution Autonomy
 
 The concept of automation has long been described as a continuum reflecting different levels of system involvement in decision-making. Early frameworks conceptualize automation as a spectrum ranging from full human control to full system control, emphasizing how the allocation of decision authority affects human performance and behavior (Sheridan & Verplank, 1978; Parasuraman et al., 2000).
 
@@ -110,7 +111,7 @@ In this study, three levels of execution autonomy are distinguished: manual, ass
 
 In the manual condition, all task-related decisions are made by the user, while the system functions solely as a validation mechanism by enforcing constraints and displaying error messages. In the assistance condition, the system generates a valid default configuration and supports the user through suggestions, while allowing full modification via editable parameters. In the execution condition, the system autonomously determines all task parameters and presents a final configuration, restricting user interaction to acceptance, rejection, or regeneration of outcomes. These conditions enable a systematic comparison of how different levels of autonomy influence user behavior during task execution.
 
-**2.2 User Task Performance**
+## User Task Performance
 
 User task performance refers to the extent to which users are able to successfully and efficiently complete a task within a given system environment. In the context of human–AI interaction, performance is not solely determined by user capabilities but emerges from the interaction between user actions and system behavior (Parasuraman et al., 2000).
 
@@ -120,7 +121,7 @@ Task completion time reflects efficiency and is defined as the duration between 
 
 By relying on log-based behavioral data rather than subjective self-reports, this study provides a more direct assessment of performance as it occurs during real system interaction.
 
-**2.3 Intervention Behavior**
+## Intervention Behavior
 
 In addition to task performance, user interaction with AI systems can be characterized by the extent to which users intervene in system-generated processes. Intervention behavior reflects the degree to which users actively modify, override, or reject system outputs during task execution.
 
@@ -128,7 +129,7 @@ In human–automation interaction research, intervention is closely related to m
 
 In this study, intervention behavior is operationalized through observable interaction events captured in system logs. These include edits of system-generated configurations, overrides of suggested parameters, and rejection or regeneration of system outputs (e.g., skipping a suggested configuration). These measures allow for a quantitative assessment of how frequently and in what ways users intervene under different levels of AI execution autonomy.
 
-**2.4 Research Gap and Hypotheses**
+## Research Gap and Hypotheses
 
 Despite extensive research on human–AI interaction, existing literature has primarily focused on subjective constructs such as trust, perceived usefulness, and user attitudes toward automated systems (Lee & See, 2004; Hoff & Bashir, 2015). While these approaches provide valuable insights into user perception, they offer limited understanding of how users behave during actual task execution.
 
@@ -139,15 +140,15 @@ To address this gap, the present study examines the behavioral effects of varyin
 **H1:** Higher levels of AI execution autonomy improve user task performance, as reflected in reduced completion time, lower error occurrence, and lower abandonment rates.
 **H2:** Higher levels of AI execution autonomy reduce user intervention during task execution.
 
-**3 Methods**
+# Methods
 
-**3.1 Study Design**
+## Study Design
 
 This study employed a **between-subject experimental design** with three conditions representing different levels of AI execution autonomy: Manual, Assistance, and Execution.
 
 Participants were randomly assigned to one of the three conditions and completed a single task within the assigned condition. The between-subject design was chosen to avoid learning effects and to ensure that user behavior was not influenced by prior exposure to other autonomy levels.
 
-**3.2 Prototype and Logging**
+## Prototype and Logging
 
 A web-based exam registration system was developed to simulate a realistic academic workflow. The system required users to select a semester, choose an exam period, and configure a valid set of exams under predefined constraints.
 
@@ -163,7 +164,7 @@ User interactions were logged using a backend logging system implemented with Su
 
 The collected data was stored as structured event logs and exported as CSV files for analysis. This approach enabled a detailed reconstruction of user behavior during task execution.
 
-**3.3 Variables**
+## Variables
 
 The independent variable (IV) in this study was the level of AI execution autonomy, with three levels:
 
@@ -185,7 +186,7 @@ The dependent variables (DVs) captured objective behavioral outcomes derived fro
 
 These variables were operationalized based on observable interaction events.
 
-**3.4 Sample**
+## Sample
 
 A total of `r total_participants` participants were included in the study. The participant distribution across conditions is shown in Table 1.
 
@@ -283,7 +284,7 @@ knitr::kable(
 
 The results show a balanced distribution of unique sessions across conditions, indicating that each participant contributed only one observation and that no overcounting occurred.
 
-**3.5 Measures**
+## Measures
 
 All dependent variables were derived from system-generated event logs and aggregated at the session level.
 
@@ -637,7 +638,7 @@ ggplot(intervention_count_by_mode, aes(x = mode, y = intervention_count, fill = 
 ```
 Figure 6 suggests that intervention frequency differed across autonomy conditions. The Manual condition showed the highest intervention counts overall, whereas the Execution condition showed the lowest. The Assistance condition fell between these two extremes. This descriptive pattern is consistent with the expectation that greater execution autonomy reduces the need for user intervention, although formal statistical testing is required to assess whether these differences are significant.
 
-**3.6 Data Preparation and Analysis**
+## Data Preparation and Analysis
 
 The raw dataset consisted of event-level interaction logs. Prior to analysis, all entries associated with the `Information` mode were excluded because they reflected passive `PAGE_VIEW` events rather than meaningful task-related interaction. In addition, repeated participation was checked at the participant-session level, and no repeated entries were identified. After this cleaning step, the data were aggregated to the session level, so that each session represented one participant’s interaction within one assigned condition.
 
@@ -646,15 +647,15 @@ Based on this session-level aggregation, summary variables were derived for task
 Statistical analyses will be conducted according to the measurement level of the respective variables. As task completion time represents a continuous outcome across three autonomy conditions, differences will be examined using a non-parametric Kruskal–Wallis test, followed by pairwise Wilcoxon rank-sum tests where appropriate. Abandonment, error occurrence, and intervention occurrence will be analyzed as categorical outcomes using chi-square and proportion-based tests.
 
 
-**4 Results**
+# Results
 
 This section reports the empirical results in relation to the two hypotheses of the study. First, the effects of AI execution autonomy on task performance are examined, including completion time, detected errors, and task completion versus abandonment. Second, the effects on intervention behavior are presented, covering intervention occurrence, intervention frequency, and the different types of intervention observed across conditions.
 
-**4.1 H1: Task Performance**
+## H1: Task Performance
 
 To evaluate H1, task performance was examined across the three autonomy conditions using three outcome dimensions: completion time, detected errors, and task completion versus abandonment. Together, these measures provide an overview of how efficiently and successfully participants performed the task under different levels of AI execution autonomy.
 
-**4.1.1 Completion Time**
+### Completion Time
 
 Task completion time was operationalized as the elapsed time between the beginning and the successful completion of task execution within a session. For this measure, `TASK_STARTED` was treated as the starting point of task execution, and `TASK_COMPLETED` was treated as the endpoint indicating successful task completion. Because the analysis focused on elapsed interaction time within the system, completion time was calculated using the client-side timestamp variable (`client_ts_ms`). This timestamp was used because it directly reflects the temporal order and duration of user interactions during task execution. Accordingly, completion time was defined only for sessions in which both a valid task start and a valid task completion event were recorded.
 
@@ -871,7 +872,7 @@ knitr::kable(
 
 Post-hoc pairwise Wilcoxon comparisons showed that all pairwise comparisons were statistically significant. Completion time was significantly lower in the Assistance condition than in the Manual condition (p = .0136), significantly lower in the Execution condition than in the Manual condition (p < .001), and significantly lower in the Execution condition than in the Assistance condition (p = .0367). These results indicate a stepwise reduction in completion time as AI execution autonomy increased.
 
-**4.1.2 Detected Errors**
+### Detected Errors
 
 Detected errors were operationalized on the basis of `ERROR_SHOWN` events. For the present analysis, sessions were included if the task had been started, regardless of whether it was later completed or abandoned. At the session level, error occurrence was treated as a binary outcome indicating whether at least one validation error was recorded during task execution.
 
@@ -993,7 +994,7 @@ The chi-square test showed that detected error occurrence differed significantly
 
 Descriptively, the proportion of started sessions with at least one detected error decreased from the Manual condition to the Assistance condition and further to the Execution condition. However, this reduction was statistically significant only when comparing the Manual condition with the other two conditions.
 
-**4.1.3 Task Completion and Abandonment**
+### Task Completion and Abandonment
 
 Task completion and abandonment were examined as mutually exclusive outcomes among started sessions. At the session level, a task was classified as completed when a `TASK_COMPLETED` event was recorded after task initiation. A task was classified as abandoned when a `TASK_STARTED` event was present but no corresponding `TASK_COMPLETED` event was recorded.
 
@@ -1114,11 +1115,11 @@ knitr::kable(
 ```
 The chi-square test showed that task outcome differed significantly across autonomy conditions, χ²(2) = 9.86, p = .0072. Post-hoc pairwise proportion tests showed that the Execution condition differed significantly from the Manual condition (p = .010), indicating a lower proportion of abandonment and a higher proportion of completed sessions in the Execution condition. However, no significant differences were found between the Assistance and Manual conditions (p = .857) or between the Execution and Assistance conditions (p = .254). Overall, these results suggest that higher AI execution autonomy was associated with improved task completion primarily in comparison with the Manual condition.
 
-**4.2 H2: Intervention Behavior**
+## H2: Intervention Behavior
 
 To evaluate H2, intervention behavior was examined across the three autonomy conditions using three complementary indicators: intervention occurrence, intervention count, and the specific types of intervention observed during task execution. Together, these measures provide a more detailed picture of how strongly users interfered with the system under different levels of AI execution autonomy.
 
-**4.2.1 Intervention Occurrence**
+### Intervention Occurrence
 
 Intervention occurrence was operationalized as a binary session-level outcome indicating whether at least one intervention took place during task execution. A session was classified as involving intervention if at least one `FIELD_EDIT`, `OVERRIDE`, or `AI_SUGGESTION_REJECTED` event was recorded. Only started sessions were included in this analysis, regardless of whether the task was later completed or abandoned.
 
@@ -1217,7 +1218,7 @@ knitr::kable(
 ```
 The chi-square test showed that intervention occurrence did not differ significantly across autonomy conditions, χ²(2) = 0.58, p = .7482. This indicates that the proportion of started sessions containing at least one intervention was similarly high across the Manual, Assistance, and Execution conditions. Overall, these results suggest that intervention occurrence, as a binary measure, did not clearly distinguish between levels of AI execution autonomy.
 
-**4.2.2 Intervention Count**
+### Intervention Count
 
 In addition to intervention occurrence, intervention count was examined to capture how often users intervened within a session. At the session level, intervention count was calculated as the sum of `FIELD_EDIT`, `OVERRIDE`, and `AI_SUGGESTION_REJECTED` events. Only started sessions were included, as intervention could only occur once task execution had begun.
 
@@ -1335,7 +1336,7 @@ knitr::kable(
 ```
 Post-hoc pairwise Wilcoxon comparisons showed that intervention count was significantly lower in the Assistance condition than in the Manual condition (p < .001) and significantly lower in the Execution condition than in the Manual condition (p < .001). However, no significant difference was found between the Assistance and Execution conditions (p = 1.000). Overall, these results indicate that higher AI execution autonomy was associated with a lower frequency of user intervention compared with the Manual condition, although the difference between Assistance and Execution was not statistically significant.
 
-**4.2.3 Types of Intervention**
+### Types of Intervention
 
 To further differentiate intervention behavior, the specific types of intervention were examined separately. Three event categories were considered: `FIELD_EDIT`, `OVERRIDE`, and `AI_SUGGESTION_REJECTED`. For the present analysis, these intervention types were summarized descriptively across started sessions in order to identify which forms of user intervention were most characteristic of each autonomy condition.
 

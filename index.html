@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Ladan">
+
+<title>The Impact of AI Execution Autonomy on User Task Performance and Intervention Behavior in Digital Workflows</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="ai-execution-autonomy-analysis_files/libs/clipboard/clipboard.min.js"></script>
+<script src="ai-execution-autonomy-analysis_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="ai-execution-autonomy-analysis_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="ai-execution-autonomy-analysis_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="ai-execution-autonomy-analysis_files/libs/quarto-html/popper.min.js"></script>
+<script src="ai-execution-autonomy-analysis_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="ai-execution-autonomy-analysis_files/libs/quarto-html/anchor.min.js"></script>
+<link href="ai-execution-autonomy-analysis_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="ai-execution-autonomy-analysis_files/libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="ai-execution-autonomy-analysis_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="ai-execution-autonomy-analysis_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="ai-execution-autonomy-analysis_files/libs/bootstrap/bootstrap-d6a003b94517c951b2d65075d42fb01b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
+  <li><a href="#theory" id="toc-theory" class="nav-link" data-scroll-target="#theory"><span class="header-section-number">2</span> Theory</a>
+  <ul class="collapse">
+  <li><a href="#ai-execution-autonomy" id="toc-ai-execution-autonomy" class="nav-link" data-scroll-target="#ai-execution-autonomy"><span class="header-section-number">2.1</span> AI Execution Autonomy</a></li>
+  <li><a href="#user-task-performance" id="toc-user-task-performance" class="nav-link" data-scroll-target="#user-task-performance"><span class="header-section-number">2.2</span> User Task Performance</a></li>
+  <li><a href="#intervention-behavior" id="toc-intervention-behavior" class="nav-link" data-scroll-target="#intervention-behavior"><span class="header-section-number">2.3</span> Intervention Behavior</a></li>
+  <li><a href="#research-gap-and-hypotheses" id="toc-research-gap-and-hypotheses" class="nav-link" data-scroll-target="#research-gap-and-hypotheses"><span class="header-section-number">2.4</span> Research Gap and Hypotheses</a></li>
+  </ul></li>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods"><span class="header-section-number">3</span> Methods</a>
+  <ul class="collapse">
+  <li><a href="#study-design" id="toc-study-design" class="nav-link" data-scroll-target="#study-design"><span class="header-section-number">3.1</span> Study Design</a></li>
+  <li><a href="#prototype-and-logging" id="toc-prototype-and-logging" class="nav-link" data-scroll-target="#prototype-and-logging"><span class="header-section-number">3.2</span> Prototype and Logging</a></li>
+  <li><a href="#variables" id="toc-variables" class="nav-link" data-scroll-target="#variables"><span class="header-section-number">3.3</span> Variables</a></li>
+  <li><a href="#sample" id="toc-sample" class="nav-link" data-scroll-target="#sample"><span class="header-section-number">3.4</span> Sample</a></li>
+  <li><a href="#measures" id="toc-measures" class="nav-link" data-scroll-target="#measures"><span class="header-section-number">3.5</span> Measures</a></li>
+  <li><a href="#data-preparation-and-analysis" id="toc-data-preparation-and-analysis" class="nav-link" data-scroll-target="#data-preparation-and-analysis"><span class="header-section-number">3.6</span> Data Preparation and Analysis</a></li>
+  </ul></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results"><span class="header-section-number">4</span> Results</a>
+  <ul class="collapse">
+  <li><a href="#h1-task-performance" id="toc-h1-task-performance" class="nav-link" data-scroll-target="#h1-task-performance"><span class="header-section-number">4.1</span> H1: Task Performance</a>
+  <ul class="collapse">
+  <li><a href="#completion-time" id="toc-completion-time" class="nav-link" data-scroll-target="#completion-time"><span class="header-section-number">4.1.1</span> Completion Time</a></li>
+  <li><a href="#detected-errors" id="toc-detected-errors" class="nav-link" data-scroll-target="#detected-errors"><span class="header-section-number">4.1.2</span> Detected Errors</a></li>
+  <li><a href="#task-completion-and-abandonment" id="toc-task-completion-and-abandonment" class="nav-link" data-scroll-target="#task-completion-and-abandonment"><span class="header-section-number">4.1.3</span> Task Completion and Abandonment</a></li>
+  </ul></li>
+  <li><a href="#h2-intervention-behavior" id="toc-h2-intervention-behavior" class="nav-link" data-scroll-target="#h2-intervention-behavior"><span class="header-section-number">4.2</span> H2: Intervention Behavior</a>
+  <ul class="collapse">
+  <li><a href="#intervention-occurrence" id="toc-intervention-occurrence" class="nav-link" data-scroll-target="#intervention-occurrence"><span class="header-section-number">4.2.1</span> Intervention Occurrence</a></li>
+  <li><a href="#intervention-count" id="toc-intervention-count" class="nav-link" data-scroll-target="#intervention-count"><span class="header-section-number">4.2.2</span> Intervention Count</a></li>
+  <li><a href="#types-of-intervention" id="toc-types-of-intervention" class="nav-link" data-scroll-target="#types-of-intervention"><span class="header-section-number">4.2.3</span> Types of Intervention</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="ai-execution-autonomy-analysis.docx"><i class="bi bi-file-word"></i>MS Word</a></li></ul></div></nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">The Impact of AI Execution Autonomy on User Task Performance and Intervention Behavior in Digital Workflows</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Ladan </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
+<p>Artificial intelligence (AI) systems are increasingly embedded in digital workflows, evolving from tools that provide decision support toward systems capable of autonomously executing actions. In many contemporary applications, AI no longer functions merely as a source of information or recommendations but actively participates in shaping and executing decisions. This shift from assistance to autonomous execution fundamentally changes the distribution of control, responsibility, and risk between human users and technical systems.</p>
+<p>The distribution of decision authority between humans and automated systems has long been a central concern in human–automation interaction research. Early work by Sheridan and Verplank (1978), as well as later frameworks by Parasuraman, Sheridan, and Wickens (2000), conceptualize automation as a continuum of autonomy, ranging from full human control to full system control. These models demonstrate that different levels of automation can significantly influence human performance, error behavior, and reliance on automated systems. However, much of this research has primarily focused on assistive systems in which humans retain primary decision authority.</p>
+<p>More recent research in human–computer interaction has increasingly emphasized subjective constructs such as trust, perceived usefulness, and user satisfaction (Lee &amp; See, 2004; Hoff &amp; Bashir, 2015). While these perspectives provide valuable insights, they offer limited understanding of how users behave in concrete task execution scenarios, particularly in systems where AI assumes execution authority. As a result, there remains a lack of empirical, behavior-based evidence on how execution autonomy affects observable task outcomes and user intervention behavior in real interaction contexts.</p>
+<p>This study addresses this gap by investigating how different levels of AI execution autonomy affect user task performance and intervention behavior in AI-assisted digital workflows. Specifically, three autonomy levels are examined—manual, assistance, and execution—which represent distinct distributions of decision authority between the user and the system. The analysis focuses on measurable behavioral outcomes, including task completion time, detected errors, abandonment, and intervention frequency, enabling a systematic comparison across conditions.</p>
+<p>This leads to the following research question:</p>
+<p>“How does the level of AI execution autonomy affect user task performance and intervention behavior in AI-assisted digital workflows?”</p>
+<p>The study adopts a controlled experimental design in which user interactions are captured through system-generated logs. Instead of relying on self-reported measures, behavioral data is used to assess how users perform tasks and how often they intervene under different autonomy conditions. By operationalizing AI execution autonomy as a system-level property—rather than as a feature of a specific model—the study isolates the effect of execution authority within a controlled task environment. This reflects how AI systems are typically implemented in real-world applications, where autonomy emerges from system design rather than from the underlying model alone.</p>
+<p>The contribution of this study lies in providing a behaviorally grounded, log-based analysis of AI execution autonomy. By capturing real user interactions in a controlled setting, the study enables a systematic comparison of task performance and intervention behavior across autonomy levels. The findings contribute to a more empirical understanding of how autonomy shapes human–AI interaction and provide practical insights for designing AI-assisted systems that balance efficiency and user control.</p>
+</section>
+<section id="theory" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Theory</h1>
+<section id="ai-execution-autonomy" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="ai-execution-autonomy"><span class="header-section-number">2.1</span> AI Execution Autonomy</h2>
+<p>The concept of automation has long been described as a continuum reflecting different levels of system involvement in decision-making. Early frameworks conceptualize automation as a spectrum ranging from full human control to full system control, emphasizing how the allocation of decision authority affects human performance and behavior (Sheridan &amp; Verplank, 1978; Parasuraman et al., 2000).</p>
+<p>Building on this perspective, AI execution autonomy can be defined as the extent to which a system is capable of independently determining and executing task-related actions within a workflow. In contrast to traditional assistive systems, execution-oriented AI systems increasingly assume responsibility not only for providing information but also for generating and implementing decisions.</p>
+<p>In this study, three levels of execution autonomy are distinguished: manual, assistance, and execution. These levels represent qualitatively different distributions of control between the user and the system.</p>
+<p>In the manual condition, all task-related decisions are made by the user, while the system functions solely as a validation mechanism by enforcing constraints and displaying error messages. In the assistance condition, the system generates a valid default configuration and supports the user through suggestions, while allowing full modification via editable parameters. In the execution condition, the system autonomously determines all task parameters and presents a final configuration, restricting user interaction to acceptance, rejection, or regeneration of outcomes. These conditions enable a systematic comparison of how different levels of autonomy influence user behavior during task execution.</p>
+</section>
+<section id="user-task-performance" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="user-task-performance"><span class="header-section-number">2.2</span> User Task Performance</h2>
+<p>User task performance refers to the extent to which users are able to successfully and efficiently complete a task within a given system environment. In the context of human–AI interaction, performance is not solely determined by user capabilities but emerges from the interaction between user actions and system behavior (Parasuraman et al., 2000).</p>
+<p>To capture performance in an objective and observable manner, this study focuses on behavioral outcome measures derived from system interaction logs. Specifically, user task performance is operationalized using three indicators: task completion time, error occurrence, and task abandonment.</p>
+<p>Task completion time reflects efficiency and is defined as the duration between the initiation and completion of a task. Error occurrence captures whether users perform invalid actions that violate system constraints, such as selecting incompatible exam combinations or exceeding allowed limits. Task abandonment represents task failure and is defined as cases in which users initiate but do not complete the task.</p>
+<p>By relying on log-based behavioral data rather than subjective self-reports, this study provides a more direct assessment of performance as it occurs during real system interaction.</p>
+</section>
+<section id="intervention-behavior" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="intervention-behavior"><span class="header-section-number">2.3</span> Intervention Behavior</h2>
+<p>In addition to task performance, user interaction with AI systems can be characterized by the extent to which users intervene in system-generated processes. Intervention behavior reflects the degree to which users actively modify, override, or reject system outputs during task execution.</p>
+<p>In human–automation interaction research, intervention is closely related to monitoring and control processes, particularly in situations where users retain partial authority over automated systems (Lee &amp; See, 2004). High levels of intervention may indicate reduced reliance on the system, perceived inadequacy of system outputs, or a need for greater user control.</p>
+<p>In this study, intervention behavior is operationalized through observable interaction events captured in system logs. These include edits of system-generated configurations, overrides of suggested parameters, and rejection or regeneration of system outputs (e.g., skipping a suggested configuration). These measures allow for a quantitative assessment of how frequently and in what ways users intervene under different levels of AI execution autonomy.</p>
+</section>
+<section id="research-gap-and-hypotheses" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="research-gap-and-hypotheses"><span class="header-section-number">2.4</span> Research Gap and Hypotheses</h2>
+<p>Despite extensive research on human–AI interaction, existing literature has primarily focused on subjective constructs such as trust, perceived usefulness, and user attitudes toward automated systems (Lee &amp; See, 2004; Hoff &amp; Bashir, 2015). While these approaches provide valuable insights into user perception, they offer limited understanding of how users behave during actual task execution.</p>
+<p>Moreover, prior research has largely concentrated on assistive systems, where users retain primary decision authority, rather than execution-oriented systems in which AI assumes control over task outcomes. As a result, there remains a lack of empirical, behavior-based evidence on how different levels of AI execution autonomy influence observable user performance and intervention patterns in practical workflows.</p>
+<p>To address this gap, the present study examines the behavioral effects of varying levels of AI execution autonomy using log-based interaction data. Based on this framework, the following hypotheses are proposed:</p>
+<p><strong>H1:</strong> Higher levels of AI execution autonomy improve user task performance, as reflected in reduced completion time, lower error occurrence, and lower abandonment rates. <strong>H2:</strong> Higher levels of AI execution autonomy reduce user intervention during task execution.</p>
+</section>
+</section>
+<section id="methods" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Methods</h1>
+<section id="study-design" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="study-design"><span class="header-section-number">3.1</span> Study Design</h2>
+<p>This study employed a <strong>between-subject experimental design</strong> with three conditions representing different levels of AI execution autonomy: Manual, Assistance, and Execution.</p>
+<p>Participants were randomly assigned to one of the three conditions and completed a single task within the assigned condition. The between-subject design was chosen to avoid learning effects and to ensure that user behavior was not influenced by prior exposure to other autonomy levels.</p>
+</section>
+<section id="prototype-and-logging" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="prototype-and-logging"><span class="header-section-number">3.2</span> Prototype and Logging</h2>
+<p>A web-based exam registration system was developed to simulate a realistic academic workflow. The system required users to select a semester, choose an exam period, and configure a valid set of exams under predefined constraints.</p>
+<p>User interactions were logged using a backend logging system implemented with Supabase. The logging system captured event-level interaction data, including:</p>
+<pre><code>•   user actions (e.g., TASK_STARTED, TASK_COMPLETED, ERROR_SHOWN, FIELD_EDIT, OVERRIDE, AI_SUGGESTION_REJECTED)
+
+•   timestamps (client-side and server-side)
+
+•   session identifiers
+
+•   assigned condition (mode)</code></pre>
+<p>The collected data was stored as structured event logs and exported as CSV files for analysis. This approach enabled a detailed reconstruction of user behavior during task execution.</p>
+</section>
+<section id="variables" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="variables"><span class="header-section-number">3.3</span> Variables</h2>
+<p>The independent variable (IV) in this study was the level of AI execution autonomy, with three levels:</p>
+<pre><code>•   Manual
+
+•   Assistance
+
+•   Execution</code></pre>
+<p>The dependent variables (DVs) captured objective behavioral outcomes derived from interaction logs:</p>
+<pre><code>•   **Task completion time**
+
+•   **Error occurrence**
+
+•   **Task abandonment**
+
+•   **Intervention behavior**</code></pre>
+<p>These variables were operationalized based on observable interaction events.</p>
+</section>
+<section id="sample" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="sample"><span class="header-section-number">3.4</span> Sample</h2>
+<p>A total of 231 participants were included in the study. The participant distribution across conditions is shown in Table 1.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Table 1. Number of participants (including repeated entries) per condition</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Condition</th>
+<th style="text-align: right;">Participants</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: right;">228</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Assistance</td>
+<td style="text-align: right;">75</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Execution</td>
+<td style="text-align: right;">76</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Information</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">manual</td>
+<td style="text-align: right;">76</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>An important issue in the dataset is the presence of the “Information” mode, which theoretically should not exist as an active interaction condition. Therefore, it is necessary to investigate why this mode appears in the logs and what type of events have been recorded under it. To assess this, a validity check was conducted by filtering all entries associated with the “Information” mode and inspecting their session IDs and logged actions.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 2
+  session_id action   
+  &lt;chr&gt;      &lt;chr&gt;    
+1 S-7QR92FMR PAGE_VIEW
+2 S-KY2JLRYQ PAGE_VIEW
+3 S-NT977W23 PAGE_VIEW
+4 S-OQKZ8TJ1 PAGE_VIEW</code></pre>
+</div>
+</div>
+<p>The inspection showed that the “Information” mode contained only four log entries, all of which were recorded as <code>PAGE_VIEW</code> events. This indicates that these entries reflect passive page access rather than meaningful task-related interaction. Therefore, the “Information” mode was treated as invalid and excluded from further analysis to ensure data quality, cleanliness and consistency.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Table 2. Number of participants after data cleaning (excluding Information condition)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Condition</th>
+<th style="text-align: right;">Participants</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: right;">224</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Assistance</td>
+<td style="text-align: right;">75</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Execution</td>
+<td style="text-align: right;">76</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">manual</td>
+<td style="text-align: right;">76</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Repeated participation was intended to be prevented by the system design. However, to ensure data validity, an additional check was conducted at the session level, since repeated participation may still occur despite implemented controls in the experimental environment. Therefore, sessions were used to verify that each participant contributed only one observation and to avoid overcounting repeated entries.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Table 3. Number of unique sessions (one per participant) per condition</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Condition</th>
+<th style="text-align: right;">Sessions</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Assistance</td>
+<td style="text-align: right;">75</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Execution</td>
+<td style="text-align: right;">76</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">manual</td>
+<td style="text-align: right;">76</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The results show a balanced distribution of unique sessions across conditions, indicating that each participant contributed only one observation and that no overcounting occurred.</p>
+</section>
+<section id="measures" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="measures"><span class="header-section-number">3.5</span> Measures</h2>
+<p>All dependent variables were derived from system-generated event logs and aggregated at the session level.</p>
+<p>Task completion time was defined as the time interval between task start and task completion within a session. Specifically, it reflects the elapsed time between the first <code>TASK_STARTED</code> event and the corresponding <code>TASK_COMPLETED</code> event. As this measure requires a valid endpoint, it was calculated only for sessions that were completed successfully.</p>
+<p>To complement this efficiency-based measure, task abandonment was included as an indicator of unsuccessful task progression. Task abandonment was defined as sessions in which users initiated but did not complete the task. Thus, a session was classified as abandoned when a <code>TASK_STARTED</code> event was recorded without a corresponding <code>TASK_COMPLETED</code> event. Figure 1 provides an overview of overall task progression across all 224 participants. It shows the number of participants who entered the system but did not start the task, those who started the task but did not complete it, and those who started and successfully completed the task.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-task-progress-overall" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-task-progress-overall-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="ai-execution-autonomy-analysis_files/figure-html/fig-task-progress-overall-1.png" class="img-fluid figure-img" width="528">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-task-progress-overall-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Overall task progression across all participants.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Building on this general overview, Figure 1 first showed overall task progression across the full sample and indicated that 64 participants did not start the task at all. The following analysis therefore focuses only on the 160 participants who initiated the task. Among these started sessions, the aim is to examine how task outcomes were distributed across the three autonomy conditions by distinguishing between participants who started but did not complete the task and those who started and successfully completed it. To display these condition-specific differences more clearly, a grouped bar chart was used in Figure 2.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-task-outcome-by-mode" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-task-outcome-by-mode-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="ai-execution-autonomy-analysis_files/figure-html/fig-task-outcome-by-mode-1.png" class="img-fluid figure-img" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-task-outcome-by-mode-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Distribution of completed and abandoned task outcomes among started sessions across the three autonomy conditions.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Figure 2 shows the distribution of task outcomes among participants who started the task, separated by autonomy condition. Across all three conditions, completed sessions outnumbered abandoned sessions. The Execution condition showed the highest number of completed sessions and the lowest number of abandoned sessions, whereas the manual condition showed the highest number of abandoned sessions.</p>
+<p>Error occurrence was operationalized through ERROR_SHOWN events. Sessions were included in this analysis if a task had been started, regardless of whether the task was later completed or abandoned. This approach ensured that validation problems encountered during task execution were captured independently of final task outcome. Abandoned sessions were retained in the analysis because errors themselves may have contributed to task abandonment. We further examined whether error occurrence differed between completed and abandoned sessions. As shown in Figure 3, a 100% stacked bar chart was used to compare the proportion of sessions with and without errors across the two task outcomes. This visualization makes it possible to assess what percentage of completed sessions contained at least one error and what percentage of abandoned sessions contained at least one error.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-error-by-outcome" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-error-by-outcome-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="ai-execution-autonomy-analysis_files/figure-html/fig-error-by-outcome-1.png" class="img-fluid figure-img" width="528">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-error-by-outcome-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Error occurrence in completed and abandoned sessions.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Figure 3 shows the proportion of sessions with and without errors across completed and abandoned started sessions. A higher proportion of abandoned sessions contained at least one error (37%) compared with completed sessions (28%). This pattern suggests that validation errors may have contributed to task abandonment, although no causal conclusion can be drawn from this descriptive comparison alone. To further refine this analysis, error occurrence was examined separately for each autonomy condition. This makes it possible to compare how the proportion of sessions with and without errors differed between completed and abandoned sessions within the Manual, Assistance, and Execution conditions.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-error-by-outcome-mode" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-error-by-outcome-mode-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="ai-execution-autonomy-analysis_files/figure-html/fig-error-by-outcome-mode-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-error-by-outcome-mode-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Proportion of sessions with and without errors in completed and abandoned sessions across autonomy conditions.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Figure 4 shows that error occurrence varied substantially across autonomy conditions. The Manual condition displayed the highest proportion of sessions with errors in both completed and abandoned sessions, whereas the Execution condition showed the lowest error proportions overall. The Assistance condition fell between these two extremes. At the same time, the relationship between error occurrence and task outcome was not uniform across conditions, suggesting that the role of validation errors may differ depending on the level of AI execution autonomy.</p>
+<p>Intervention behavior was operationalized as active user interference with the task configuration or the system output. At the session level, intervention was defined based on the occurrence of FIELD_EDIT, OVERRIDE, and AI_SUGGESTION_REJECTED events. For the following descriptive overview, a binary intervention indicator was used to distinguish between sessions with at least one intervention and sessions without any intervention. Only started sessions were included in this analysis, regardless of whether the task was later completed or abandoned. Intervention should be measured for all started sessions, because it reflects user behavior during task execution rather than successful task completion. Figure 5 shows the proportion of sessions with and without intervention across the three autonomy conditions.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-intervention-by-mode" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-intervention-by-mode-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="ai-execution-autonomy-analysis_files/figure-html/fig-intervention-by-mode-1.png" class="img-fluid figure-img" width="595">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-intervention-by-mode-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Proportion of sessions with and without intervention across autonomy conditions.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Figure 5 shows that intervention occurred in the large majority of started sessions across all three autonomy conditions. The proportion of sessions with at least one intervention was consistently high in the Manual, Assistance, and Execution conditions, indicating that user intervention was common regardless of autonomy level. At the descriptive level, only minor differences between conditions were observed.</p>
+<p>This pattern may indicate that the binary intervention measure captured a very broad range of user actions, thereby limiting its ability to differentiate more clearly between autonomy conditions. Alternatively, it may suggest that intervention was generally required across conditions due to the structure of the task. These interpretations are considered in the discussion.</p>
+<p>Figure 6 provides a more fine-grained view of intervention behavior by showing the distribution of intervention counts across the three autonomy conditions. In contrast to the binary intervention indicator used in Figure 5, this analysis captures how often users intervened within a session. Only started sessions were included, as intervention could only occur once task execution had begun.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-intervention-count-by-mode" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-intervention-count-by-mode-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="ai-execution-autonomy-analysis_files/figure-html/fig-intervention-count-by-mode-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-intervention-count-by-mode-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Distribution of intervention counts across autonomy conditions.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Figure 6 suggests that intervention frequency differed across autonomy conditions. The Manual condition showed the highest intervention counts overall, whereas the Execution condition showed the lowest. The Assistance condition fell between these two extremes. This descriptive pattern is consistent with the expectation that greater execution autonomy reduces the need for user intervention, although formal statistical testing is required to assess whether these differences are significant.</p>
+</section>
+<section id="data-preparation-and-analysis" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="data-preparation-and-analysis"><span class="header-section-number">3.6</span> Data Preparation and Analysis</h2>
+<p>The raw dataset consisted of event-level interaction logs. Prior to analysis, all entries associated with the <code>Information</code> mode were excluded because they reflected passive <code>PAGE_VIEW</code> events rather than meaningful task-related interaction. In addition, repeated participation was checked at the participant-session level, and no repeated entries were identified. After this cleaning step, the data were aggregated to the session level, so that each session represented one participant’s interaction within one assigned condition.</p>
+<p>Based on this session-level aggregation, summary variables were derived for task progress, task completion, abandonment, error occurrence, and intervention behavior. Sessions in which the task was not started were retained for the descriptive overview of overall task progression, but they were excluded from analyses that required actual task execution. Accordingly, abandonment, error occurrence, and intervention behavior were analyzed only for started sessions. Task completion time was calculated only for completed sessions, as this measure required both a valid start point and a valid end point.</p>
+<p>Statistical analyses will be conducted according to the measurement level of the respective variables. As task completion time represents a continuous outcome across three autonomy conditions, differences will be examined using a non-parametric Kruskal–Wallis test, followed by pairwise Wilcoxon rank-sum tests where appropriate. Abandonment, error occurrence, and intervention occurrence will be analyzed as categorical outcomes using chi-square and proportion-based tests.</p>
+</section>
+</section>
+<section id="results" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Results</h1>
+<p>This section reports the empirical results in relation to the two hypotheses of the study. First, the effects of AI execution autonomy on task performance are examined, including completion time, detected errors, and task completion versus abandonment. Second, the effects on intervention behavior are presented, covering intervention occurrence, intervention frequency, and the different types of intervention observed across conditions.</p>
+<section id="h1-task-performance" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="h1-task-performance"><span class="header-section-number">4.1</span> H1: Task Performance</h2>
+<p>To evaluate H1, task performance was examined across the three autonomy conditions using three outcome dimensions: completion time, detected errors, and task completion versus abandonment. Together, these measures provide an overview of how efficiently and successfully participants performed the task under different levels of AI execution autonomy.</p>
+<section id="completion-time" class="level3" data-number="4.1.1">
+<h3 data-number="4.1.1" class="anchored" data-anchor-id="completion-time"><span class="header-section-number">4.1.1</span> Completion Time</h3>
+<p>Task completion time was operationalized as the elapsed time between the beginning and the successful completion of task execution within a session. For this measure, <code>TASK_STARTED</code> was treated as the starting point of task execution, and <code>TASK_COMPLETED</code> was treated as the endpoint indicating successful task completion. Because the analysis focused on elapsed interaction time within the system, completion time was calculated using the client-side timestamp variable (<code>client_ts_ms</code>). This timestamp was used because it directly reflects the temporal order and duration of user interactions during task execution. Accordingly, completion time was defined only for sessions in which both a valid task start and a valid task completion event were recorded.</p>
+<div class="cell">
+<div id="tbl-completion-time-summary" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-completion-time-summary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Table 4. Descriptive summary of completion time (in seconds) across autonomy conditions.
+</figcaption>
+<div aria-describedby="tbl-completion-time-summary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Condition</th>
+<th style="text-align: right;">Mean</th>
+<th style="text-align: right;">Median</th>
+<th style="text-align: right;">Min</th>
+<th style="text-align: right;">Max</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">manual</td>
+<td style="text-align: right;">36.07</td>
+<td style="text-align: right;">27.42</td>
+<td style="text-align: right;">12.77</td>
+<td style="text-align: right;">100.97</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Assistance</td>
+<td style="text-align: right;">26.08</td>
+<td style="text-align: right;">18.44</td>
+<td style="text-align: right;">6.99</td>
+<td style="text-align: right;">95.84</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Execution</td>
+<td style="text-align: right;">84.82</td>
+<td style="text-align: right;">11.82</td>
+<td style="text-align: right;">5.34</td>
+<td style="text-align: right;">2964.74</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-completion-time-by-mode" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-completion-time-by-mode-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="ai-execution-autonomy-analysis_files/figure-html/fig-completion-time-by-mode-1.png" class="img-fluid figure-img" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-completion-time-by-mode-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Distribution of task completion time across autonomy conditions.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Because the initial descriptive summary and visualization suggested substantial skewness in completion time—particularly due to very large values in the Execution condition—an additional inspection of extreme cases was conducted before proceeding to inferential analysis. Specifically, the longest completion times were reviewed, and the number of sessions exceeding predefined thresholds was examined. This step was intended to assess whether unusually large completion times reflected meaningful observations or extreme cases that might distort the descriptive distribution and subsequent statistical comparison.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Top 10 longest completion times</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">session_id</th>
+<th style="text-align: left;">mode</th>
+<th style="text-align: right;">completion_time</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">S-E1WBD47E</td>
+<td style="text-align: left;">Execution</td>
+<td style="text-align: right;">2964.736</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">S-21WAOP00</td>
+<td style="text-align: left;">manual</td>
+<td style="text-align: right;">100.968</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">S-F5OFN5A6</td>
+<td style="text-align: left;">Assistance</td>
+<td style="text-align: right;">95.845</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">S-O1IMAN9C</td>
+<td style="text-align: left;">manual</td>
+<td style="text-align: right;">94.098</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">S-ZWN4PELR</td>
+<td style="text-align: left;">manual</td>
+<td style="text-align: right;">89.414</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">S-FRQ1PFYO</td>
+<td style="text-align: left;">Assistance</td>
+<td style="text-align: right;">84.200</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">S-7HPZY5JW</td>
+<td style="text-align: left;">Assistance</td>
+<td style="text-align: right;">67.739</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">S-HXUZS215</td>
+<td style="text-align: left;">Execution</td>
+<td style="text-align: right;">67.577</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">S-8A4U6AVO</td>
+<td style="text-align: left;">Assistance</td>
+<td style="text-align: right;">66.537</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">S-4GNOB2GI</td>
+<td style="text-align: left;">manual</td>
+<td style="text-align: right;">55.040</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Check of extreme completion times</caption>
+<thead>
+<tr class="header">
+<th style="text-align: right;">total_completed_sessions</th>
+<th style="text-align: right;">above_300_sec</th>
+<th style="text-align: right;">above_600_sec</th>
+<th style="text-align: right;">max_time</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">109</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2964.736</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The inspection showed that only one completed session exceeded 300 seconds, with a completion time of approximately 2965 seconds. As this value was substantially larger than all other observations and strongly distorted the descriptive distribution, it was treated as an extreme outlier and excluded from the completion-time analysis. All remaining completed sessions were retained for the subsequent descriptive and inferential analyses.</p>
+<div class="cell">
+<div id="tbl-completion-time-summary-clean" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-completion-time-summary-clean-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Descriptive summary of cleaned completion time (in seconds) across autonomy conditions.
+</figcaption>
+<div aria-describedby="tbl-completion-time-summary-clean-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Condition</th>
+<th style="text-align: right;">Mean</th>
+<th style="text-align: right;">Median</th>
+<th style="text-align: right;">Min</th>
+<th style="text-align: right;">Max</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">manual</td>
+<td style="text-align: right;">36.07</td>
+<td style="text-align: right;">27.42</td>
+<td style="text-align: right;">12.77</td>
+<td style="text-align: right;">100.97</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Assistance</td>
+<td style="text-align: right;">26.08</td>
+<td style="text-align: right;">18.44</td>
+<td style="text-align: right;">6.99</td>
+<td style="text-align: right;">95.84</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Execution</td>
+<td style="text-align: right;">17.84</td>
+<td style="text-align: right;">10.79</td>
+<td style="text-align: right;">5.34</td>
+<td style="text-align: right;">67.58</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-completion-time-by-mode-clean" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-completion-time-by-mode-clean-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="ai-execution-autonomy-analysis_files/figure-html/fig-completion-time-by-mode-clean-1.png" class="img-fluid figure-img" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-completion-time-by-mode-clean-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: Distribution of cleaned task completion time across autonomy conditions.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Descriptive results suggested a gradual decrease in completion time across autonomy conditions. Median completion time was highest in the Manual condition (27.42 s), followed by the Assistance condition (18.44 s), and lowest in the Execution condition (10.79 s). Mean completion times showed the same ordering, although they were consistently higher than the medians, indicating a slightly right-skewed distribution.</p>
+<p>Because completion time was compared across three autonomy conditions and showed a slightly right-skewed distribution, a non-parametric Kruskal–Wallis test was used to examine whether completion time differed significantly between conditions.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Kruskal–Wallis test for completion time across autonomy conditions.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">p-value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">21.506</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">&lt; .001</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>A Kruskal–Wallis test showed a statistically significant difference in completion time across the three autonomy conditions, H(2) = 21.51, p &lt; .001. This indicates that task completion time varied significantly depending on the level of AI execution autonomy.</p>
+<p>Because the Kruskal–Wallis test indicated a significant overall difference in completion time across conditions, additional post-hoc comparisons were conducted to determine which specific pairs of autonomy conditions differed from each other. Pairwise Wilcoxon rank-sum tests were used for this purpose, with Bonferroni adjustment applied to control for multiple comparisons.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Pairwise Wilcoxon post-hoc comparisons for completion time.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Comparison</th>
+<th style="text-align: left;">p-value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Assistance vs manual</td>
+<td style="text-align: left;">0.0136</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Execution vs manual</td>
+<td style="text-align: left;">&lt; .001</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Execution vs Assistance</td>
+<td style="text-align: left;">0.0367</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Post-hoc pairwise Wilcoxon comparisons showed that all pairwise comparisons were statistically significant. Completion time was significantly lower in the Assistance condition than in the Manual condition (p = .0136), significantly lower in the Execution condition than in the Manual condition (p &lt; .001), and significantly lower in the Execution condition than in the Assistance condition (p = .0367). These results indicate a stepwise reduction in completion time as AI execution autonomy increased.</p>
+</section>
+<section id="detected-errors" class="level3" data-number="4.1.2">
+<h3 data-number="4.1.2" class="anchored" data-anchor-id="detected-errors"><span class="header-section-number">4.1.2</span> Detected Errors</h3>
+<p>Detected errors were operationalized on the basis of <code>ERROR_SHOWN</code> events. For the present analysis, sessions were included if the task had been started, regardless of whether it was later completed or abandoned. At the session level, error occurrence was treated as a binary outcome indicating whether at least one validation error was recorded during task execution.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-error-by-mode" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-error-by-mode-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="ai-execution-autonomy-analysis_files/figure-html/fig-error-by-mode-1.png" class="img-fluid figure-img" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-error-by-mode-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9: Proportion of started sessions with and without detected errors across autonomy conditions.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Figure 9 shows the proportion of started sessions with and without at least one detected error across the three autonomy conditions. Descriptively, the Manual condition showed the highest proportion of sessions with errors, the Assistance condition fell in between, and the Execution condition showed the lowest proportion. To examine whether detected error occurrence differed significantly across autonomy conditions, a chi-square test of independence was conducted. Because error occurrence was treated as a categorical session-level outcome, this test was appropriate for assessing differences in the distribution of error presence across conditions.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Chi-square test for detected errors across autonomy conditions.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">p-value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">25.525</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">&lt; .001</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Because the chi-square test indicated an overall difference across conditions, additional pairwise proportion tests were conducted to determine which specific pairs of autonomy conditions differed in detected error occurrence. Bonferroni adjustment was applied to control for multiple comparisons.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Pairwise proportion tests for detected errors.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Comparison</th>
+<th style="text-align: left;">p-value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Assistance vs manual</td>
+<td style="text-align: left;">&lt; .001</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Execution vs manual</td>
+<td style="text-align: left;">&lt; .001</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Execution vs Assistance</td>
+<td style="text-align: left;">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The chi-square test showed that detected error occurrence differed significantly across autonomy conditions, χ²(2) = 25.53, p &lt; .001. Post-hoc pairwise proportion tests showed that the Manual condition differed significantly from both the Assistance condition (p &lt; .001) and the Execution condition (p &lt; .001). However, no significant difference was found between the Assistance and Execution conditions (p = 1.00). Overall, these results indicate that started sessions in the Manual condition were substantially more likely to contain at least one detected error, whereas the Assistance and Execution conditions were associated with markedly lower error occurrence.</p>
+<p>Descriptively, the proportion of started sessions with at least one detected error decreased from the Manual condition to the Assistance condition and further to the Execution condition. However, this reduction was statistically significant only when comparing the Manual condition with the other two conditions.</p>
+</section>
+<section id="task-completion-and-abandonment" class="level3" data-number="4.1.3">
+<h3 data-number="4.1.3" class="anchored" data-anchor-id="task-completion-and-abandonment"><span class="header-section-number">4.1.3</span> Task Completion and Abandonment</h3>
+<p>Task completion and abandonment were examined as mutually exclusive outcomes among started sessions. At the session level, a task was classified as completed when a <code>TASK_COMPLETED</code> event was recorded after task initiation. A task was classified as abandoned when a <code>TASK_STARTED</code> event was present but no corresponding <code>TASK_COMPLETED</code> event was recorded.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-abandonment-by-mode" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-abandonment-by-mode-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="ai-execution-autonomy-analysis_files/figure-html/fig-abandonment-by-mode-1.png" class="img-fluid figure-img" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-abandonment-by-mode-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10: Proportion of completed and abandoned started sessions across autonomy conditions.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Figure 10 shows the proportion of completed and abandoned sessions among participants who started the task. Descriptively, the Manual condition showed the highest proportion of abandoned sessions, the Assistance condition fell in between, and the Execution condition showed the lowest proportion of abandonment. To examine whether task outcome differed significantly across autonomy conditions, a chi-square test of independence was conducted. Because task completion versus abandonment was treated as a categorical session-level outcome, this test was appropriate for assessing differences in the distribution of task outcomes across conditions.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Chi-square test for task completion versus abandonment across autonomy conditions.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">p-value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">9.855</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">0.0072</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Because the chi-square test indicated an overall difference across autonomy conditions, additional pairwise proportion tests were conducted to determine which specific pairs of conditions differed in task abandonment. Bonferroni adjustment was applied to control for multiple comparisons.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Pairwise proportion tests for task abandonment.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Comparison</th>
+<th style="text-align: left;">p-value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Assistance vs manual</td>
+<td style="text-align: left;">0.857</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Execution vs manual</td>
+<td style="text-align: left;">0.010</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Execution vs Assistance</td>
+<td style="text-align: left;">0.254</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The chi-square test showed that task outcome differed significantly across autonomy conditions, χ²(2) = 9.86, p = .0072. Post-hoc pairwise proportion tests showed that the Execution condition differed significantly from the Manual condition (p = .010), indicating a lower proportion of abandonment and a higher proportion of completed sessions in the Execution condition. However, no significant differences were found between the Assistance and Manual conditions (p = .857) or between the Execution and Assistance conditions (p = .254). Overall, these results suggest that higher AI execution autonomy was associated with improved task completion primarily in comparison with the Manual condition.</p>
+</section>
+</section>
+<section id="h2-intervention-behavior" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="h2-intervention-behavior"><span class="header-section-number">4.2</span> H2: Intervention Behavior</h2>
+<p>To evaluate H2, intervention behavior was examined across the three autonomy conditions using three complementary indicators: intervention occurrence, intervention count, and the specific types of intervention observed during task execution. Together, these measures provide a more detailed picture of how strongly users interfered with the system under different levels of AI execution autonomy.</p>
+<section id="intervention-occurrence" class="level3" data-number="4.2.1">
+<h3 data-number="4.2.1" class="anchored" data-anchor-id="intervention-occurrence"><span class="header-section-number">4.2.1</span> Intervention Occurrence</h3>
+<p>Intervention occurrence was operationalized as a binary session-level outcome indicating whether at least one intervention took place during task execution. A session was classified as involving intervention if at least one <code>FIELD_EDIT</code>, <code>OVERRIDE</code>, or <code>AI_SUGGESTION_REJECTED</code> event was recorded. Only started sessions were included in this analysis, regardless of whether the task was later completed or abandoned.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-intervention-occurrence-h2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-intervention-occurrence-h2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="ai-execution-autonomy-analysis_files/figure-html/fig-intervention-occurrence-h2-1.png" class="img-fluid figure-img" width="595">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-intervention-occurrence-h2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11: Proportion of started sessions with and without intervention across autonomy conditions.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Figure 11 shows the proportion of started sessions with and without intervention across the three autonomy conditions. Descriptively, intervention occurred in the large majority of started sessions in all three conditions. The proportions were very similar across Manual (92%), Assistance (94%), and Execution (91%), indicating only minor descriptive differences in intervention occurrence between autonomy conditions. To examine whether intervention occurrence differed significantly across autonomy conditions, a chi-square test of independence was conducted. Because intervention occurrence was treated as a categorical session-level outcome, this test was appropriate for assessing differences in the distribution of intervention presence across conditions.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Chi-square test for intervention occurrence across autonomy conditions.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">p-value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0.58</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">0.7482</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The chi-square test showed that intervention occurrence did not differ significantly across autonomy conditions, χ²(2) = 0.58, p = .7482. This indicates that the proportion of started sessions containing at least one intervention was similarly high across the Manual, Assistance, and Execution conditions. Overall, these results suggest that intervention occurrence, as a binary measure, did not clearly distinguish between levels of AI execution autonomy.</p>
+</section>
+<section id="intervention-count" class="level3" data-number="4.2.2">
+<h3 data-number="4.2.2" class="anchored" data-anchor-id="intervention-count"><span class="header-section-number">4.2.2</span> Intervention Count</h3>
+<p>In addition to intervention occurrence, intervention count was examined to capture how often users intervened within a session. At the session level, intervention count was calculated as the sum of <code>FIELD_EDIT</code>, <code>OVERRIDE</code>, and <code>AI_SUGGESTION_REJECTED</code> events. Only started sessions were included, as intervention could only occur once task execution had begun.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-intervention-count-h2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-intervention-count-h2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="ai-execution-autonomy-analysis_files/figure-html/fig-intervention-count-h2-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-intervention-count-h2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;12: Distribution of intervention counts across autonomy conditions.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Descriptively, Figure 12 suggests that intervention count differed across autonomy conditions. The Manual condition showed the highest intervention counts overall, the Assistance condition showed lower counts, and the Execution condition showed the lowest counts. In addition, the Manual condition displayed the greatest spread, indicating that intervention frequency was not only higher but also more variable in this condition.</p>
+<p>Because intervention count represents a count-based session-level outcome and the distribution was visibly non-normal, a non-parametric Kruskal–Wallis test was conducted to examine whether intervention count differed significantly across autonomy conditions.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Kruskal–Wallis test for intervention count across autonomy conditions.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">p-value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">26.693</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">&lt; .001</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>A Kruskal–Wallis test showed that intervention count differed significantly across autonomy conditions, H(2) = 26.69, p &lt; .001. This indicates that the frequency of user intervention varied significantly depending on the level of AI execution autonomy. Because the Kruskal–Wallis test indicated an overall difference in intervention count across conditions, additional post-hoc pairwise Wilcoxon rank-sum tests were conducted. Bonferroni adjustment was applied to control for multiple comparisons.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Pairwise Wilcoxon post-hoc comparisons for intervention count.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Comparison</th>
+<th style="text-align: left;">p-value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Assistance vs manual</td>
+<td style="text-align: left;">&lt; .001</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Execution vs manual</td>
+<td style="text-align: left;">&lt; .001</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Execution vs Assistance</td>
+<td style="text-align: left;">1.000</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Post-hoc pairwise Wilcoxon comparisons showed that intervention count was significantly lower in the Assistance condition than in the Manual condition (p &lt; .001) and significantly lower in the Execution condition than in the Manual condition (p &lt; .001). However, no significant difference was found between the Assistance and Execution conditions (p = 1.000). Overall, these results indicate that higher AI execution autonomy was associated with a lower frequency of user intervention compared with the Manual condition, although the difference between Assistance and Execution was not statistically significant.</p>
+</section>
+<section id="types-of-intervention" class="level3" data-number="4.2.3">
+<h3 data-number="4.2.3" class="anchored" data-anchor-id="types-of-intervention"><span class="header-section-number">4.2.3</span> Types of Intervention</h3>
+<p>To further differentiate intervention behavior, the specific types of intervention were examined separately. Three event categories were considered: <code>FIELD_EDIT</code>, <code>OVERRIDE</code>, and <code>AI_SUGGESTION_REJECTED</code>. For the present analysis, these intervention types were summarized descriptively across started sessions in order to identify which forms of user intervention were most characteristic of each autonomy condition.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-intervention-types-h2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-intervention-types-h2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="ai-execution-autonomy-analysis_files/figure-html/fig-intervention-types-h2-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-intervention-types-h2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;13: Proportion of started sessions containing each intervention type across autonomy conditions.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Figure 13 shows the proportion of started sessions containing each intervention type across the three autonomy conditions. Edits were highly prevalent in all three conditions, occurring in more than 90% of started sessions in the Manual, Assistance, and Execution conditions. In contrast, override events occurred only in the Assistance and Execution conditions, with a particularly high proportion in Execution. Rejection-related intervention was observed only in the Assistance condition. These descriptive patterns suggest that the specific form of intervention varied across autonomy conditions, even when overall intervention occurrence remained similarly high.</p>
+<p>Taken together, the results provide partial support for H2. While intervention occurrence did not differ significantly across autonomy conditions, intervention count showed that users in the Manual condition intervened significantly more often than users in the Assistance and Execution conditions. The descriptive analysis of intervention types further showed that intervention was not uniform across conditions: edits were common in all three conditions, whereas overrides and rejection-related actions were concentrated in the system-supported conditions. Overall, these findings suggest that higher AI execution autonomy did not eliminate intervention altogether, but it reduced how frequently users needed to intervene and changed the form that intervention took.</p>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
