@@ -753,6 +753,133 @@ Figure&nbsp;10: Proportion of completed and abandoned started sessions across au
 </div>
 </div>
 <p>The chi-square test showed that task outcome differed significantly across autonomy conditions, χ²(2) = 9.86, p = .0072. Post-hoc pairwise proportion tests showed that the Execution condition differed significantly from the Manual condition (p = .010), indicating a lower proportion of abandonment and a higher proportion of completed sessions in the Execution condition. However, no significant differences were found between the Assistance and Manual conditions (p = .857) or between the Execution and Assistance conditions (p = .254). Overall, these results suggest that higher AI execution autonomy was associated with improved task completion primarily in comparison with the Manual condition.</p>
+<p><strong>4.2 H2: Intervention Behavior</strong></p>
+<p>To evaluate H2, intervention behavior was examined across the three autonomy conditions using three complementary indicators: intervention occurrence, intervention count, and the specific types of intervention observed during task execution. Together, these measures provide a more detailed picture of how strongly users interfered with the system under different levels of AI execution autonomy.</p>
+<p><strong>4.2.1 Intervention Occurrence</strong></p>
+<p>Intervention occurrence was operationalized as a binary session-level outcome indicating whether at least one intervention took place during task execution. A session was classified as involving intervention if at least one <code>FIELD_EDIT</code>, <code>OVERRIDE</code>, or <code>AI_SUGGESTION_REJECTED</code> event was recorded. Only started sessions were included in this analysis, regardless of whether the task was later completed or abandoned.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-intervention-occurrence-h2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-intervention-occurrence-h2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="ai-execution-autonomy-analysis_files/figure-html/fig-intervention-occurrence-h2-1.png" class="img-fluid figure-img" width="595">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-intervention-occurrence-h2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11: Proportion of started sessions with and without intervention across autonomy conditions.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Figure 11 shows the proportion of started sessions with and without intervention across the three autonomy conditions. Descriptively, intervention occurred in the large majority of started sessions in all three conditions. The proportions were very similar across Manual (92%), Assistance (94%), and Execution (91%), indicating only minor descriptive differences in intervention occurrence between autonomy conditions. To examine whether intervention occurrence differed significantly across autonomy conditions, a chi-square test of independence was conducted. Because intervention occurrence was treated as a categorical session-level outcome, this test was appropriate for assessing differences in the distribution of intervention presence across conditions.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Chi-square test for intervention occurrence across autonomy conditions.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">p-value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0.58</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">0.7482</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The chi-square test showed that intervention occurrence did not differ significantly across autonomy conditions, χ²(2) = 0.58, p = .7482. This indicates that the proportion of started sessions containing at least one intervention was similarly high across the Manual, Assistance, and Execution conditions. Overall, these results suggest that intervention occurrence, as a binary measure, did not clearly distinguish between levels of AI execution autonomy.</p>
+<p><strong>4.2.2 Intervention Count</strong></p>
+<p>In addition to intervention occurrence, intervention count was examined to capture how often users intervened within a session. At the session level, intervention count was calculated as the sum of <code>FIELD_EDIT</code>, <code>OVERRIDE</code>, and <code>AI_SUGGESTION_REJECTED</code> events. Only started sessions were included, as intervention could only occur once task execution had begun.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-intervention-count-h2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-intervention-count-h2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="ai-execution-autonomy-analysis_files/figure-html/fig-intervention-count-h2-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-intervention-count-h2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;12: Distribution of intervention counts across autonomy conditions.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Descriptively, Figure 12 suggests that intervention count differed across autonomy conditions. The Manual condition showed the highest intervention counts overall, the Assistance condition showed lower counts, and the Execution condition showed the lowest counts. In addition, the Manual condition displayed the greatest spread, indicating that intervention frequency was not only higher but also more variable in this condition.</p>
+<p>Because intervention count represents a count-based session-level outcome and the distribution was visibly non-normal, a non-parametric Kruskal–Wallis test was conducted to examine whether intervention count differed significantly across autonomy conditions.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Kruskal–Wallis test for intervention count across autonomy conditions.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">p-value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">26.693</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">&lt; .001</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>A Kruskal–Wallis test showed that intervention count differed significantly across autonomy conditions, H(2) = 26.69, p &lt; .001. This indicates that the frequency of user intervention varied significantly depending on the level of AI execution autonomy. Because the Kruskal–Wallis test indicated an overall difference in intervention count across conditions, additional post-hoc pairwise Wilcoxon rank-sum tests were conducted. Bonferroni adjustment was applied to control for multiple comparisons.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Pairwise Wilcoxon post-hoc comparisons for intervention count.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Comparison</th>
+<th style="text-align: left;">p-value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Assistance vs manual</td>
+<td style="text-align: left;">&lt; .001</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Execution vs manual</td>
+<td style="text-align: left;">&lt; .001</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Execution vs Assistance</td>
+<td style="text-align: left;">1.000</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Post-hoc pairwise Wilcoxon comparisons showed that intervention count was significantly lower in the Assistance condition than in the Manual condition (p &lt; .001) and significantly lower in the Execution condition than in the Manual condition (p &lt; .001). However, no significant difference was found between the Assistance and Execution conditions (p = 1.000). Overall, these results indicate that higher AI execution autonomy was associated with a lower frequency of user intervention compared with the Manual condition, although the difference between Assistance and Execution was not statistically significant.</p>
+<p><strong>4.2.3 Types of Intervention</strong></p>
+<p>To further differentiate intervention behavior, the specific types of intervention were examined separately. Three event categories were considered: <code>FIELD_EDIT</code>, <code>OVERRIDE</code>, and <code>AI_SUGGESTION_REJECTED</code>. For the present analysis, these intervention types were summarized descriptively across started sessions in order to identify which forms of user intervention were most characteristic of each autonomy condition.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-intervention-types-h2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-intervention-types-h2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="ai-execution-autonomy-analysis_files/figure-html/fig-intervention-types-h2-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-intervention-types-h2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;13: Proportion of started sessions containing each intervention type across autonomy conditions.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Figure 13 shows the proportion of started sessions containing each intervention type across the three autonomy conditions. Edits were highly prevalent in all three conditions, occurring in more than 90% of started sessions in the Manual, Assistance, and Execution conditions. In contrast, override events occurred only in the Assistance and Execution conditions, with a particularly high proportion in Execution. Rejection-related intervention was observed only in the Assistance condition. These descriptive patterns suggest that the specific form of intervention varied across autonomy conditions, even when overall intervention occurrence remained similarly high.</p>
+<p>Taken together, the results provide partial support for H2. While intervention occurrence did not differ significantly across autonomy conditions, intervention count showed that users in the Manual condition intervened significantly more often than users in the Assistance and Execution conditions. The descriptive analysis of intervention types further showed that intervention was not uniform across conditions: edits were common in all three conditions, whereas overrides and rejection-related actions were concentrated in the system-supported conditions. Overall, these findings suggest that higher AI execution autonomy did not eliminate intervention altogether, but it reduced how frequently users needed to intervene and changed the form that intervention took.</p>
 
 </main>
 <!-- /main column -->
