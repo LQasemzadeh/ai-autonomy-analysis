@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.9.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,6 +10,9 @@
 
 <title>The Impact of AI Execution Autonomy on User Task Performance and Intervention Behavior in Digital Workflows</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -27,15 +30,14 @@ ul.task-list li input[type="checkbox"] {
 <script src="ai-execution-autonomy-analysis_files/libs/clipboard/clipboard.min.js"></script>
 <script src="ai-execution-autonomy-analysis_files/libs/quarto-html/quarto.js" type="module"></script>
 <script src="ai-execution-autonomy-analysis_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="ai-execution-autonomy-analysis_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="ai-execution-autonomy-analysis_files/libs/quarto-html/popper.min.js"></script>
 <script src="ai-execution-autonomy-analysis_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="ai-execution-autonomy-analysis_files/libs/quarto-html/anchor.min.js"></script>
 <link href="ai-execution-autonomy-analysis_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="ai-execution-autonomy-analysis_files/libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="ai-execution-autonomy-analysis_files/libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="ai-execution-autonomy-analysis_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="ai-execution-autonomy-analysis_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="ai-execution-autonomy-analysis_files/libs/bootstrap/bootstrap-a74871fe4945b66d259aafc266475145.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="ai-execution-autonomy-analysis_files/libs/bootstrap/bootstrap-8ffd5f67044e5306d9846f29df41dda5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
 
 <link rel="stylesheet" href="styles.css">
@@ -53,9 +55,6 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#theory" id="toc-theory" class="nav-link" data-scroll-target="#theory"><span class="header-section-number">2</span> Theory</a>
   <ul class="collapse">
   <li><a href="#ai-execution-autonomy" id="toc-ai-execution-autonomy" class="nav-link" data-scroll-target="#ai-execution-autonomy"><span class="header-section-number">2.1</span> AI Execution Autonomy</a></li>
-  <li><a href="#user-task-performance" id="toc-user-task-performance" class="nav-link" data-scroll-target="#user-task-performance"><span class="header-section-number">2.2</span> User Task Performance</a></li>
-  <li><a href="#intervention-behavior" id="toc-intervention-behavior" class="nav-link" data-scroll-target="#intervention-behavior"><span class="header-section-number">2.3</span> Intervention Behavior</a></li>
-  <li><a href="#research-gap-and-hypotheses" id="toc-research-gap-and-hypotheses" class="nav-link" data-scroll-target="#research-gap-and-hypotheses"><span class="header-section-number">2.4</span> Research Gap and Hypotheses</a></li>
   </ul></li>
   <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods"><span class="header-section-number">3</span> Methods</a>
   <ul class="collapse">
@@ -81,6 +80,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#types-of-intervention" id="toc-types-of-intervention" class="nav-link" data-scroll-target="#types-of-intervention"><span class="header-section-number">4.2.3</span> Types of Intervention</a></li>
   </ul></li>
   </ul></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography"><span class="header-section-number">5</span> Bibliography</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="ai-execution-autonomy-analysis.docx"><i class="bi bi-file-word"></i>MS Word</a></li></ul></div></nav>
 </div>
@@ -126,30 +126,17 @@ ul.task-list li input[type="checkbox"] {
 <h1 data-number="2"><span class="header-section-number">2</span> Theory</h1>
 <section id="ai-execution-autonomy" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="ai-execution-autonomy"><span class="header-section-number">2.1</span> AI Execution Autonomy</h2>
-<p>The concept of automation has long been described as a continuum reflecting different levels of system involvement in decision-making. Early frameworks conceptualize automation as a spectrum ranging from full human control to full system control, emphasizing how the allocation of decision authority affects human performance and behavior (Sheridan &amp; Verplank, 1978; Parasuraman et al., 2000).</p>
-<p>Building on this perspective, AI execution autonomy can be defined as the extent to which a system is capable of independently determining and executing task-related actions within a workflow. In contrast to traditional assistive systems, execution-oriented AI systems increasingly assume responsibility not only for providing information but also for generating and implementing decisions.</p>
-<p>In this study, three levels of execution autonomy are distinguished: manual, assistance, and execution. These levels represent qualitatively different distributions of control between the user and the system.</p>
-<p>In the manual condition, all task-related decisions are made by the user, while the system functions solely as a validation mechanism by enforcing constraints and displaying error messages. In the assistance condition, the system generates a valid default configuration and supports the user through suggestions, while allowing full modification via editable parameters. In the execution condition, the system autonomously determines all task parameters and presents a final configuration, restricting user interaction to acceptance, rejection, or regeneration of outcomes. These conditions enable a systematic comparison of how different levels of autonomy influence user behavior during task execution.</p>
-</section>
-<section id="user-task-performance" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="user-task-performance"><span class="header-section-number">2.2</span> User Task Performance</h2>
-<p>User task performance refers to the extent to which users are able to successfully and efficiently complete a task within a given system environment. In the context of human–AI interaction, performance is not solely determined by user capabilities but emerges from the interaction between user actions and system behavior (Parasuraman et al., 2000).</p>
-<p>To capture performance in an objective and observable manner, this study focuses on behavioral outcome measures derived from system interaction logs. Specifically, user task performance is operationalized using three indicators: task completion time, error occurrence, and task abandonment.</p>
-<p>Task completion time reflects efficiency and is defined as the duration between the initiation and completion of a task. Error occurrence captures whether users perform invalid actions that violate system constraints, such as selecting incompatible exam combinations or exceeding allowed limits. Task abandonment represents task failure and is defined as cases in which users initiate but do not complete the task.</p>
-<p>By relying on log-based behavioral data rather than subjective self-reports, this study provides a more direct assessment of performance as it occurs during real system interaction.</p>
-</section>
-<section id="intervention-behavior" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="intervention-behavior"><span class="header-section-number">2.3</span> Intervention Behavior</h2>
-<p>In addition to task performance, user interaction with AI systems can be characterized by the extent to which users intervene in system-generated processes. Intervention behavior reflects the degree to which users actively modify, override, or reject system outputs during task execution.</p>
-<p>In human–automation interaction research, intervention is closely related to monitoring and control processes, particularly in situations where users retain partial authority over automated systems (Lee &amp; See, 2004). High levels of intervention may indicate reduced reliance on the system, perceived inadequacy of system outputs, or a need for greater user control.</p>
-<p>In this study, intervention behavior is operationalized through observable interaction events captured in system logs. These include edits of system-generated configurations, overrides of suggested parameters, and rejection or regeneration of system outputs (e.g., skipping a suggested configuration). These measures allow for a quantitative assessment of how frequently and in what ways users intervene under different levels of AI execution autonomy.</p>
-</section>
-<section id="research-gap-and-hypotheses" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="research-gap-and-hypotheses"><span class="header-section-number">2.4</span> Research Gap and Hypotheses</h2>
-<p>Despite extensive research on human–AI interaction, existing literature has primarily focused on subjective constructs such as trust, perceived usefulness, and user attitudes toward automated systems (Lee &amp; See, 2004; Hoff &amp; Bashir, 2015). While these approaches provide valuable insights into user perception, they offer limited understanding of how users behave during actual task execution.</p>
-<p>Moreover, prior research has largely concentrated on assistive systems, where users retain primary decision authority, rather than execution-oriented systems in which AI assumes control over task outcomes. As a result, there remains a lack of empirical, behavior-based evidence on how different levels of AI execution autonomy influence observable user performance and intervention patterns in practical workflows.</p>
-<p>To address this gap, the present study examines the behavioral effects of varying levels of AI execution autonomy using log-based interaction data. Based on this framework, the following hypotheses are proposed:</p>
-<p><strong>H1:</strong> Higher levels of AI execution autonomy improve user task performance, as reflected in reduced completion time, lower error occurrence, and lower abandonment rates. <strong>H2:</strong> Higher levels of AI execution autonomy reduce user intervention during task execution.</p>
+<p>Automation has long been conceptualized as a continuum that differs in the extent to which control is allocated to the machine rather than to the human operator. Early work by Sheridan and Verplank (1978) described levels of automation in terms of how much authority is transferred from the human to the system. Parasuraman et al.&nbsp;(2000) extended this view by distinguishing not only levels of automation, but also stages of information processing, showing that automation can support or replace the human at different points in the task cycle. This distinction is important because the consequences of automation depend not only on how much control is delegated, but also on which function is being delegated. <a href="https://www.researchgate.net/publication/23882567_Human_and_Computer_Control_of_Undersea_Teleoperators?utm_source=chatgpt.com">oai_citation:0‡ResearchGate</a></p>
+<p>In more recent human–automation research, higher degrees of autonomy have increasingly been discussed not simply as support tools, but as systems that take over larger portions of decision making and action execution. This shift is especially relevant in contemporary AI systems, which are no longer limited to presenting information or recommendations, but can increasingly generate, select, and implement actions within a workflow. Endsley (2017) argues that greater autonomy changes the demands placed on human oversight, because the human role shifts from direct task execution toward supervision, monitoring, and possible intervention. Similarly, Wickens et al.&nbsp;(2010) show that different levels and stages of automation are associated with systematic trade-offs in performance and human involvement. <a href="https://journals.sagepub.com/doi/10.1177/0018720816681350?utm_source=chatgpt.com">oai_citation:1‡Sage Journals</a></p>
+<p>Against this background, AI execution autonomy in the present study is defined as the extent to which the system independently determines and executes task-related actions within a workflow. This definition emphasizes execution authority rather than mere recommendation. In the manual condition, execution authority remains with the user and the system performs only validation. In the assistance condition, the system generates a suggested solution, but the user retains the ability to modify it. In the execution condition, the system determines the task configuration directly and the user’s role is reduced to acceptance, rejection, or re-selection. These conditions therefore represent qualitatively different allocations of control and provide a concrete operationalization of execution autonomy for empirical comparison. ## User Task Performance User task performance refers to how effectively and efficiently a task is completed within a given human–system arrangement. In automated and semi-automated environments, performance is not solely a property of the user, but of the joint human–automation system. Parasuraman et al.&nbsp;(2000) and Parasuraman and Wickens (2008) emphasize that automation can improve performance by reducing cognitive demands and supporting routine processing, but that such benefits depend strongly on the type and degree of automation implemented. <a href="https://journals.sagepub.com/doi/10.1518/155534308X284417?utm_source=chatgpt.com">oai_citation:2‡Sage Journals</a></p>
+<p>In much of the literature, the effects of automation have been examined through constructs such as trust, reliance, situation awareness, and workload. These are important because they shape how users interact with automation. However, they do not directly capture whether the task was completed quickly, accurately, and successfully. For execution-oriented AI systems, this distinction becomes particularly important: if the system takes over more of the workflow, its value should also be reflected in observable task outcomes, not only in subjective impressions. Lee and See (2004) and Hoff and Bashir (2015) show that trust influences reliance on automation, but these trust-centered perspectives do not by themselves provide a full account of concrete task performance in execution contexts. <a href="https://journals.sagepub.com/doi/pdf/10.1518/hfes.46.1.50_30392?utm_source=chatgpt.com">oai_citation:3‡Sage Journals</a></p>
+<p>For this reason, the present study conceptualizes user task performance in behavioral terms. Three objective indicators are used: completion time, detected errors, and task abandonment. Completion time captures efficiency, that is, how quickly the task is completed. Detected errors capture breakdowns in valid task execution when system constraints are violated. Task abandonment captures unsuccessful task progression, indicating that task initiation did not lead to completion. Together, these measures provide a direct and observable view of task performance under different levels of AI execution autonomy. ## Intervention Behavior Whereas task performance captures the outcome of interaction, intervention behavior captures the extent to which users step in and modify, override, or reject the system’s actions during task execution. In human–automation interaction, intervention is closely tied to the broader issues of monitoring, reliance, trust, and supervisory control. Lee and See (2004) argue that users must calibrate their reliance on automation appropriately, and this calibration often becomes visible in whether they accept automation outputs or choose to intervene. Endsley (2017) similarly emphasizes that higher autonomy does not eliminate the human role, but often transforms it into one of supervision and recovery when the system output is questioned or needs correction. <a href="https://journals.sagepub.com/doi/pdf/10.1518/hfes.46.1.50_30392?utm_source=chatgpt.com">oai_citation:4‡Sage Journals</a></p>
+<p>Intervention is therefore theoretically important because it reflects how users respond to different allocations of control. A low level of intervention may indicate that the system output was accepted with little need for correction, but it may also reflect a lack of opportunity to intervene. A high level of intervention may indicate preserved user control, reduced confidence in the system, or the need to correct inadequate system outputs. As a result, intervention should not be interpreted as inherently positive or negative; rather, it provides evidence about how the human–AI relationship is enacted during task execution. This is particularly relevant for execution-oriented systems, where the human may not make every task decision directly, but may still monitor, edit, or override the system when needed. <a href="https://journals.sagepub.com/doi/abs/10.1518/155534308X284417?utm_source=chatgpt.com">oai_citation:5‡Sage Journals</a></p>
+<p>In the present study, intervention behavior is operationalized through system-logged user actions. Specifically, interventions include edits of task parameters (<code>FIELD_EDIT</code>), overrides of system-generated decisions (<code>OVERRIDE</code>), and rejection or regeneration of outputs (<code>AI_SUGGESTION_REJECTED</code>). This allows intervention to be examined both as a binary occurrence (whether any intervention took place) and as a quantitative count (how often intervention occurred). In addition, the specific forms of intervention can be distinguished descriptively, making it possible to examine not only whether users intervened, but also how they intervened. ## Research Gap and Hypotheses Although human–automation research provides a strong foundation for understanding the distribution of control between people and systems, several limitations remain when this literature is applied to contemporary AI execution contexts. First, much of the established literature has focused on automation broadly defined, often in relation to trust, reliance, workload, and situation awareness rather than on objective, behavior-based outcomes in digital task workflows. Second, a large proportion of prior work has examined assistive or advisory automation, in which the human still retains primary execution authority. As a result, less is known about what happens when AI systems move beyond support and begin to shape or execute task outcomes more directly. <a href="https://journals.sagepub.com/doi/pdf/10.1518/hfes.46.1.50_30392?utm_source=chatgpt.com">oai_citation:6‡Sage Journals</a></p>
+<p>This gap is especially relevant because execution-oriented AI changes the role of the user. When the system not only recommends but also performs workflow-relevant actions, the central design question is no longer simply whether users trust or like the system, but how different levels of execution autonomy affect observable performance and intervention patterns. Existing theories imply that such effects should exist, but they do not yet provide sufficient empirical evidence for behavior-based comparisons in execution-oriented digital workflows. This gap is therefore not only conceptual but also methodological: objective log-based evidence comparing manual, assistance, and execution conditions remains limited. This gap statement is an inference drawn from the literature reviewed above, which heavily emphasizes trust, reliance, situation awareness, and broad automation design rather than direct comparison of behavioral workflow outcomes under different levels of execution autonomy. <a href="https://journals.sagepub.com/doi/10.1177/0018720814547570?utm_source=chatgpt.com">oai_citation:7‡Sage Journals</a></p>
+<p>To address this gap, the present study examines how different levels of AI execution autonomy affect user task performance and intervention behavior in a controlled digital workflow using system-generated log data. Based on the theoretical expectation that higher execution autonomy can reduce manual effort and alter the need for user intervention, the following hypotheses are proposed:</p>
+<p>H1: Higher levels of AI execution autonomy improve user task performance, as reflected in reduced completion time, lower error occurrence, and lower abandonment rates.</p>
+<p>H2: Higher levels of AI execution autonomy reduce user intervention during task execution.</p>
 </section>
 </section>
 <section id="methods" class="level1" data-number="3">
@@ -426,7 +413,7 @@ Table&nbsp;1: Table 4. Descriptive summary of completion time (in seconds) acros
 </figcaption>
 <div aria-describedby="tbl-completion-time-summary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<table class="cell caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th style="text-align: left;">Condition</th>
@@ -578,7 +565,7 @@ Table&nbsp;2: Descriptive summary of cleaned completion time (in seconds) across
 </figcaption>
 <div aria-describedby="tbl-completion-time-summary-clean-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<table class="cell caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th style="text-align: left;">Condition</th>
@@ -960,6 +947,18 @@ Figure&nbsp;13: Proportion of started sessions containing each intervention type
 <p>Taken together, the results provide partial support for H2. While intervention occurrence did not differ significantly across autonomy conditions, intervention count showed that users in the Manual condition intervened significantly more often than users in the Assistance and Execution conditions. The descriptive analysis of intervention types further showed that intervention was not uniform across conditions: edits were common in all three conditions, whereas overrides and rejection-related actions were concentrated in the system-supported conditions. Overall, these findings suggest that higher AI execution autonomy did not eliminate intervention altogether, but it reduced how frequently users needed to intervene and changed the form that intervention took.</p>
 </section>
 </section>
+</section>
+<section id="bibliography" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Bibliography</h1>
+<p>Endsley, M. R. (2017). From here to autonomy: Lessons learned from human–automation research. Human Factors, 59(1), 5–27. https://doi.org/10.1177/0018720816681350</p>
+<p>Hoff, K. A., &amp; Bashir, M. (2015). Trust in automation: Integrating empirical evidence on factors that influence trust. Human Factors, 57(3), 407–434. https://doi.org/10.1177/0018720814547570</p>
+<p>Lee, J. D., &amp; See, K. A. (2004). Trust in automation: Designing for appropriate reliance. Human Factors, 46(1), 50–80. https://doi.org/10.1518/hfes.46.1.50_30392</p>
+<p>Miller, C. A., &amp; Parasuraman, R. (2003). Beyond levels of automation: An architecture for more flexible human–automation collaboration. Proceedings of the Human Factors and Ergonomics Society Annual Meeting, 47(1), 182–186. https://doi.org/10.1177/154193120304700138</p>
+<p>Parasuraman, R., Sheridan, T. B., &amp; Wickens, C. D. (2000). A model for types and levels of human interaction with automation. IEEE Transactions on Systems, Man, and Cybernetics—Part A: Systems and Humans, 30(3), 286–297. https://doi.org/10.1109/3468.844354</p>
+<p>Parasuraman, R., &amp; Wickens, C. D. (2008). Humans: Still vital after all these years of automation. Human Factors, 50(3), 511–520. https://doi.org/10.1518/001872008X312198</p>
+<p>Parasuraman, R., Sheridan, T. B., &amp; Wickens, C. D. (2008). Situation awareness, mental workload, and trust in automation: Viable, empirically supported cognitive engineering constructs. Journal of Cognitive Engineering and Decision Making, 2(2), 140–160. https://doi.org/10.1518/155534308X284417</p>
+<p>Sheridan, T. B., &amp; Verplank, W. L. (1978). Human and computer control of undersea teleoperators. MIT Man-Machine Systems Laboratory.</p>
+<p>Wickens, C. D., Li, H., Santamaria, A., Sebok, A., &amp; Sarter, N. B. (2010). Stages and levels of automation: An integrated meta-analysis. Proceedings of the Human Factors and Ergonomics Society Annual Meeting, 54(4), 389–393. https://doi.org/10.1177/154193121005400425</p>
 </section>
 
 </main>
