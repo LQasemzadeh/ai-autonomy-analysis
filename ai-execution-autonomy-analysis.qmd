@@ -648,7 +648,7 @@ To evaluate H1, task performance was examined across the three autonomy conditio
 
 ### Completion Time
 
-Task completion time was operationalized as the elapsed time between the beginning and the successful completion of task execution within a session. For this measure, `TASK_STARTED` was treated as the starting point of task execution, and `TASK_COMPLETED` was treated as the endpoint indicating successful task completion. Because the analysis focused on elapsed interaction time within the system, completion time was calculated using the client-side timestamp variable (`client_ts_ms`). This timestamp was used because it directly reflects the temporal order and duration of user interactions during task execution. Accordingly, completion time was defined only for sessions in which both a valid task start and a valid task completion event were recorded.
+Task completion time was operationalized as the elapsed time between the beginning and the successful completion of task execution within a session. For this measure, TASK_STARTED was treated as the starting point of task execution, and TASK_COMPLETED was treated as the endpoint indicating successful task completion. Because the analysis focused on elapsed interaction time within the system, completion time was calculated using the client-side timestamp variable (client_ts_ms). This timestamp was used because it directly reflects the temporal order and duration of user interactions during task execution. Accordingly, completion time was defined only for sessions in which both a valid task start and a valid task completion event were recorded.
 
 ```{r}
 #| label: completion-time-setup
@@ -707,29 +707,7 @@ knitr::kable(
 )
 ```
 
-```{r}
-#| label: fig-completion-time-by-mode
-#| echo: false
-#| fig-cap: "Distribution of task completion time across autonomy conditions."
-#| fig-width: 6
-#| fig-height: 4.2
-
-ggplot(completion_time_data, aes(x = mode, y = completion_time, fill = mode)) +
-  geom_boxplot(width = 0.6, outlier.alpha = 0.4, show.legend = FALSE) +
-  geom_jitter(width = 0.12, alpha = 0.25, size = 1.5, show.legend = FALSE) +
-  labs(
-    x = "Autonomy condition",
-    y = "Completion time (seconds)"
-  ) +
-  scale_fill_manual(values = c(
-    "manual" = "#8DA0CB",
-    "Assistance" = "#66C2A5",
-    "Execution" = "#FC8D62"
-  )) +
-  theme_minimal(base_size = 11)
-```
-
-Because the initial descriptive summary and visualization suggested substantial skewness in completion time—particularly due to very large values in the Execution condition—an additional inspection of extreme cases was conducted before proceeding to inferential analysis. Specifically, the longest completion times were reviewed, and the number of sessions exceeding predefined thresholds was examined. This step was intended to assess whether unusually large completion times reflected meaningful observations or extreme cases that might distort the descriptive distribution and subsequent statistical comparison.
+Initial descriptive inspection of completion time suggested substantial skewness, particularly due to very large values in the Execution condition. Therefore, extreme cases were examined before proceeding to inferential analysis. Specifically, the longest completion times were reviewed, and the number of sessions exceeding predefined thresholds was inspected in order to determine whether unusually large values reflected meaningful observations or extreme cases that might distort subsequent comparison.
 
 ```{r}
 #| label: completion-time-outliers-check
@@ -755,7 +733,7 @@ completion_time_data |>
   ) |>
   knitr::kable(caption = "Check of extreme completion times")
 ```
-The inspection showed that only one completed session exceeded 300 seconds, with a completion time of approximately 2965 seconds. As this value was substantially larger than all other observations and strongly distorted the descriptive distribution, it was treated as an extreme outlier and excluded from the completion-time analysis. All remaining completed sessions were retained for the subsequent descriptive and inferential analyses.
+The inspection showed that only one completed session exceeded 300 seconds, with a completion time of approximately 2965 seconds. Because this value was substantially larger than all other observations and strongly distorted the overall distribution, it was treated as an extreme outlier and excluded from the completion-time analysis. All remaining completed sessions were retained for the subsequent descriptive and inferential analyses.
 
 ```{r}
 #| label: completion-time-clean
@@ -784,14 +762,14 @@ completion_time_summary_clean <- completion_time_data_clean |>
 
 knitr::kable(
   completion_time_summary_clean,
-  caption = "Descriptive summary of cleaned completion time (in seconds) across autonomy conditions."
+  caption = "Table 5. Descriptive summary of completion time (in seconds) across autonomy conditions after exclusion of one extreme outlier."
 )
 ```
 
 ```{r}
 #| label: fig-completion-time-by-mode-clean
 #| echo: false
-#| fig-cap: "Distribution of cleaned task completion time across autonomy conditions."
+#| fig-cap: "Distribution of task completion time across autonomy conditions after exclusion of one extreme outlier."
 #| fig-width: 6
 #| fig-height: 4.2
 
@@ -810,9 +788,8 @@ ggplot(completion_time_data_clean, aes(x = mode, y = completion_time, fill = mod
   theme_minimal(base_size = 11)
 ```
 
-Descriptive results suggested a gradual decrease in completion time across autonomy conditions. Median completion time was highest in the Manual condition (27.42 s), followed by the Assistance condition (18.44 s), and lowest in the Execution condition (10.79 s). Mean completion times showed the same ordering, although they were consistently higher than the medians, indicating a slightly right-skewed distribution.
-
-Because completion time was compared across three autonomy conditions and showed a slightly right-skewed distribution, a non-parametric Kruskal–Wallis test was used to examine whether completion time differed significantly between conditions.
+Figure 7 shows the distribution of task completion time across autonomy conditions after exclusion of one extreme outlier. Descriptively, completion time decreased gradually across the three conditions. Median completion time was highest in the Manual condition (27.42 s), followed by the Assistance condition (18.44 s), and lowest in the Execution condition (10.79 s). Mean completion times showed the same ordering, although they were consistently higher than the medians, indicating a slightly right-skewed distribution.
+Because completion time was compared across three autonomy conditions and the distribution remained slightly right-skewed, a non-parametric Kruskal–Wallis test was used to examine whether completion time differed significantly between conditions.
 
 ```{r}
 #| label: completion-time-kruskal

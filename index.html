@@ -404,7 +404,7 @@ Figure&nbsp;6: Distribution of intervention counts across autonomy conditions.
 <p>To evaluate H1, task performance was examined across the three autonomy conditions using three outcome dimensions: completion time, detected errors, and task completion versus abandonment. Together, these measures provide an overview of how efficiently and successfully participants performed the task under different levels of AI execution autonomy.</p>
 <section id="completion-time" class="level3" data-number="4.1.1">
 <h3 data-number="4.1.1" class="anchored" data-anchor-id="completion-time"><span class="header-section-number">4.1.1</span> Completion Time</h3>
-<p>Task completion time was operationalized as the elapsed time between the beginning and the successful completion of task execution within a session. For this measure, <code>TASK_STARTED</code> was treated as the starting point of task execution, and <code>TASK_COMPLETED</code> was treated as the endpoint indicating successful task completion. Because the analysis focused on elapsed interaction time within the system, completion time was calculated using the client-side timestamp variable (<code>client_ts_ms</code>). This timestamp was used because it directly reflects the temporal order and duration of user interactions during task execution. Accordingly, completion time was defined only for sessions in which both a valid task start and a valid task completion event were recorded.</p>
+<p>Task completion time was operationalized as the elapsed time between the beginning and the successful completion of task execution within a session. For this measure, TASK_STARTED was treated as the starting point of task execution, and TASK_COMPLETED was treated as the endpoint indicating successful task completion. Because the analysis focused on elapsed interaction time within the system, completion time was calculated using the client-side timestamp variable (client_ts_ms). This timestamp was used because it directly reflects the temporal order and duration of user interactions during task execution. Accordingly, completion time was defined only for sessions in which both a valid task start and a valid task completion event were recorded.</p>
 <div class="cell">
 <div id="tbl-completion-time-summary" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -452,21 +452,7 @@ Table&nbsp;1: Table 4. Descriptive summary of completion time (in seconds) acros
 </figure>
 </div>
 </div>
-<div class="cell">
-<div class="cell-output-display">
-<div id="fig-completion-time-by-mode" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-completion-time-by-mode-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="ai-execution-autonomy-analysis_files/figure-html/fig-completion-time-by-mode-1.png" class="img-fluid figure-img" width="576">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-completion-time-by-mode-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7: Distribution of task completion time across autonomy conditions.
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p>Because the initial descriptive summary and visualization suggested substantial skewness in completion time—particularly due to very large values in the Execution condition—an additional inspection of extreme cases was conducted before proceeding to inferential analysis. Specifically, the longest completion times were reviewed, and the number of sessions exceeding predefined thresholds was examined. This step was intended to assess whether unusually large completion times reflected meaningful observations or extreme cases that might distort the descriptive distribution and subsequent statistical comparison.</p>
+<p>Initial descriptive inspection of completion time suggested substantial skewness, particularly due to very large values in the Execution condition. Therefore, extreme cases were examined before proceeding to inferential analysis. Specifically, the longest completion times were reviewed, and the number of sessions exceeding predefined thresholds was inspected in order to determine whether unusually large values reflected meaningful observations or extreme cases that might distort subsequent comparison.</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
@@ -556,12 +542,12 @@ Figure&nbsp;7: Distribution of task completion time across autonomy conditions.
 </table>
 </div>
 </div>
-<p>The inspection showed that only one completed session exceeded 300 seconds, with a completion time of approximately 2965 seconds. As this value was substantially larger than all other observations and strongly distorted the descriptive distribution, it was treated as an extreme outlier and excluded from the completion-time analysis. All remaining completed sessions were retained for the subsequent descriptive and inferential analyses.</p>
+<p>The inspection showed that only one completed session exceeded 300 seconds, with a completion time of approximately 2965 seconds. Because this value was substantially larger than all other observations and strongly distorted the overall distribution, it was treated as an extreme outlier and excluded from the completion-time analysis. All remaining completed sessions were retained for the subsequent descriptive and inferential analyses.</p>
 <div class="cell">
 <div id="tbl-completion-time-summary-clean" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-completion-time-summary-clean-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;2: Descriptive summary of cleaned completion time (in seconds) across autonomy conditions.
+Table&nbsp;2: Table 5. Descriptive summary of completion time (in seconds) across autonomy conditions after exclusion of one extreme outlier.
 </figcaption>
 <div aria-describedby="tbl-completion-time-summary-clean-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
@@ -612,14 +598,13 @@ Table&nbsp;2: Descriptive summary of cleaned completion time (in seconds) across
 <img src="ai-execution-autonomy-analysis_files/figure-html/fig-completion-time-by-mode-clean-1.png" class="img-fluid figure-img" width="576">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-completion-time-by-mode-clean-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;8: Distribution of cleaned task completion time across autonomy conditions.
+Figure&nbsp;7: Distribution of task completion time across autonomy conditions after exclusion of one extreme outlier.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Descriptive results suggested a gradual decrease in completion time across autonomy conditions. Median completion time was highest in the Manual condition (27.42 s), followed by the Assistance condition (18.44 s), and lowest in the Execution condition (10.79 s). Mean completion times showed the same ordering, although they were consistently higher than the medians, indicating a slightly right-skewed distribution.</p>
-<p>Because completion time was compared across three autonomy conditions and showed a slightly right-skewed distribution, a non-parametric Kruskal–Wallis test was used to examine whether completion time differed significantly between conditions.</p>
+<p>Figure 7 shows the distribution of task completion time across autonomy conditions after exclusion of one extreme outlier. Descriptively, completion time decreased gradually across the three conditions. Median completion time was highest in the Manual condition (27.42 s), followed by the Assistance condition (18.44 s), and lowest in the Execution condition (10.79 s). Mean completion times showed the same ordering, although they were consistently higher than the medians, indicating a slightly right-skewed distribution. Because completion time was compared across three autonomy conditions and the distribution remained slightly right-skewed, a non-parametric Kruskal–Wallis test was used to examine whether completion time differed significantly between conditions.</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
@@ -683,7 +668,7 @@ Figure&nbsp;8: Distribution of cleaned task completion time across autonomy cond
 <img src="ai-execution-autonomy-analysis_files/figure-html/fig-error-by-mode-1.png" class="img-fluid figure-img" width="576">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-error-by-mode-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;9: Proportion of started sessions with and without detected errors across autonomy conditions.
+Figure&nbsp;8: Proportion of started sessions with and without detected errors across autonomy conditions.
 </figcaption>
 </figure>
 </div>
@@ -753,7 +738,7 @@ Figure&nbsp;9: Proportion of started sessions with and without detected errors a
 <img src="ai-execution-autonomy-analysis_files/figure-html/fig-abandonment-by-mode-1.png" class="img-fluid figure-img" width="576">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-abandonment-by-mode-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;10: Proportion of completed and abandoned started sessions across autonomy conditions.
+Figure&nbsp;9: Proportion of completed and abandoned started sessions across autonomy conditions.
 </figcaption>
 </figure>
 </div>
@@ -826,7 +811,7 @@ Figure&nbsp;10: Proportion of completed and abandoned started sessions across au
 <img src="ai-execution-autonomy-analysis_files/figure-html/fig-intervention-occurrence-h2-1.png" class="img-fluid figure-img" width="595">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-intervention-occurrence-h2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;11: Proportion of started sessions with and without intervention across autonomy conditions.
+Figure&nbsp;10: Proportion of started sessions with and without intervention across autonomy conditions.
 </figcaption>
 </figure>
 </div>
@@ -867,7 +852,7 @@ Figure&nbsp;11: Proportion of started sessions with and without intervention acr
 <img src="ai-execution-autonomy-analysis_files/figure-html/fig-intervention-count-h2-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-intervention-count-h2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;12: Distribution of intervention counts across autonomy conditions.
+Figure&nbsp;11: Distribution of intervention counts across autonomy conditions.
 </figcaption>
 </figure>
 </div>
@@ -937,7 +922,7 @@ Figure&nbsp;12: Distribution of intervention counts across autonomy conditions.
 <img src="ai-execution-autonomy-analysis_files/figure-html/fig-intervention-types-h2-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-intervention-types-h2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;13: Proportion of started sessions containing each intervention type across autonomy conditions.
+Figure&nbsp;12: Proportion of started sessions containing each intervention type across autonomy conditions.
 </figcaption>
 </figure>
 </div>
