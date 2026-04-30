@@ -84,13 +84,18 @@ total_sessions <- sum(session_table$N_sessions)
 
 # Introduction
 
-Artificial intelligence (AI) systems are increasingly embedded in digital workflows and are evolving from tools that provide decision support toward systems capable of autonomously executing actions. In many contemporary applications, AI no longer functions merely as a source of information or recommendations but actively participates in shaping and executing decisions. This shift from assistance to autonomous execution fundamentally changes the distribution of control, responsibility, and risk between human users and technical systems (Parasuraman et al., 2000; Endsley, 2017).
-The distribution of decision authority between humans and automated systems has long been a central concern in human–automation interaction research. Early work conceptualized automation as a continuum of autonomy, ranging from full human control to full system control, and showed that different levels of automation can significantly influence human performance, error behavior, and reliance on automated systems (Sheridan & Verplank, 1978; Parasuraman et al., 2000). However, much of this research has primarily focused on assistive systems in which humans retain primary decision authority.
-More recent research in human–computer interaction has increasingly emphasized subjective constructs such as trust, perceived usefulness, and user satisfaction. While these perspectives provide valuable insights, they offer limited understanding of how users behave in concrete task execution scenarios, particularly in systems where AI assumes execution authority. As a result, there remains a lack of empirical, behavior-based evidence on how execution autonomy affects observable task outcomes and user intervention behavior in real interaction contexts (Lee & See, 2004; Hoff & Bashir, 2015).
+Artificial intelligence (AI) systems are increasingly embedded in digital workflows and are evolving from tools that provide decision support toward systems capable of autonomously executing actions. In many contemporary applications, AI no longer functions merely as a source of information or recommendations but actively participates in shaping and executing decisions. This shift from assistance to autonomous execution fundamentally changes the distribution of control, responsibility, and risk between human users and technical systems (Endsley, 2017; Parasuraman et al., 2000).
+
+The distribution of decision authority between humans and automated systems has long been a central concern in human–automation interaction research. Early work conceptualized automation as a continuum of autonomy, ranging from full human control to full system control, and showed that different levels of automation can significantly influence human performance, error behavior, and reliance on automated systems (Parasuraman et al., 2000; Sheridan & Verplank, 1978). However, much of this research has primarily focused on assistive systems in which humans retain primary decision authority.
+
+More recent research in human–computer interaction has increasingly emphasized subjective constructs such as trust, perceived usefulness, and user satisfaction. While these perspectives provide valuable insights, they offer limited understanding of how users behave in concrete task execution scenarios, particularly in systems where AI assumes execution authority. As a result, there remains a lack of empirical, behavior-based evidence on how execution autonomy affects observable task outcomes and user intervention behavior in real interaction contexts (Hoff & Bashir, 2015; Lee & See, 2004).
+
 This study addresses this gap by investigating how different levels of AI execution autonomy affect user task performance and intervention behavior in AI-assisted digital workflows. Specifically, three autonomy levels are examined—manual, assistance, and execution—which represent distinct distributions of decision authority between the user and the system. The analysis focuses on measurable behavioral outcomes, including task completion time, detected errors, abandonment, and intervention frequency, enabling a systematic comparison across conditions.
-This leads to the following research question:
-“How does the level of AI execution autonomy affect user task performance and intervention behavior in AI-assisted digital workflows?”
+
+This leads to the following research question: How does the level of AI execution autonomy affect user task performance and intervention behavior in AI-assisted digital workflows?
+
 The study adopts a controlled experimental design in which user interactions are captured through system-generated logs. Instead of relying on self-reported measures, behavioral data is used to assess how users perform tasks and how often they intervene under different autonomy conditions. By operationalizing AI execution autonomy as a system-level property rather than as a feature of a specific model, the study isolates the effect of execution authority within a controlled task environment. This reflects how AI systems are typically implemented in real-world applications, where autonomy emerges from system design rather than from the underlying model alone.
+
 The contribution of this study lies in providing a behaviorally grounded, log-based analysis of AI execution autonomy. By capturing real user interactions in a controlled setting, the study enables a systematic comparison of task performance and intervention behavior across autonomy levels. The findings contribute to a more empirical understanding of how autonomy shapes human–AI interaction and provide practical insights for designing AI-assisted systems that balance efficiency and user control.
 
 # Theory
@@ -1435,38 +1440,47 @@ The comparison between Assistance and Execution also suggests that full executio
 Taken together, these findings support a design perspective in which autonomy should be calibrated rather than maximized. The central design goal should not be to eliminate user involvement, but to reduce unnecessary manual burden while preserving meaningful control where it is still needed.
 
 ## Conclusion
-This study examined how different levels of AI execution autonomy affect user task performance and intervention behavior in a controlled digital workflow. The findings showed that higher execution autonomy was associated with improved task performance, particularly in terms of shorter completion times and lower error occurrence relative to the Manual condition. At the same time, user intervention was not removed entirely. Although intervention occurrence remained similarly high across conditions, intervention count was significantly lower in the system-supported conditions, and the form of intervention changed depending on the level of autonomy.
 
-Overall, the results suggest that AI execution autonomy can improve efficiency and reduce manual burden in structured workflows, but it does not eliminate the need for human oversight. Rather than replacing user control completely, higher autonomy appears to shift the user role toward supervision, correction, and selective intervention. These findings contribute to a more behaviorally grounded understanding of human–AI interaction and highlight the importance of calibrating autonomy to the structure and demands of the task.
+This study investigated how different levels of AI execution autonomy influence user task performance and intervention behavior in a controlled digital workflow. Across the three autonomy conditions, the results showed that increasing execution autonomy was generally associated with improved task performance. In particular, higher autonomy reduced task completion time, lowered detected error occurrence, and was associated with lower abandonment compared with the Manual condition. At the same time, increased autonomy did not remove the user from the interaction process. Instead, it changed the nature of user involvement: intervention remained present across conditions, but its frequency decreased and its form shifted from direct manual configuration toward supervision, selective correction, and system-oriented adjustment.
 
-# Bibliography
+These findings contribute to the literature on human–automation interaction in two important ways. First, they extend the discussion from assistive automation toward execution-oriented AI systems, in which the system not only supports decision making but also takes over larger parts of task execution. Second, they provide behavior-based evidence derived from system-generated log data, thereby complementing prior research that has often focused more strongly on subjective constructs such as trust, reliance, and perceived usefulness. In this sense, the study shows that AI execution autonomy should not be understood simply as a substitution of machine action for human action, but rather as a redistribution of execution authority that reshapes both task outcomes and user intervention patterns.
 
-Bainbridge, L. (1983). Ironies of automation. Automatica, 19(6), 775–779. https://doi.org/10.1016/0005-1098(83)90046-8
+The results further suggest that the benefits of autonomy are especially evident in structured, rule-based workflows in which valid outputs can be generated and evaluated under clear constraints. However, the findings also indicate that higher autonomy does not make human control irrelevant. Even under more execution-oriented conditions, meaningful opportunities for user oversight, review, and correction remain essential. The central design implication is therefore not that more autonomy is always better, but that autonomy should be calibrated carefully to the demands, risks, and reversibility of the task environment.
 
-Dietvorst, B. J., Simmons, J. P., & Massey, C. (2015). Algorithm aversion: People erroneously avoid algorithms after seeing them err. Journal of Experimental Psychology: General, 144(1), 114–126. https://doi.org/10.1037/xge0000033
+Overall, this study provides empirical evidence that AI execution autonomy can improve efficiency and reduce manual burden while preserving a continuing role for human supervision. By linking levels of execution autonomy to observable behavioral outcomes, it offers a more differentiated understanding of how control is redistributed in human–AI interaction and provides a foundation for future research on the design of effective and responsible execution-oriented AI systems.
 
-Dietvorst, B. J., Simmons, J. P., & Massey, C. (2018). Overcoming algorithm aversion: People will use imperfect algorithms if they can (even slightly) modify them. Management Science, 64(3), 1155–1170. https://doi.org/10.1287/mnsc.2016.2643
 
-Dzindolet, M. T., Peterson, S. A., Pomranky, R. A., Pierce, L. G., & Beck, H. P. (2003). The role of trust in automation reliance. International Journal of Human-Computer Studies, 58(6), 697–718. https://doi.org/10.1016/S1071-5819(03)00038-7
 
-Endsley, M. R. (2017). From here to autonomy: Lessons learned from human–automation research. Human Factors, 59(1), 5–27. https://doi.org/10.1177/0018720816681350
+# References
 
-Hoff, K. A., & Bashir, M. (2015). Trust in automation: Integrating empirical evidence on factors that influence trust. Human Factors, 57(3), 407–434. https://doi.org/10.1177/0018720814547570
+Bainbridge, L. (1983). Ironies of automation. *Automatica, 19*(6), 775–779. https://doi.org/10.1016/0005-1098(83)90046-8
 
-Lee, J. D., & See, K. A. (2004). Trust in automation: Designing for appropriate reliance. Human Factors, 46(1), 50–80. https://doi.org/10.1518/hfes.46.1.50_30392
+Dietvorst, B. J., Simmons, J. P., & Massey, C. (2015). Algorithm aversion: People erroneously avoid algorithms after seeing them err. *Journal of Experimental Psychology: General, 144*(1), 114–126. https://doi.org/10.1037/xge0000033
 
-Miller, C. A., & Parasuraman, R. (2003). Beyond levels of automation: An architecture for more flexible human–automation collaboration. Proceedings of the Human Factors and Ergonomics Society Annual Meeting, 47(1), 182–186. https://doi.org/10.1177/154193120304700138
+Dietvorst, B. J., Simmons, J. P., & Massey, C. (2018). Overcoming algorithm aversion: People will use imperfect algorithms if they can (even slightly) modify them. *Management Science, 64*(3), 1155–1170. https://doi.org/10.1287/mnsc.2016.2643
 
-Miller, C. A., & Parasuraman, R. (2007). Designing for flexible interaction between humans and automation: Delegation interfaces for supervisory control. Human Factors, 49(1), 57–75. https://doi.org/10.1518/001872007779598037
+Dzindolet, M. T., Peterson, S. A., Pomranky, R. A., Pierce, L. G., & Beck, H. P. (2003). The role of trust in automation reliance. *International Journal of Human-Computer Studies, 58*(6), 697–718. https://doi.org/10.1016/S1071-5819(03)00038-7
 
-Mosier, K. L., & Skitka, L. J. (1999). Automation use and automation bias. Proceedings of the Human Factors and Ergonomics Society Annual Meeting, 43(3), 344–348. https://doi.org/10.1177/154193129904300346
+Endsley, M. R. (2017). From here to autonomy: Lessons learned from human–automation research. *Human Factors, 59*(1), 5–27. https://doi.org/10.1177/0018720816681350
 
-Parasuraman, R., & Riley, V. (1997). Humans and automation: Use, misuse, disuse, abuse. Human Factors, 39(2), 230–253. https://doi.org/10.1518/001872097778543886
+Hoff, K. A., & Bashir, M. (2015). Trust in automation: Integrating empirical evidence on factors that influence trust. *Human Factors, 57*(3), 407–434. https://doi.org/10.1177/0018720814547570
 
-Parasuraman, R., Sheridan, T. B., & Wickens, C. D. (2000). A model for types and levels of human interaction with automation. IEEE Transactions on Systems, Man, and Cybernetics—Part A: Systems and Humans, 30(3), 286–297. https://doi.org/10.1109/3468.844354
+Lee, J. D., & See, K. A. (2004). Trust in automation: Designing for appropriate reliance. *Human Factors, 46*(1), 50–80. https://doi.org/10.1518/hfes.46.1.50_30392
 
-Parasuraman, R., & Wickens, C. D. (2008). Humans: Still vital after all these years of automation. Human Factors, 50(3), 511–520. https://doi.org/10.1518/001872008X312198
+Miller, C. A., & Parasuraman, R. (2003). Beyond levels of automation: An architecture for more flexible human–automation collaboration. *Proceedings of the Human Factors and Ergonomics Society Annual Meeting, 47*(1), 182–186. https://doi.org/10.1177/154193120304700138
 
-Sarter, N. B., & Woods, D. D. (1995). How in the world did we ever get into that mode? Mode error and awareness in supervisory control. Human Factors, 37(1), 5–19. https://doi.org/10.1518/001872095779049516
+Miller, C. A., & Parasuraman, R. (2007). Designing for flexible interaction between humans and automation: Delegation interfaces for supervisory control. *Human Factors, 49*(1), 57–75. https://doi.org/10.1518/001872007779598037
 
-Wickens, C. D., Li, H., Santamaria, A., Sebok, A., & Sarter, N. B. (2010). Stages and levels of automation: An integrated meta-analysis. Proceedings of the Human Factors and Ergonomics Society Annual Meeting, 54(4), 389–393. https://doi.org/10.1177/154193121005400425
+Mosier, K. L., & Skitka, L. J. (1999). Automation use and automation bias. *Proceedings of the Human Factors and Ergonomics Society Annual Meeting, 43*(3), 344–348. https://doi.org/10.1177/154193129904300346
+
+Parasuraman, R., & Riley, V. (1997). Humans and automation: Use, misuse, disuse, abuse. *Human Factors, 39*(2), 230–253. https://doi.org/10.1518/001872097778543886
+
+Parasuraman, R., Sheridan, T. B., & Wickens, C. D. (2000). A model for types and levels of human interaction with automation. *IEEE Transactions on Systems, Man, and Cybernetics-Part A: Systems and Humans, 30*(3), 286–297. https://doi.org/10.1109/3468.844354
+
+Parasuraman, R., & Wickens, C. D. (2008). Humans: Still vital after all these years of automation. *Human Factors, 50*(3), 511–520. https://doi.org/10.1518/001872008X312198
+
+Sarter, N. B., & Woods, D. D. (1995). How in the world did we ever get into that mode? Mode error and awareness in supervisory control. *Human Factors, 37*(1), 5–19. https://doi.org/10.1518/001872095779049516
+
+Sheridan, T. B., & Verplank, W. L. (1978). *Human and computer control of undersea teleoperators* (Technical Report). MIT Man-Machine Systems Laboratory.
+
+Wickens, C. D., Li, H., Santamaria, A., Sebok, A., & Sarter, N. B. (2010). Stages and levels of automation: An integrated meta-analysis. *Proceedings of the Human Factors and Ergonomics Society Annual Meeting, 54*(4), 389–393. https://doi.org/10.1177/154193121005400425
