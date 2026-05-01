@@ -210,7 +210,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
-<caption>Table 1. Number of participants (including repeated entries) per condition</caption>
+<caption>Table 1. Number of participants per condition</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Condition</th>
@@ -220,7 +220,7 @@ ul.task-list li input[type="checkbox"] {
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Total</td>
-<td style="text-align: right;">228</td>
+<td style="text-align: right;">231</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Assistance</td>
@@ -244,14 +244,34 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <p>An important issue in the dataset is the presence of the “Information” mode, which theoretically should not exist as an active interaction condition. Therefore, it is necessary to investigate why this mode appears in the logs and what type of events have been recorded under it. To assess this, a validity check was conducted by filtering all entries associated with the “Information” mode and inspecting their session IDs and logged actions.</p>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 4 × 2
-  session_id action   
-  &lt;chr&gt;      &lt;chr&gt;    
-1 S-7QR92FMR PAGE_VIEW
-2 S-KY2JLRYQ PAGE_VIEW
-3 S-NT977W23 PAGE_VIEW
-4 S-OQKZ8TJ1 PAGE_VIEW</code></pre>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Table 2. Log entries recorded under the Information condition.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Session ID</th>
+<th style="text-align: left;">Action</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">S-7QR92FMR</td>
+<td style="text-align: left;">PAGE_VIEW</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">S-KY2JLRYQ</td>
+<td style="text-align: left;">PAGE_VIEW</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">S-NT977W23</td>
+<td style="text-align: left;">PAGE_VIEW</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">S-OQKZ8TJ1</td>
+<td style="text-align: left;">PAGE_VIEW</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <p>The inspection showed that the “Information” mode contained only four log entries, all of which were recorded as <code>PAGE_VIEW</code> events. This indicates that these entries reflect passive page access rather than meaningful task-related interaction. Therefore, the “Information” mode was treated as invalid and excluded from further analysis to ensure data quality, cleanliness and consistency.</p>

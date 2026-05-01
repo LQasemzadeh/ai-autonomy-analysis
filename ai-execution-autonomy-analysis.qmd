@@ -201,7 +201,7 @@ participant_table_pretty <- participant_table |>
 
 total_row <- tibble(
   Condition = "Total",
-  Participants = n_distinct(data$session_id)
+  Participants = sum(participant_table$N_participants)
 )
 
 participant_table_pretty <- rbind(
@@ -211,17 +211,26 @@ participant_table_pretty <- rbind(
 
 knitr::kable(
   participant_table_pretty,
-  caption = "Table 1. Number of participants (including repeated entries) per condition"
+  caption = "Table 1. Number of participants per condition"
 )
 ```
 An important issue in the dataset is the presence of the "Information" mode, which theoretically should not exist as an active interaction condition. Therefore, it is necessary to investigate why this mode appears in the logs and what type of events have been recorded under it.
 To assess this, a validity check was conducted by filtering all entries associated with the "Information" mode and inspecting their session IDs and logged actions.
 
 ```{r}
-data %>%
-  filter(mode == "Information") %>%
-  select(session_id, action) %>%
-  arrange(session_id)
+#| echo: false
+data |>
+  dplyr::filter(mode == "Information") |>
+  dplyr::select(session_id, action) |>
+  dplyr::arrange(session_id) |>
+  dplyr::rename(
+    `Session ID` = session_id,
+    `Action` = action
+  ) |>
+  knitr::kable(
+    caption = "Table 2. Log entries recorded under the Information condition.",
+    align = c("l", "l")
+  )
 ```
 
 The inspection showed that the "Information" mode contained only four log entries, all of which were recorded as `PAGE_VIEW` events. This indicates that these entries reflect passive page access rather than meaningful task-related interaction. Therefore, the "Information" mode was treated as invalid and excluded from further analysis to ensure data quality, cleanliness and consistency.
@@ -251,7 +260,7 @@ participant_table_pretty <- participant_table_clean |>
 
 total_row <- tibble(
   Condition = "Total",
-  Participants = n_distinct(data_clean$session_id)
+  Participants = sum(participant_table_clean$N_participants)
 )
 
 participant_table_pretty <- dplyr::bind_rows(
