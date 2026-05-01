@@ -288,7 +288,7 @@ ul.task-list li input[type="checkbox"] {
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Total</td>
-<td style="text-align: right;">224</td>
+<td style="text-align: right;">227</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Assistance</td>
@@ -651,7 +651,7 @@ Figure&nbsp;7: Distribution of task completion time across autonomy conditions a
 </div>
 </div>
 </div>
-<p>Figure 7 shows the distribution of task completion time across autonomy conditions after exclusion of one extreme outlier. Descriptively, completion time decreased gradually across the three conditions. Median completion time was highest in the Manual condition (27.42 s), followed by the Assistance condition (18.44 s), and lowest in the Execution condition (10.79 s). Mean completion times showed the same ordering, although they were consistently higher than the medians, indicating a slightly right-skewed distribution. Because completion time was compared across three autonomy conditions and the distribution remained slightly right-skewed, a non-parametric Kruskal–Wallis test was used to examine whether completion time differed significantly between conditions.</p>
+<p>Figure 7 shows the distribution of task completion time across autonomy conditions after exclusion of one extreme outlier. Descriptively, completion time decreased gradually across the three conditions. Median completion time was highest in the Manual condition (27.42 s), followed by the Assistance condition (18.44 s), and lowest in the Execution condition (10.79 s). Mean completion times showed the same ordering, although they were consistently higher than the medians, indicating a slightly right-skewed distribution. Because completion time was compared across three autonomy conditions and the distribution remained slightly right-skewed, a non-parametric Kruskal–Wallis test was used to examine whether completion time differed significantly between conditions. To complement significance testing, an effect size estimate was also calculated for the Kruskal–Wallis result.</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
@@ -673,8 +673,27 @@ Figure&nbsp;7: Distribution of task completion time across autonomy conditions a
 </table>
 </div>
 </div>
-<p>A Kruskal–Wallis test showed a statistically significant difference in completion time across the three autonomy conditions, H(2) = 21.51, p &lt; .001. This indicates that task completion time varied significantly depending on the level of AI execution autonomy.</p>
-<p>Because the Kruskal–Wallis test indicated a significant overall difference in completion time across conditions, additional post-hoc comparisons were conducted to determine which specific pairs of autonomy conditions differed from each other. Pairwise Wilcoxon rank-sum tests were used for this purpose, with Bonferroni adjustment applied to control for multiple comparisons.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Effect size (epsilon-squared) for the Kruskal–Wallis test on completion time.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">ε²</th>
+<th style="text-align: center;">Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0.186</td>
+<td style="text-align: center;">relatively large</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>A Kruskal–Wallis test revealed a statistically significant overall difference in completion time across the three autonomy conditions, H(2) = 21.51, p &lt; .001, ε² = .186. Thus, the level of AI execution autonomy was significantly associated with variation in task completion time, and the observed effect was comparatively substantial.</p>
+<p>Because the Kruskal–Wallis test revealed a significant overall difference in completion time across autonomy conditions, post-hoc pairwise comparisons were performed to determine which specific condition pairs differed significantly. Pairwise Wilcoxon rank-sum tests with Bonferroni correction were used for this purpose.</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
