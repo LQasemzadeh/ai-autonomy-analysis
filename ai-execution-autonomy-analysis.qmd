@@ -270,7 +270,7 @@ participant_table_pretty <- dplyr::bind_rows(
 
 knitr::kable(
   participant_table_pretty,
-  caption = "Table 2. Number of participants after data cleaning (excluding Information condition)"
+  caption = "Table 3. Number of participants after data cleaning (excluding Information condition)"
 )
 
 ```
@@ -287,7 +287,7 @@ session_table_pretty <- session_table_clean |>
 
 knitr::kable(
   session_table_pretty,
-  caption = "Table 3. Number of unique sessions (one per participant) per condition"
+  caption = "Table 4. Number of unique sessions (one per participant) per condition"
 )
 ```
 
@@ -703,7 +703,7 @@ completion_time_data <- data_clean |>
 ```
 
 ```{r}
-#| label: tbl-completion-time-summary
+#| label: completion-time-summary-tbl
 #| echo: false
 
 completion_time_summary <- completion_time_data |>
@@ -721,7 +721,7 @@ completion_time_summary <- completion_time_data |>
 
 knitr::kable(
   completion_time_summary,
-  caption = "Table 4. Descriptive summary of completion time (in seconds) across autonomy conditions."
+  caption = "Table 5. Descriptive summary of completion time (in seconds) across autonomy conditions."
 )
 ```
 
@@ -762,7 +762,7 @@ completion_time_data_clean <- completion_time_data |>
 ```
 
 ```{r}
-#| label: tbl-completion-time-summary-clean
+#| label: completion-time-summary-clean-tbl
 #| echo: false
 
 completion_time_summary_clean <- completion_time_data_clean |>
@@ -780,7 +780,7 @@ completion_time_summary_clean <- completion_time_data_clean |>
 
 knitr::kable(
   completion_time_summary_clean,
-  caption = "Table 5. Descriptive summary of completion time (in seconds) across autonomy conditions after exclusion of one extreme outlier."
+  caption = "Table 6. Descriptive summary of completion time (in seconds) across autonomy conditions after exclusion of one extreme outlier."
 )
 ```
 
@@ -884,7 +884,7 @@ knitr::kable(
 )
 ```
 
-Post-hoc pairwise Wilcoxon comparisons showed that all pairwise comparisons were statistically significant. Completion time was significantly lower in the Assistance condition than in the Manual condition (p = .0136), significantly lower in the Execution condition than in the Manual condition (p < .001), and significantly lower in the Execution condition than in the Assistance condition (p = .0367). These results indicate a stepwise reduction in completion time as AI execution autonomy increased.
+Post-hoc pairwise Wilcoxon comparisons showed that all pairwise comparisons were statistically significant. Completion time was significantly lower in the Assistance condition than in the Manual condition (p = .014), significantly lower in the Execution condition than in the Manual condition (p < .001), and significantly lower in the Execution condition than in the Assistance condition (p = .037). These results indicate a stepwise reduction in completion time as AI execution autonomy increased.
 
 ### Detected Errors
 
@@ -972,7 +972,7 @@ chi_error_table <- tibble::tibble(
   Statistic = round(as.numeric(chi_error$statistic), 3),
   `df` = as.numeric(chi_error$parameter),
   `p-value` = ifelse(chi_error$p.value < .001, "< .001",
-                     round(chi_error$p.value, 4))
+                     round(chi_error$p.value, 3))
 )
 
 knitr::kable(
@@ -983,7 +983,7 @@ knitr::kable(
 
 cramers_v_label <- dplyr::case_when(
   as.numeric(cramers_v_error) >= 0.50 ~ "large",
-  as.numeric(cramers_v_error) >= 0.30 ~ "moderate",
+  as.numeric(cramers_v_error) >= 0.30 ~ "medium",
   TRUE                                ~ "small"
 )
 
@@ -999,9 +999,8 @@ knitr::kable(
 )
 ```
 
-A chi-square test revealed a statistically significant association between autonomy condition and detected error occurrence, χ²(2) = 25.53, p < .001, Cramér’s V = 0.40. This indicates that the distribution of sessions with and without at least one detected error differed significantly across the three autonomy conditions, with a moderate effect size. A moderate effect size indicates that autonomy condition had a meaningful, but not extremely strong, association with detected error occurrence.
+A chi-square test revealed a statistically significant association between autonomy condition and detected error occurrence, χ²(2) = 25.53, p < .001, Cramér’s V = 0.40, indicating a medium effect size. Because the overall test was significant, post-hoc pairwise proportion tests with Bonferroni adjustment were conducted to identify which specific condition pairs differed.
 
-Because the chi-square test indicated a significant overall association, post-hoc pairwise proportion tests with Bonferroni adjustment were conducted to identify which specific condition pairs differed in detected error occurrence. These comparisons showed that the Manual condition differed significantly from both the Assistance condition (p < .001) and the Execution condition (p < .001), whereas no statistically significant difference was found between the Assistance and Execution conditions (p = 1.00). Overall, these results suggest that started sessions in the Manual condition were substantially more likely to contain at least one detected error, whereas both AI-supported conditions were associated with markedly lower error occurrence.
 
 ```{r}
 #| label: error-pairwise-prop
@@ -1017,7 +1016,7 @@ pairwise_error_table <- as.data.frame(as.table(pairwise_error$p.value)) |>
   dplyr::filter(!is.na(Freq)) |>
   dplyr::transmute(
     Comparison = paste(Var1, "vs", Var2),
-    `p-value` = ifelse(Freq < .001, "< .001", round(Freq, 4))
+    `p-value` = ifelse(Freq < .001, "< .001", sprintf("%.3f", Freq))
   )
 
 knitr::kable(
@@ -1026,7 +1025,7 @@ knitr::kable(
 )
 ```
 
-Descriptively, the proportion of started sessions with at least one detected error decreased from the Manual condition to the Assistance condition and further to the Execution condition. However, this reduction was statistically significant only when comparing the Manual condition with the other two conditions.
+Pairwise comparisons showed that the Manual condition differed significantly from both the Assistance condition (p < .001) and the Execution condition (p < .001), whereas no statistically significant difference was found between the Assistance and Execution conditions (p = 1.00). The proportion of started sessions with at least one detected error thus decreased from Manual to both system-supported conditions, but this reduction was statistically significant only when comparing Manual with the other two conditions.
 
 ### Task Completion and Abandonment
 
@@ -1266,8 +1265,8 @@ ggplot(intervention_by_mode, aes(x = mode, y = proportion, fill = intervention_s
   )) +
   theme_minimal(base_size = 11)
 ```
-Figure 11 shows the proportion of started sessions with and without intervention across the three autonomy conditions. Descriptively, intervention occurred in the large majority of started sessions in all three conditions. The proportions were very similar across Manual (92%), Assistance (94%), and Execution (91%), indicating only minor descriptive differences in intervention occurrence between autonomy conditions.
-To examine whether intervention occurrence differed significantly across autonomy conditions, a chi-square test of independence was conducted. Because intervention occurrence was treated as a categorical session-level outcome, this test was appropriate for assessing differences in the distribution of intervention presence across conditions.
+Figure 10 shows the proportion of started sessions with and without intervention across the three autonomy conditions. Descriptively, intervention occurred in the large majority of started sessions in all three conditions. The proportions were very similar across Manual (92%), Assistance (94%), and Execution (91%), indicating only minor descriptive differences in intervention occurrence between autonomy conditions.
+To examine whether intervention occurrence differed significantly across autonomy conditions, a chi-square test of independence was conducted. Because intervention occurrence was treated as a categorical session-level outcome, this test was appropriate for assessing differences in the distribution of intervention presence across conditions. All expected cell frequencies exceeded 5, satisfying the assumption required for the chi-square approximation to be valid. To complement significance testing, Cramér's V was calculated as an effect size estimate.
 
 ```{r}
 #| label: intervention-occurrence-chi-square
@@ -1297,7 +1296,7 @@ chi_intervention_occurrence_table <- tibble::tibble(
   Statistic = round(as.numeric(chi_intervention_occurrence$statistic), 3),
   `df` = as.numeric(chi_intervention_occurrence$parameter),
   `p-value` = ifelse(chi_intervention_occurrence$p.value < .001, "< .001",
-                     round(chi_intervention_occurrence$p.value, 4))
+                     round(chi_intervention_occurrence$p.value, 3))
 )
 
 knitr::kable(
@@ -1305,8 +1304,29 @@ knitr::kable(
   caption = "Chi-square test for intervention occurrence across autonomy conditions.",
   align = c("c", "c", "c")
 )
+
+n_intervention_occurrence <- sum(intervention_occurrence_table)
+cramers_v_intervention_occurrence <- sqrt(
+  chi_intervention_occurrence$statistic /
+  (n_intervention_occurrence * (min(dim(intervention_occurrence_table)) - 1))
+)
+
+cramers_v_intervention_occurrence_label <- dplyr::case_when(
+  as.numeric(cramers_v_intervention_occurrence) >= 0.50 ~ "large",
+  as.numeric(cramers_v_intervention_occurrence) >= 0.30 ~ "medium",
+  TRUE                                                   ~ "small"
+)
+
+knitr::kable(
+  tibble::tibble(
+    `Cramér's V` = round(as.numeric(cramers_v_intervention_occurrence), 3),
+    Interpretation = cramers_v_intervention_occurrence_label
+  ),
+  caption = "Effect size (Cramér's V) for the chi-square test on intervention occurrence.",
+  align = c("c", "c")
+)
 ```
-The chi-square test showed that intervention occurrence did not differ significantly across autonomy conditions, χ²(2) = 0.58, p = .7482. This indicates that the proportion of started sessions containing at least one intervention was similarly high across the Manual, Assistance, and Execution conditions. Overall, these results suggest that intervention occurrence, as a binary measure, did not clearly distinguish between levels of AI execution autonomy.
+The chi-square test showed that intervention occurrence did not differ significantly across autonomy conditions, χ²(2) = 0.58, p = .748, Cramér's V = 0.06. This indicates that the proportion of started sessions containing at least one intervention was similarly high across the Manual, Assistance, and Execution conditions. Overall, these results suggest that intervention occurrence, as a binary measure, did not clearly distinguish between levels of AI execution autonomy.
 
 ### Intervention Count
 
@@ -1369,7 +1389,29 @@ ggplot(intervention_count_by_mode, aes(x = mode, y = intervention_count, fill = 
     plot.margin = margin(5.5, 95, 5.5, 5.5)
   )
 ```
-Descriptively, Figure 12 suggests that intervention count differed across autonomy conditions. The Manual condition showed the highest intervention counts overall, the Assistance condition showed lower counts, and the Execution condition showed the lowest counts. In addition, the Manual condition displayed the greatest spread, indicating that intervention frequency was not only higher but also more variable in this condition.
+```{r}
+#| label: intervention-count-summary
+#| echo: false
+
+intervention_count_summary <- intervention_count_by_mode |>
+  dplyr::group_by(mode) |>
+  dplyr::summarise(
+    n      = dplyr::n(),
+    Median = median(intervention_count),
+    IQR    = IQR(intervention_count),
+    Mean   = round(mean(intervention_count), 1),
+    .groups = "drop"
+  ) |>
+  dplyr::rename(Condition = mode)
+
+knitr::kable(
+  intervention_count_summary,
+  caption = "Descriptive statistics for intervention count per autonomy condition.",
+  align = c("l", "c", "c", "c", "c")
+)
+```
+
+Descriptively, Figure 11 and the descriptive statistics below suggest that intervention count differed across autonomy conditions. The Manual condition showed the highest median intervention count (Mdn = 7, IQR = 6), while both the Assistance and Execution conditions showed substantially lower medians (Mdn = 3 for both). Although the medians were equal for Assistance and Execution, the Execution condition displayed notably less spread (IQR = 0 vs. IQR = 3) and a lower mean (4.2 vs. 5.1), indicating that intervention frequency was not only lower but also more consistent in the Execution condition. The Manual condition also displayed the greatest spread, indicating that intervention frequency was both higher and more variable under fully manual operation.
 
 Because intervention count represents a count-based session-level outcome and the distribution was visibly non-normal, a non-parametric Kruskal–Wallis test was conducted to examine whether intervention count differed significantly across autonomy conditions.
 
@@ -1397,8 +1439,27 @@ knitr::kable(
   caption = "Kruskal–Wallis test for intervention count across autonomy conditions.",
   align = c("c", "c", "c")
 )
+
+n_ic <- nrow(intervention_count_by_mode)
+k_ic <- length(unique(intervention_count_by_mode$mode))
+epsilon_sq_ic <- (kruskal_intervention_count$statistic - k_ic + 1) / (n_ic - k_ic)
+
+effect_label_ic <- dplyr::case_when(
+  epsilon_sq_ic >= 0.14 ~ "large",
+  epsilon_sq_ic >= 0.06 ~ "medium",
+  TRUE                  ~ "small"
+)
+
+knitr::kable(
+  tibble::tibble(
+    `ε²`           = round(as.numeric(epsilon_sq_ic), 3),
+    Interpretation = effect_label_ic
+  ),
+  caption = "Effect size (epsilon-squared) for the Kruskal–Wallis test on intervention count.",
+  align = c("c", "c")
+)
 ```
-A Kruskal–Wallis test showed that intervention count differed significantly across autonomy conditions, H(2) = 26.69, p < .001. This indicates that the frequency of user intervention varied significantly depending on the level of AI execution autonomy.
+A Kruskal–Wallis test showed that intervention count differed significantly across autonomy conditions, H(2) = 26.69, p < .001, ε² = .157. The effect size indicates a large association between autonomy condition and intervention frequency.
 Because the Kruskal–Wallis test indicated an overall difference in intervention count across conditions, additional post-hoc pairwise Wilcoxon rank-sum tests were conducted. Bonferroni adjustment was applied to control for multiple comparisons.
 
 ```{r}
@@ -1412,52 +1473,70 @@ pairwise_intervention_count <- pairwise.wilcox.test(
   p.adjust.method = "bonferroni"
 )
 
+compute_rb_ic <- function(x, y) {
+  n1 <- length(x); n2 <- length(y)
+  w  <- wilcox.test(x, y, exact = FALSE)$statistic
+  round(as.numeric(1 - (2 * w) / (n1 * n2)), 3)
+}
+
+manual_ic     <- intervention_count_by_mode$intervention_count[intervention_count_by_mode$mode == "manual"]
+assistance_ic <- intervention_count_by_mode$intervention_count[intervention_count_by_mode$mode == "Assistance"]
+execution_ic  <- intervention_count_by_mode$intervention_count[intervention_count_by_mode$mode == "Execution"]
+
 pairwise_intervention_count_table <- as.data.frame(as.table(pairwise_intervention_count$p.value)) |>
   dplyr::filter(!is.na(Freq)) |>
   dplyr::transmute(
     Comparison = paste(Var1, "vs", Var2),
-    `p-value` = ifelse(Freq < .001, "< .001", sprintf("%.3f", Freq))
+    `p-value`  = ifelse(Freq < .001, "< .001", sprintf("%.3f", Freq)),
+    `r (rank-biserial)` = c(
+      compute_rb_ic(manual_ic, assistance_ic),
+      compute_rb_ic(manual_ic, execution_ic),
+      compute_rb_ic(assistance_ic, execution_ic)
+    )
   )
 
 knitr::kable(
   pairwise_intervention_count_table,
-  caption = "Pairwise Wilcoxon post-hoc comparisons for intervention count."
+  caption = "Pairwise Wilcoxon post-hoc comparisons for intervention count with rank-biserial correlation.",
+  align = c("l", "c", "c")
 )
 ```
-Post-hoc pairwise Wilcoxon comparisons showed that intervention count was significantly lower in the Assistance condition than in the Manual condition (p < .001) and significantly lower in the Execution condition than in the Manual condition (p < .001). However, no significant difference was found between the Assistance and Execution conditions (p = 1.000). Overall, these results indicate that higher AI execution autonomy was associated with a lower frequency of user intervention compared with the Manual condition, although the difference between Assistance and Execution was not statistically significant.
+Post-hoc pairwise Wilcoxon comparisons showed that intervention count was significantly lower in the Assistance condition than in the Manual condition (p < .001, r = −0.42) and significantly lower in the Execution condition than in the Manual condition (p < .001, r = −0.55), indicating medium-to-large effects. No significant difference was found between the Assistance and Execution conditions (p = 1.00, r = −0.10). Overall, these results indicate that higher AI execution autonomy was associated with a substantially lower frequency of user intervention compared with the Manual condition, although the difference between Assistance and Execution was not statistically significant.
 
 ### Types of Intervention
 
-To further differentiate intervention behavior, the specific types of intervention were examined separately. Three event categories were considered: `FIELD_EDIT`, `OVERRIDE`, and `AI_SUGGESTION_REJECTED`. For the present analysis, these intervention types were summarized descriptively across started sessions in order to identify which forms of user intervention were most characteristic of each autonomy condition.
+To further differentiate intervention behavior, the specific types of intervention were examined separately. Three event categories were considered: `FIELD_EDIT`, `OVERRIDE`, and `AI_SUGGESTION_REJECTED`. Because the binary occurrence of each intervention type was expected to vary markedly across conditions, chi-square or Fisher's exact tests were applied where assumptions permitted. Edit occurrence approached ceiling (>90% in all conditions), which precluded reliable statistical testing due to low expected cell counts in the "no edit" category; it was therefore examined descriptively only. Override and Reject occurrence were tested formally using Fisher's exact test, which was preferred over chi-square because some observed cell counts were zero.
 
 ```{r}
 #| label: intervention-types-setup
 #| include: false
 
-intervention_types_data <- data_clean |>
+intervention_types_raw <- data_clean |>
   dplyr::group_by(session_id, mode) |>
   dplyr::summarise(
-    started = any(action == "TASK_STARTED"),
-    had_edit = any(action == "FIELD_EDIT"),
+    started      = any(action == "TASK_STARTED"),
+    had_edit     = any(action == "FIELD_EDIT"),
     had_override = any(action == "OVERRIDE"),
-    had_reject = any(action == "AI_SUGGESTION_REJECTED"),
+    had_reject   = any(action == "AI_SUGGESTION_REJECTED"),
     .groups = "drop"
   ) |>
   dplyr::filter(started) |>
   dplyr::mutate(
     mode = factor(mode, levels = c("manual", "Assistance", "Execution"))
-  ) |>
+  )
+
+intervention_types_data <- intervention_types_raw |>
   tidyr::pivot_longer(
     cols = c(had_edit, had_override, had_reject),
     names_to = "intervention_type",
     values_to = "present"
   ) |>
   dplyr::mutate(
-    intervention_type = dplyr::recode(
+    intervention_type = dplyr::case_match(
       intervention_type,
-      had_edit = "Edit",
-      had_override = "Override",
-      had_reject = "Reject"
+      "had_edit"     ~ "Edit",
+      "had_override" ~ "Override",
+      "had_reject"   ~ "Reject"
     )
   ) |>
   dplyr::group_by(mode, intervention_type) |>
@@ -1498,7 +1577,36 @@ ggplot(intervention_types_data, aes(x = intervention_type, y = proportion, fill 
   )) +
   theme_minimal(base_size = 11)
 ```
-Figure 13 shows the proportion of started sessions containing each intervention type across the three autonomy conditions. Edits were highly prevalent in all three conditions, occurring in more than 90% of started sessions in the Manual, Assistance, and Execution conditions. In contrast, override events occurred only in the Assistance and Execution conditions, with a particularly high proportion in Execution. Rejection-related intervention was observed only in the Assistance condition. These descriptive patterns suggest that the specific form of intervention varied across autonomy conditions, even when overall intervention occurrence remained similarly high.
+Figure 12 shows the proportion of started sessions containing each intervention type across the three autonomy conditions. Edits were highly prevalent in all three conditions, occurring in more than 90% of started sessions across all conditions (Manual: 92%, Assistance: 94%, Execution: 91%). In contrast, override events occurred only in the Assistance (81%) and Execution (91%) conditions and were entirely absent in the Manual condition. Rejection-related intervention was observed only in the Assistance condition (35%) and was absent in both the Manual and Execution conditions.
+
+```{r}
+#| label: intervention-types-fisher
+#| echo: false
+
+# Fisher's exact test for Override occurrence
+override_table <- table(intervention_types_raw$mode, intervention_types_raw$had_override)
+fisher_override <- fisher.test(override_table)
+
+# Fisher's exact test for Reject occurrence
+reject_table <- table(intervention_types_raw$mode, intervention_types_raw$had_reject)
+fisher_reject <- fisher.test(reject_table)
+
+fisher_types_table <- tibble::tibble(
+  `Intervention Type` = c("Override", "Reject"),
+  `Fisher's p-value`  = c(
+    ifelse(fisher_override$p.value < .001, "< .001", round(fisher_override$p.value, 3)),
+    ifelse(fisher_reject$p.value < .001,  "< .001", round(fisher_reject$p.value, 3))
+  )
+)
+
+knitr::kable(
+  fisher_types_table,
+  caption = "Fisher's exact tests for Override and Reject intervention type occurrence across autonomy conditions.",
+  align = c("l", "c")
+)
+```
+
+Fisher's exact tests confirmed that both Override and Reject occurrence differed significantly across autonomy conditions (both p < .001). The pattern for Override reflects the nature of the system-supported conditions: because the system generates suggestions in the Assistance and Execution conditions, users in those conditions have the opportunity to override AI output — an action that is structurally impossible in the Manual condition. The pattern for Reject, concentrated exclusively in the Assistance condition, suggests that users in that condition actively declined AI suggestions more often than those in the Execution condition, possibly reflecting a greater sense of perceived control or a less obligatory acceptance dynamic. Edit occurrence was not formally tested due to near-ceiling proportions in all conditions, which would have violated the expected cell count assumption.
 
 Taken together, the results provide partial support for H2. While intervention occurrence did not differ significantly across autonomy conditions, intervention count showed that users in the Manual condition intervened significantly more often than users in the Assistance and Execution conditions. The descriptive analysis of intervention types further showed that intervention was not uniform across conditions: edits were common in all three conditions, whereas overrides and rejection-related actions were concentrated in the system-supported conditions. Overall, these findings suggest that higher AI execution autonomy did not eliminate intervention altogether, but it reduced how frequently users needed to intervene and changed the form that intervention took.
 
