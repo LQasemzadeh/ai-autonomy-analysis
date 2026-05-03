@@ -888,7 +888,7 @@ Post-hoc pairwise Wilcoxon comparisons showed that all pairwise comparisons were
 
 ### Detected Errors
 
-Detected errors were operationalized on the basis of `ERROR_SHOWN` events. For the present analysis, sessions were included if the task had been started, regardless of whether it was later completed or abandoned. At the session level, error occurrence was treated as a binary outcome indicating whether at least one validation error was recorded during task execution.
+Detected errors were operationalized based on `ERROR_SHOWN` events. For the present analysis, all sessions in which the task had been started were included, regardless of whether the task was later completed or abandoned. At the session level, error occurrence was treated as a binary outcome indicating whether at least one validation error was recorded during task execution.
 
 ```{r}
 #| label: fig-error-by-mode
@@ -941,8 +941,9 @@ ggplot(error_by_mode, aes(x = mode, y = proportion, fill = error_status)) +
   theme_minimal(base_size = 11)
 ```
 
-Figure 9 shows the proportion of started sessions with and without at least one detected error across the three autonomy conditions. Descriptively, the Manual condition showed the highest proportion of sessions with errors, the Assistance condition fell in between, and the Execution condition showed the lowest proportion.
-To examine whether detected error occurrence differed significantly across autonomy conditions, a chi-square test of independence was conducted. Because error occurrence was treated as a categorical session-level outcome, this test was appropriate for assessing differences in the distribution of error presence across conditions.
+Figure 8 shows the proportion of started sessions with and without at least one detected error across the three autonomy conditions. Descriptively, the Manual condition showed the highest proportion of sessions with at least one detected error, whereas the Assistance and Execution conditions showed substantially lower proportions.
+
+To examine whether detected error occurrence differed across autonomy conditions, a chi-square test of independence was conducted. Because error occurrence was defined as a binary categorical session-level outcome, this test was appropriate for assessing differences in the distribution of error presence across conditions. To complement significance testing, Cramér’s V was calculated as an effect size estimate for the chi-square result.
 
 ```{r}
 #| label: error-chi-square
@@ -964,6 +965,9 @@ error_table <- table(error_test_data$mode, error_test_data$had_error)
 
 chi_error <- chisq.test(error_table)
 
+n_error <- sum(error_table)
+cramers_v_error <- sqrt(chi_error$statistic / (n_error * (min(dim(error_table)) - 1)))
+
 chi_error_table <- tibble::tibble(
   Statistic = round(as.numeric(chi_error$statistic), 3),
   `df` = as.numeric(chi_error$parameter),
@@ -976,9 +980,28 @@ knitr::kable(
   caption = "Chi-square test for detected errors across autonomy conditions.",
   align = c("c", "c", "c")
 )
+
+cramers_v_label <- dplyr::case_when(
+  as.numeric(cramers_v_error) >= 0.50 ~ "large",
+  as.numeric(cramers_v_error) >= 0.30 ~ "moderate",
+  TRUE                                ~ "small"
+)
+
+cramers_v_table <- tibble::tibble(
+  `Cramér's V` = round(as.numeric(cramers_v_error), 3),
+  Interpretation = cramers_v_label
+)
+
+knitr::kable(
+  cramers_v_table,
+  caption = "Effect size (Cramér's V) for the chi-square test on detected errors.",
+  align = c("c", "c")
+)
 ```
 
-Because the chi-square test indicated an overall difference across conditions, additional pairwise proportion tests were conducted to determine which specific pairs of autonomy conditions differed in detected error occurrence. Bonferroni adjustment was applied to control for multiple comparisons.
+A chi-square test revealed a statistically significant association between autonomy condition and detected error occurrence, χ²(2) = 25.53, p < .001, Cramér’s V = 0.40. This indicates that the distribution of sessions with and without at least one detected error differed significantly across the three autonomy conditions, with a moderate effect size. A moderate effect size indicates that autonomy condition had a meaningful, but not extremely strong, association with detected error occurrence.
+
+Because the chi-square test indicated a significant overall association, post-hoc pairwise proportion tests with Bonferroni adjustment were conducted to identify which specific condition pairs differed in detected error occurrence. These comparisons showed that the Manual condition differed significantly from both the Assistance condition (p < .001) and the Execution condition (p < .001), whereas no statistically significant difference was found between the Assistance and Execution conditions (p = 1.00). Overall, these results suggest that started sessions in the Manual condition were substantially more likely to contain at least one detected error, whereas both AI-supported conditions were associated with markedly lower error occurrence.
 
 ```{r}
 #| label: error-pairwise-prop
@@ -1002,9 +1025,6 @@ knitr::kable(
   caption = "Pairwise proportion tests for detected errors."
 )
 ```
-
-
-The chi-square test showed that detected error occurrence differed significantly across autonomy conditions, χ²(2) = 25.53, p < .001. Post-hoc pairwise proportion tests showed that the Manual condition differed significantly from both the Assistance condition (p < .001) and the Execution condition (p < .001). However, no significant difference was found between the Assistance and Execution conditions (p = 1.00). Overall, these results indicate that started sessions in the Manual condition were substantially more likely to contain at least one detected error, whereas the Assistance and Execution conditions were associated with markedly lower error occurrence.
 
 Descriptively, the proportion of started sessions with at least one detected error decreased from the Manual condition to the Assistance condition and further to the Execution condition. However, this reduction was statistically significant only when comparing the Manual condition with the other two conditions.
 
@@ -1063,8 +1083,8 @@ ggplot(abandonment_by_mode, aes(x = mode, y = proportion, fill = outcome)) +
   theme_minimal(base_size = 11)
 ```
 
-Figure 10 shows the proportion of completed and abandoned sessions among participants who started the task. Descriptively, the Manual condition showed the highest proportion of abandoned sessions, the Assistance condition fell in between, and the Execution condition showed the lowest proportion of abandonment.
-To examine whether task outcome differed significantly across autonomy conditions, a chi-square test of independence was conducted. Because task completion versus abandonment was treated as a categorical session-level outcome, this test was appropriate for assessing differences in the distribution of task outcomes across conditions.
+Figure 9 shows the proportion of completed and abandoned sessions among participants who started the task. Descriptively, the Manual condition showed the highest proportion of abandoned sessions (45%), the Assistance condition fell in between (33%), and the Execution condition showed the lowest proportion of abandonment (17%).
+To examine whether task outcome differed significantly across autonomy conditions, a chi-square test of independence was conducted. Because task completion versus abandonment was treated as a categorical session-level outcome, this test was appropriate for assessing differences in the distribution of task outcomes across conditions. All expected cell frequencies exceeded 5, satisfying the assumption required for the chi-square approximation to be valid. To complement significance testing, Cramér's V was calculated as an effect size estimate.
 
 ```{r}
 #| label: abandonment-chi-square
@@ -1094,13 +1114,33 @@ chi_abandonment_table <- tibble::tibble(
   Statistic = round(as.numeric(chi_abandonment$statistic), 3),
   `df` = as.numeric(chi_abandonment$parameter),
   `p-value` = ifelse(chi_abandonment$p.value < .001, "< .001",
-                     round(chi_abandonment$p.value, 4))
+                     round(chi_abandonment$p.value, 3))
 )
 
 knitr::kable(
   chi_abandonment_table,
   caption = "Chi-square test for task completion versus abandonment across autonomy conditions.",
   align = c("c", "c", "c")
+)
+
+n_abandonment <- sum(abandonment_table)
+cramers_v_abandonment <- sqrt(chi_abandonment$statistic / (n_abandonment * (min(dim(abandonment_table)) - 1)))
+
+cramers_v_abandonment_label <- dplyr::case_when(
+  as.numeric(cramers_v_abandonment) >= 0.50 ~ "large",
+  as.numeric(cramers_v_abandonment) >= 0.30 ~ "medium",
+  TRUE                                       ~ "small"
+)
+
+cramers_v_abandonment_table <- tibble::tibble(
+  `Cramér's V` = round(as.numeric(cramers_v_abandonment), 3),
+  Interpretation = cramers_v_abandonment_label
+)
+
+knitr::kable(
+  cramers_v_abandonment_table,
+  caption = "Effect size (Cramér's V) for the chi-square test on task completion versus abandonment.",
+  align = c("c", "c")
 )
 ```
 Because the chi-square test indicated an overall difference across autonomy conditions, additional pairwise proportion tests were conducted to determine which specific pairs of conditions differed in task abandonment. Bonferroni adjustment was applied to control for multiple comparisons.
@@ -1127,7 +1167,43 @@ knitr::kable(
   caption = "Pairwise proportion tests for task abandonment."
 )
 ```
-The chi-square test showed that task outcome differed significantly across autonomy conditions, χ²(2) = 9.86, p = .0072. Post-hoc pairwise proportion tests showed that the Execution condition differed significantly from the Manual condition (p = .010), indicating a lower proportion of abandonment and a higher proportion of completed sessions in the Execution condition. However, no significant differences were found between the Assistance and Manual conditions (p = .857) or between the Execution and Assistance conditions (p = .254). Overall, these results suggest that higher AI execution autonomy was associated with improved task completion primarily in comparison with the Manual condition.
+
+To further quantify the magnitude of differences between conditions, odds ratios with 95% confidence intervals were computed for each pairwise comparison.
+
+```{r}
+#| label: abandonment-odds-ratios
+#| echo: false
+
+compute_or <- function(tbl, row1, row2) {
+  a <- tbl[row1, "Abandoned"]
+  b <- tbl[row1, "Completed"]
+  c <- tbl[row2, "Abandoned"]
+  d <- tbl[row2, "Completed"]
+  or <- (a * d) / (b * c)
+  log_se <- sqrt(1/a + 1/b + 1/c + 1/d)
+  ci_low  <- exp(log(or) - 1.96 * log_se)
+  ci_high <- exp(log(or) + 1.96 * log_se)
+  tibble::tibble(
+    Comparison   = paste(row1, "vs", row2),
+    `Odds Ratio` = round(or, 2),
+    `95% CI`     = paste0("[", round(ci_low, 2), ", ", round(ci_high, 2), "]")
+  )
+}
+
+or_abandonment_table <- dplyr::bind_rows(
+  compute_or(abandonment_table, "manual", "Assistance"),
+  compute_or(abandonment_table, "manual", "Execution"),
+  compute_or(abandonment_table, "Assistance", "Execution")
+)
+
+knitr::kable(
+  or_abandonment_table,
+  caption = "Odds ratios with 95% confidence intervals for pairwise comparisons of task abandonment.",
+  align = c("l", "c", "c")
+)
+```
+
+The chi-square test showed that task outcome differed significantly across autonomy conditions, χ²(2) = 9.86, p = .007, Cramér's V = 0.25. Post-hoc pairwise proportion tests showed that the Execution condition differed significantly from the Manual condition (p = .010). The corresponding odds ratio indicated that the odds of task abandonment in the Manual condition were approximately four times higher than in the Execution condition (OR = 4.05, 95% CI [1.65, 9.93]). No significant differences were found between the Assistance and Manual conditions (p = .857; OR = 1.66, 95% CI [0.76, 3.62]) or between the Execution and Assistance conditions (p = .254; OR = 2.44, 95% CI [0.98, 6.09]), though the latter comparison was numerically notable with a CI that narrowly included 1. Overall, these results suggest that higher AI execution autonomy was associated with substantially reduced task abandonment, most clearly when comparing the Execution condition to the Manual condition.
 
 ## H2: Intervention Behavior
 

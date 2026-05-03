@@ -725,7 +725,7 @@ Figure&nbsp;7: Distribution of task completion time across autonomy conditions a
 </section>
 <section id="detected-errors" class="level3" data-number="4.1.2">
 <h3 data-number="4.1.2" class="anchored" data-anchor-id="detected-errors"><span class="header-section-number">4.1.2</span> Detected Errors</h3>
-<p>Detected errors were operationalized on the basis of <code>ERROR_SHOWN</code> events. For the present analysis, sessions were included if the task had been started, regardless of whether it was later completed or abandoned. At the session level, error occurrence was treated as a binary outcome indicating whether at least one validation error was recorded during task execution.</p>
+<p>Detected errors were operationalized based on <code>ERROR_SHOWN</code> events. For the present analysis, all sessions in which the task had been started were included, regardless of whether the task was later completed or abandoned. At the session level, error occurrence was treated as a binary outcome indicating whether at least one validation error was recorded during task execution.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-error-by-mode" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -740,7 +740,8 @@ Figure&nbsp;8: Proportion of started sessions with and without detected errors a
 </div>
 </div>
 </div>
-<p>Figure 9 shows the proportion of started sessions with and without at least one detected error across the three autonomy conditions. Descriptively, the Manual condition showed the highest proportion of sessions with errors, the Assistance condition fell in between, and the Execution condition showed the lowest proportion. To examine whether detected error occurrence differed significantly across autonomy conditions, a chi-square test of independence was conducted. Because error occurrence was treated as a categorical session-level outcome, this test was appropriate for assessing differences in the distribution of error presence across conditions.</p>
+<p>Figure 8 shows the proportion of started sessions with and without at least one detected error across the three autonomy conditions. Descriptively, the Manual condition showed the highest proportion of sessions with at least one detected error, whereas the Assistance and Execution conditions showed substantially lower proportions.</p>
+<p>To examine whether detected error occurrence differed across autonomy conditions, a chi-square test of independence was conducted. Because error occurrence was defined as a binary categorical session-level outcome, this test was appropriate for assessing differences in the distribution of error presence across conditions. To complement significance testing, Cramér’s V was calculated as an effect size estimate for the chi-square result.</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
@@ -761,8 +762,26 @@ Figure&nbsp;8: Proportion of started sessions with and without detected errors a
 </tbody>
 </table>
 </div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Effect size (Cramér’s V) for the chi-square test on detected errors.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Cramér’s V</th>
+<th style="text-align: center;">Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0.399</td>
+<td style="text-align: center;">moderate</td>
+</tr>
+</tbody>
+</table>
 </div>
-<p>Because the chi-square test indicated an overall difference across conditions, additional pairwise proportion tests were conducted to determine which specific pairs of autonomy conditions differed in detected error occurrence. Bonferroni adjustment was applied to control for multiple comparisons.</p>
+</div>
+<p>A chi-square test revealed a statistically significant association between autonomy condition and detected error occurrence, χ²(2) = 25.53, p &lt; .001, Cramér’s V = 0.40. This indicates that the distribution of sessions with and without at least one detected error differed significantly across the three autonomy conditions, with a moderate effect size. A moderate effect size indicates that autonomy condition had a meaningful, but not extremely strong, association with detected error occurrence.</p>
+<p>Because the chi-square test indicated a significant overall association, post-hoc pairwise proportion tests with Bonferroni adjustment were conducted to identify which specific condition pairs differed in detected error occurrence. These comparisons showed that the Manual condition differed significantly from both the Assistance condition (p &lt; .001) and the Execution condition (p &lt; .001), whereas no statistically significant difference was found between the Assistance and Execution conditions (p = 1.00). Overall, these results suggest that started sessions in the Manual condition were substantially more likely to contain at least one detected error, whereas both AI-supported conditions were associated with markedly lower error occurrence.</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
@@ -790,7 +809,6 @@ Figure&nbsp;8: Proportion of started sessions with and without detected errors a
 </table>
 </div>
 </div>
-<p>The chi-square test showed that detected error occurrence differed significantly across autonomy conditions, χ²(2) = 25.53, p &lt; .001. Post-hoc pairwise proportion tests showed that the Manual condition differed significantly from both the Assistance condition (p &lt; .001) and the Execution condition (p &lt; .001). However, no significant difference was found between the Assistance and Execution conditions (p = 1.00). Overall, these results indicate that started sessions in the Manual condition were substantially more likely to contain at least one detected error, whereas the Assistance and Execution conditions were associated with markedly lower error occurrence.</p>
 <p>Descriptively, the proportion of started sessions with at least one detected error decreased from the Manual condition to the Assistance condition and further to the Execution condition. However, this reduction was statistically significant only when comparing the Manual condition with the other two conditions.</p>
 </section>
 <section id="task-completion-and-abandonment" class="level3" data-number="4.1.3">
@@ -810,7 +828,7 @@ Figure&nbsp;9: Proportion of completed and abandoned started sessions across aut
 </div>
 </div>
 </div>
-<p>Figure 10 shows the proportion of completed and abandoned sessions among participants who started the task. Descriptively, the Manual condition showed the highest proportion of abandoned sessions, the Assistance condition fell in between, and the Execution condition showed the lowest proportion of abandonment. To examine whether task outcome differed significantly across autonomy conditions, a chi-square test of independence was conducted. Because task completion versus abandonment was treated as a categorical session-level outcome, this test was appropriate for assessing differences in the distribution of task outcomes across conditions.</p>
+<p>Figure 9 shows the proportion of completed and abandoned sessions among participants who started the task. Descriptively, the Manual condition showed the highest proportion of abandoned sessions (45%), the Assistance condition fell in between (33%), and the Execution condition showed the lowest proportion of abandonment (17%). To examine whether task outcome differed significantly across autonomy conditions, a chi-square test of independence was conducted. Because task completion versus abandonment was treated as a categorical session-level outcome, this test was appropriate for assessing differences in the distribution of task outcomes across conditions. All expected cell frequencies exceeded 5, satisfying the assumption required for the chi-square approximation to be valid. To complement significance testing, Cramér’s V was calculated as an effect size estimate.</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
@@ -826,7 +844,24 @@ Figure&nbsp;9: Proportion of completed and abandoned started sessions across aut
 <tr class="odd">
 <td style="text-align: center;">9.855</td>
 <td style="text-align: center;">2</td>
-<td style="text-align: center;">0.0072</td>
+<td style="text-align: center;">0.007</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Effect size (Cramér’s V) for the chi-square test on task completion versus abandonment.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Cramér’s V</th>
+<th style="text-align: center;">Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0.248</td>
+<td style="text-align: center;">small</td>
 </tr>
 </tbody>
 </table>
@@ -860,7 +895,39 @@ Figure&nbsp;9: Proportion of completed and abandoned started sessions across aut
 </table>
 </div>
 </div>
-<p>The chi-square test showed that task outcome differed significantly across autonomy conditions, χ²(2) = 9.86, p = .0072. Post-hoc pairwise proportion tests showed that the Execution condition differed significantly from the Manual condition (p = .010), indicating a lower proportion of abandonment and a higher proportion of completed sessions in the Execution condition. However, no significant differences were found between the Assistance and Manual conditions (p = .857) or between the Execution and Assistance conditions (p = .254). Overall, these results suggest that higher AI execution autonomy was associated with improved task completion primarily in comparison with the Manual condition.</p>
+<p>To further quantify the magnitude of differences between conditions, odds ratios with 95% confidence intervals were computed for each pairwise comparison.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Odds ratios with 95% confidence intervals for pairwise comparisons of task abandonment.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Comparison</th>
+<th style="text-align: center;">Odds Ratio</th>
+<th style="text-align: center;">95% CI</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">manual vs Assistance</td>
+<td style="text-align: center;">1.66</td>
+<td style="text-align: center;">[0.76, 3.62]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">manual vs Execution</td>
+<td style="text-align: center;">4.05</td>
+<td style="text-align: center;">[1.65, 9.93]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Assistance vs Execution</td>
+<td style="text-align: center;">2.44</td>
+<td style="text-align: center;">[0.98, 6.09]</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The chi-square test showed that task outcome differed significantly across autonomy conditions, χ²(2) = 9.86, p = .007, Cramér’s V = 0.25. Post-hoc pairwise proportion tests showed that the Execution condition differed significantly from the Manual condition (p = .010). The corresponding odds ratio indicated that the odds of task abandonment in the Manual condition were approximately four times higher than in the Execution condition (OR = 4.05, 95% CI [1.65, 9.93]). No significant differences were found between the Assistance and Manual conditions (p = .857; OR = 1.66, 95% CI [0.76, 3.62]) or between the Execution and Assistance conditions (p = .254; OR = 2.44, 95% CI [0.98, 6.09]), though the latter comparison was numerically notable with a CI that narrowly included 1. Overall, these results suggest that higher AI execution autonomy was associated with substantially reduced task abandonment, most clearly when comparing the Execution condition to the Manual condition.</p>
 </section>
 </section>
 <section id="h2-intervention-behavior" class="level2" data-number="4.2">
