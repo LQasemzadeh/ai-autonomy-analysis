@@ -16,6 +16,8 @@ format:
     toc-depth: 3
     number-sections: true
     reference-doc: pfh-reference.docx
+    filters:
+      - pfh-docx-styles.lua
 
 execute:
   echo: false
@@ -81,6 +83,10 @@ total_sessions <- sum(session_table$N_sessions)
 ```
 
 
+
+# Summary {.unnumbered}
+
+As AI systems increasingly assume execution authority in digital workflows, understanding how different levels of autonomy affect user behavior becomes essential. This study examined the effects of AI execution autonomy on user task performance and intervention behavior in a controlled digital workflow. Using a between-subject experimental design, 160 participants who initiated the task were assigned to one of three autonomy conditions — Manual, Assistance, or Execution — and completed a structured exam registration task via a purpose-built web prototype. Behavioral data were captured through system-generated event logs, enabling objective measurement of task completion time, error occurrence, task abandonment, and intervention frequency. Results provided differentiated support for the proposed hypotheses. Higher levels of AI execution autonomy were associated with significantly shorter completion times, lower error occurrence, and lower task abandonment rates, particularly when comparing the Manual condition with the two system-supported conditions. Intervention occurrence did not differ significantly across conditions; however, intervention count was significantly lower in the Assistance and Execution conditions compared with Manual. Descriptive analysis further revealed that the form of intervention shifted from direct configuration edits in the Manual condition toward override and rejection actions in the system-supported conditions. These findings suggest that AI execution autonomy can improve task efficiency and reduce manual effort without fully removing the user from the interaction process. The results support a design perspective in which autonomy is calibrated to task structure and user control requirements rather than unconditionally maximized.
 
 # Introduction
 
@@ -152,39 +158,11 @@ Participants were randomly assigned to one of the three conditions and completed
 
 A web-based exam registration system was developed to simulate a realistic academic workflow. The system required users to select a semester, choose an exam period, and configure a valid set of exams under predefined constraints.
 
-User interactions were logged using a backend logging system implemented with Supabase. The logging system captured event-level interaction data, including:
-
-	•	user actions (e.g., TASK_STARTED, TASK_COMPLETED, ERROR_SHOWN, FIELD_EDIT, OVERRIDE, AI_SUGGESTION_REJECTED)
-
-	•	timestamps (client-side and server-side)
-
-	•	session identifiers
-
-	•	assigned condition (mode)
-
-The collected data was stored as structured event logs and exported as CSV files for analysis. This approach enabled a detailed reconstruction of user behavior during task execution.
+User interactions were logged using a backend logging system implemented with Supabase. The logging system captured event-level interaction data, including user actions (e.g., TASK_STARTED, TASK_COMPLETED, ERROR_SHOWN, FIELD_EDIT, OVERRIDE, AI_SUGGESTION_REJECTED), timestamps (client-side and server-side), session identifiers, and the assigned condition (mode). The collected data was stored as structured event logs and exported as CSV files for analysis. This approach enabled a detailed reconstruction of user behavior during task execution.
 
 ## Variables
 
-The independent variable (IV) in this study was the level of AI execution autonomy, with three levels:
-
-	•	Manual
-
-	•	Assistance
-
-	•	Execution
-
-The dependent variables (DVs) captured objective behavioral outcomes derived from interaction logs:
-
-	•	**Task completion time**
-
-	•	**Error occurrence**
-
-	•	**Task abandonment**
-
-	•	**Intervention behavior**
-
-These variables were operationalized based on observable interaction events.
+The independent variable (IV) in this study was the level of AI execution autonomy, with three levels: Manual, Assistance, and Execution. The dependent variables (DVs) captured objective behavioral outcomes derived from interaction logs: task completion time, error occurrence, task abandonment, and intervention behavior. These variables were operationalized based on observable interaction events.
 
 ## Sample
 
@@ -1672,7 +1650,7 @@ Overall, this study provides empirical evidence that AI execution autonomy can i
 
 
 
-# References
+# References {.unnumbered}
 
 Bainbridge, L. (1983). Ironies of automation. *Automatica, 19*(6), 775–779. https://doi.org/10.1016/0005-1098(83)90046-8
 
@@ -1705,3 +1683,13 @@ Sarter, N. B., & Woods, D. D. (1995). How in the world did we ever get into that
 Sheridan, T. B., & Verplank, W. L. (1978). *Human and computer control of undersea teleoperators* (Technical Report). MIT Man-Machine Systems Laboratory.
 
 Wickens, C. D., Li, H., Santamaria, A., Sebok, A., & Sarter, N. B. (2010). Stages and levels of automation: An integrated meta-analysis. *Proceedings of the Human Factors and Ergonomics Society Annual Meeting, 54*(4), 389–393. https://doi.org/10.1177/154193121005400425
+
+# Declaration of Independence {.unnumbered}
+
+I certify that I have written this thesis independently and without the use of any aids other than those stated. All passages taken verbatim or in spirit from publications or other sources are marked as such.
+
+&nbsp;
+
+Place, date: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+Signature: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_

@@ -14,7 +14,7 @@ body {
   color: #111111;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 11pt;
-  line-height: 1.7;
+  line-height: 1.5;
 }
 
 /* kill extra Quarto layout behavior */
@@ -149,11 +149,12 @@ table {
 }
 
 caption {
-  caption-side: bottom;
+  caption-side: top;
   text-align: left;
   font-style: italic;
   font-size: 10pt;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
+  margin-top: 0;
 }
 
 th,
@@ -190,6 +191,13 @@ figcaption {
 /* code */
 pre, code {
   font-size: 10pt;
+}
+
+/* references: hanging indent (first line flush, continuation lines indented) */
+#references p {
+  margin-left: 1.27cm;
+  text-indent: -1.27cm;
+  padding-left: 0;
 }
 
 /* horizontal rule */

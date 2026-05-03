@@ -51,7 +51,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link active" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
   <li><a href="#theory" id="toc-theory" class="nav-link" data-scroll-target="#theory"><span class="header-section-number">2</span> Theory</a>
   <ul class="collapse">
   <li><a href="#ai-execution-autonomy" id="toc-ai-execution-autonomy" class="nav-link" data-scroll-target="#ai-execution-autonomy"><span class="header-section-number">2.1</span> AI Execution Autonomy</a></li>
@@ -92,7 +93,8 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#practical-implications" id="toc-practical-implications" class="nav-link" data-scroll-target="#practical-implications"><span class="header-section-number">5.5</span> Practical Implications</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">5.6</span> Conclusion</a></li>
   </ul></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">6</span> References</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  <li><a href="#declaration-of-independence" id="toc-declaration-of-independence" class="nav-link" data-scroll-target="#declaration-of-independence">Declaration of Independence</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="ai-execution-autonomy-analysis.docx"><i class="bi bi-file-word"></i>MS Word</a></li></ul></div></nav>
 </div>
@@ -123,6 +125,10 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="summary" class="level1 unnumbered">
+<h1 class="unnumbered">Summary</h1>
+<p>As AI systems increasingly assume execution authority in digital workflows, understanding how different levels of autonomy affect user behavior becomes essential. This study examined the effects of AI execution autonomy on user task performance and intervention behavior in a controlled digital workflow. Using a between-subject experimental design, 160 participants who initiated the task were assigned to one of three autonomy conditions — Manual, Assistance, or Execution — and completed a structured exam registration task via a purpose-built web prototype. Behavioral data were captured through system-generated event logs, enabling objective measurement of task completion time, error occurrence, task abandonment, and intervention frequency. Results provided differentiated support for the proposed hypotheses. Higher levels of AI execution autonomy were associated with significantly shorter completion times, lower error occurrence, and lower task abandonment rates, particularly when comparing the Manual condition with the two system-supported conditions. Intervention occurrence did not differ significantly across conditions; however, intervention count was significantly lower in the Assistance and Execution conditions compared with Manual. Descriptive analysis further revealed that the form of intervention shifted from direct configuration edits in the Manual condition toward override and rejection actions in the system-supported conditions. These findings suggest that AI execution autonomy can improve task efficiency and reduce manual effort without fully removing the user from the interaction process. The results support a design perspective in which autonomy is calibrated to task structure and user control requirements rather than unconditionally maximized.</p>
+</section>
 <section id="introduction" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
 <p>Artificial intelligence (AI) systems are increasingly embedded in digital workflows and are evolving from tools that provide decision support toward systems capable of autonomously executing actions. In many contemporary applications, AI no longer functions merely as a source of information or recommendations but actively participates in shaping and executing decisions. This shift from assistance to autonomous execution fundamentally changes the distribution of control, responsibility, and risk between human users and technical systems (Endsley, 2017; Parasuraman et al., 2000).</p>
@@ -176,33 +182,11 @@ ul.task-list li input[type="checkbox"] {
 <section id="prototype-and-logging" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="prototype-and-logging"><span class="header-section-number">3.2</span> Prototype and Logging</h2>
 <p>A web-based exam registration system was developed to simulate a realistic academic workflow. The system required users to select a semester, choose an exam period, and configure a valid set of exams under predefined constraints.</p>
-<p>User interactions were logged using a backend logging system implemented with Supabase. The logging system captured event-level interaction data, including:</p>
-<pre><code>•   user actions (e.g., TASK_STARTED, TASK_COMPLETED, ERROR_SHOWN, FIELD_EDIT, OVERRIDE, AI_SUGGESTION_REJECTED)
-
-•   timestamps (client-side and server-side)
-
-•   session identifiers
-
-•   assigned condition (mode)</code></pre>
-<p>The collected data was stored as structured event logs and exported as CSV files for analysis. This approach enabled a detailed reconstruction of user behavior during task execution.</p>
+<p>User interactions were logged using a backend logging system implemented with Supabase. The logging system captured event-level interaction data, including user actions (e.g., TASK_STARTED, TASK_COMPLETED, ERROR_SHOWN, FIELD_EDIT, OVERRIDE, AI_SUGGESTION_REJECTED), timestamps (client-side and server-side), session identifiers, and the assigned condition (mode). The collected data was stored as structured event logs and exported as CSV files for analysis. This approach enabled a detailed reconstruction of user behavior during task execution.</p>
 </section>
 <section id="variables" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="variables"><span class="header-section-number">3.3</span> Variables</h2>
-<p>The independent variable (IV) in this study was the level of AI execution autonomy, with three levels:</p>
-<pre><code>•   Manual
-
-•   Assistance
-
-•   Execution</code></pre>
-<p>The dependent variables (DVs) captured objective behavioral outcomes derived from interaction logs:</p>
-<pre><code>•   **Task completion time**
-
-•   **Error occurrence**
-
-•   **Task abandonment**
-
-•   **Intervention behavior**</code></pre>
-<p>These variables were operationalized based on observable interaction events.</p>
+<p>The independent variable (IV) in this study was the level of AI execution autonomy, with three levels: Manual, Assistance, and Execution. The dependent variables (DVs) captured objective behavioral outcomes derived from interaction logs: task completion time, error occurrence, task abandonment, and intervention behavior. These variables were operationalized based on observable interaction events.</p>
 </section>
 <section id="sample" class="level2" data-number="3.4">
 <h2 data-number="3.4" class="anchored" data-anchor-id="sample"><span class="header-section-number">3.4</span> Sample</h2>
@@ -278,7 +262,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
-<caption>Table 2. Number of participants after data cleaning (excluding Information condition)</caption>
+<caption>Table 3. Number of participants after data cleaning (excluding Information condition)</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Condition</th>
@@ -310,7 +294,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
-<caption>Table 3. Number of unique sessions (one per participant) per condition</caption>
+<caption>Table 4. Number of unique sessions (one per participant) per condition</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Condition</th>
@@ -453,14 +437,9 @@ Figure&nbsp;6: Distribution of intervention counts across autonomy conditions.
 <h3 data-number="4.1.1" class="anchored" data-anchor-id="completion-time"><span class="header-section-number">4.1.1</span> Completion Time</h3>
 <p>Task completion time was operationalized as the elapsed time between the beginning and the successful completion of task execution within a session. For this measure, TASK_STARTED was treated as the starting point of task execution, and TASK_COMPLETED was treated as the endpoint indicating successful task completion. Because the analysis focused on elapsed interaction time within the system, completion time was calculated using the client-side timestamp variable (client_ts_ms). This timestamp was used because it directly reflects the temporal order and duration of user interactions during task execution. Accordingly, completion time was defined only for sessions in which both a valid task start and a valid task completion event were recorded.</p>
 <div class="cell">
-<div id="tbl-completion-time-summary" class="cell quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-completion-time-summary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;1: Table 4. Descriptive summary of completion time (in seconds) across autonomy conditions.
-</figcaption>
-<div aria-describedby="tbl-completion-time-summary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="cell caption-top table table-sm table-striped small">
+<table class="caption-top table table-sm table-striped small">
+<caption>Table 5. Descriptive summary of completion time (in seconds) across autonomy conditions.</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Condition</th>
@@ -494,9 +473,6 @@ Table&nbsp;1: Table 4. Descriptive summary of completion time (in seconds) acros
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-</figure>
 </div>
 </div>
 <p>Initial descriptive inspection of completion time suggested substantial skewness, particularly due to very large values in the Execution condition. Therefore, extreme cases were examined before proceeding to inferential analysis. Specifically, the longest completion times were reviewed, and the number of sessions exceeding predefined thresholds was inspected in order to determine whether unusually large values reflected meaningful observations or extreme cases that might distort subsequent comparison.</p>
@@ -591,14 +567,9 @@ Table&nbsp;1: Table 4. Descriptive summary of completion time (in seconds) acros
 </div>
 <p>The inspection showed that only one completed session exceeded 300 seconds, with a completion time of approximately 2965 seconds. Because this value was substantially larger than all other observations and strongly distorted the overall distribution, it was treated as an extreme outlier and excluded from the completion-time analysis. All remaining completed sessions were retained for the subsequent descriptive and inferential analyses.</p>
 <div class="cell">
-<div id="tbl-completion-time-summary-clean" class="cell quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-completion-time-summary-clean-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;2: Table 5. Descriptive summary of completion time (in seconds) across autonomy conditions after exclusion of one extreme outlier.
-</figcaption>
-<div aria-describedby="tbl-completion-time-summary-clean-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="cell caption-top table table-sm table-striped small">
+<table class="caption-top table table-sm table-striped small">
+<caption>Table 6. Descriptive summary of completion time (in seconds) across autonomy conditions after exclusion of one extreme outlier.</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Condition</th>
@@ -632,9 +603,6 @@ Table&nbsp;2: Table 5. Descriptive summary of completion time (in seconds) acros
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-</figure>
 </div>
 </div>
 <div class="cell">
@@ -721,7 +689,7 @@ Figure&nbsp;7: Distribution of task completion time across autonomy conditions a
 </table>
 </div>
 </div>
-<p>Post-hoc pairwise Wilcoxon comparisons showed that all pairwise comparisons were statistically significant. Completion time was significantly lower in the Assistance condition than in the Manual condition (p = .0136), significantly lower in the Execution condition than in the Manual condition (p &lt; .001), and significantly lower in the Execution condition than in the Assistance condition (p = .0367). These results indicate a stepwise reduction in completion time as AI execution autonomy increased.</p>
+<p>Post-hoc pairwise Wilcoxon comparisons showed that all pairwise comparisons were statistically significant. Completion time was significantly lower in the Assistance condition than in the Manual condition (p = .014), significantly lower in the Execution condition than in the Manual condition (p &lt; .001), and significantly lower in the Execution condition than in the Assistance condition (p = .037). These results indicate a stepwise reduction in completion time as AI execution autonomy increased.</p>
 </section>
 <section id="detected-errors" class="level3" data-number="4.1.2">
 <h3 data-number="4.1.2" class="anchored" data-anchor-id="detected-errors"><span class="header-section-number">4.1.2</span> Detected Errors</h3>
@@ -774,14 +742,13 @@ Figure&nbsp;8: Proportion of started sessions with and without detected errors a
 <tbody>
 <tr class="odd">
 <td style="text-align: center;">0.399</td>
-<td style="text-align: center;">moderate</td>
+<td style="text-align: center;">medium</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p>A chi-square test revealed a statistically significant association between autonomy condition and detected error occurrence, χ²(2) = 25.53, p &lt; .001, Cramér’s V = 0.40. This indicates that the distribution of sessions with and without at least one detected error differed significantly across the three autonomy conditions, with a moderate effect size. A moderate effect size indicates that autonomy condition had a meaningful, but not extremely strong, association with detected error occurrence.</p>
-<p>Because the chi-square test indicated a significant overall association, post-hoc pairwise proportion tests with Bonferroni adjustment were conducted to identify which specific condition pairs differed in detected error occurrence. These comparisons showed that the Manual condition differed significantly from both the Assistance condition (p &lt; .001) and the Execution condition (p &lt; .001), whereas no statistically significant difference was found between the Assistance and Execution conditions (p = 1.00). Overall, these results suggest that started sessions in the Manual condition were substantially more likely to contain at least one detected error, whereas both AI-supported conditions were associated with markedly lower error occurrence.</p>
+<p>A chi-square test revealed a statistically significant association between autonomy condition and detected error occurrence, χ²(2) = 25.53, p &lt; .001, Cramér’s V = 0.40, indicating a medium effect size. Because the overall test was significant, post-hoc pairwise proportion tests with Bonferroni adjustment were conducted to identify which specific condition pairs differed.</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
@@ -803,13 +770,13 @@ Figure&nbsp;8: Proportion of started sessions with and without detected errors a
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Execution vs Assistance</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: left;">1.000</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p>Descriptively, the proportion of started sessions with at least one detected error decreased from the Manual condition to the Assistance condition and further to the Execution condition. However, this reduction was statistically significant only when comparing the Manual condition with the other two conditions.</p>
+<p>Pairwise comparisons showed that the Manual condition differed significantly from both the Assistance condition (p &lt; .001) and the Execution condition (p &lt; .001), whereas no statistically significant difference was found between the Assistance and Execution conditions (p = 1.00). The proportion of started sessions with at least one detected error thus decreased from Manual to both system-supported conditions, but this reduction was statistically significant only when comparing Manual with the other two conditions.</p>
 </section>
 <section id="task-completion-and-abandonment" class="level3" data-number="4.1.3">
 <h3 data-number="4.1.3" class="anchored" data-anchor-id="task-completion-and-abandonment"><span class="header-section-number">4.1.3</span> Task Completion and Abandonment</h3>
@@ -950,7 +917,7 @@ Figure&nbsp;10: Proportion of started sessions with and without intervention acr
 </div>
 </div>
 </div>
-<p>Figure 11 shows the proportion of started sessions with and without intervention across the three autonomy conditions. Descriptively, intervention occurred in the large majority of started sessions in all three conditions. The proportions were very similar across Manual (92%), Assistance (94%), and Execution (91%), indicating only minor descriptive differences in intervention occurrence between autonomy conditions. To examine whether intervention occurrence differed significantly across autonomy conditions, a chi-square test of independence was conducted. Because intervention occurrence was treated as a categorical session-level outcome, this test was appropriate for assessing differences in the distribution of intervention presence across conditions.</p>
+<p>Figure 10 shows the proportion of started sessions with and without intervention across the three autonomy conditions. Descriptively, intervention occurred in the large majority of started sessions in all three conditions. The proportions were very similar across Manual (92%), Assistance (94%), and Execution (91%), indicating only minor descriptive differences in intervention occurrence between autonomy conditions. To examine whether intervention occurrence differed significantly across autonomy conditions, a chi-square test of independence was conducted. Because intervention occurrence was treated as a categorical session-level outcome, this test was appropriate for assessing differences in the distribution of intervention presence across conditions. All expected cell frequencies exceeded 5, satisfying the assumption required for the chi-square approximation to be valid. To complement significance testing, Cramér’s V was calculated as an effect size estimate.</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
@@ -966,13 +933,30 @@ Figure&nbsp;10: Proportion of started sessions with and without intervention acr
 <tr class="odd">
 <td style="text-align: center;">0.58</td>
 <td style="text-align: center;">2</td>
-<td style="text-align: center;">0.7482</td>
+<td style="text-align: center;">0.748</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Effect size (Cramér’s V) for the chi-square test on intervention occurrence.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Cramér’s V</th>
+<th style="text-align: center;">Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0.06</td>
+<td style="text-align: center;">small</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p>The chi-square test showed that intervention occurrence did not differ significantly across autonomy conditions, χ²(2) = 0.58, p = .7482. This indicates that the proportion of started sessions containing at least one intervention was similarly high across the Manual, Assistance, and Execution conditions. Overall, these results suggest that intervention occurrence, as a binary measure, did not clearly distinguish between levels of AI execution autonomy.</p>
+<p>The chi-square test showed that intervention occurrence did not differ significantly across autonomy conditions, χ²(2) = 0.58, p = .748, Cramér’s V = 0.06. This indicates that the proportion of started sessions containing at least one intervention was similarly high across the Manual, Assistance, and Execution conditions. Overall, these results suggest that intervention occurrence, as a binary measure, did not clearly distinguish between levels of AI execution autonomy.</p>
 </section>
 <section id="intervention-count" class="level3" data-number="4.2.2">
 <h3 data-number="4.2.2" class="anchored" data-anchor-id="intervention-count"><span class="header-section-number">4.2.2</span> Intervention Count</h3>
@@ -991,7 +975,46 @@ Figure&nbsp;11: Distribution of intervention counts across autonomy conditions.
 </div>
 </div>
 </div>
-<p>Descriptively, Figure 12 suggests that intervention count differed across autonomy conditions. The Manual condition showed the highest intervention counts overall, the Assistance condition showed lower counts, and the Execution condition showed the lowest counts. In addition, the Manual condition displayed the greatest spread, indicating that intervention frequency was not only higher but also more variable in this condition.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Descriptive statistics for intervention count per autonomy condition.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Condition</th>
+<th style="text-align: center;">n</th>
+<th style="text-align: center;">Median</th>
+<th style="text-align: center;">IQR</th>
+<th style="text-align: center;">Mean</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">manual</td>
+<td style="text-align: center;">53</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">8.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Assistance</td>
+<td style="text-align: center;">54</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">5.1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Execution</td>
+<td style="text-align: center;">53</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">4.2</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Descriptively, Figure 11 and the descriptive statistics below suggest that intervention count differed across autonomy conditions. The Manual condition showed the highest median intervention count (Mdn = 7, IQR = 6), while both the Assistance and Execution conditions showed substantially lower medians (Mdn = 3 for both). Although the medians were equal for Assistance and Execution, the Execution condition displayed notably less spread (IQR = 0 vs.&nbsp;IQR = 3) and a lower mean (4.2 vs.&nbsp;5.1), indicating that intervention frequency was not only lower but also more consistent in the Execution condition. The Manual condition also displayed the greatest spread, indicating that intervention frequency was both higher and more variable under fully manual operation.</p>
 <p>Because intervention count represents a count-based session-level outcome and the distribution was visibly non-normal, a non-parametric Kruskal–Wallis test was conducted to examine whether intervention count differed significantly across autonomy conditions.</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -1013,40 +1036,61 @@ Figure&nbsp;11: Distribution of intervention counts across autonomy conditions.
 </tbody>
 </table>
 </div>
-</div>
-<p>A Kruskal–Wallis test showed that intervention count differed significantly across autonomy conditions, H(2) = 26.69, p &lt; .001. This indicates that the frequency of user intervention varied significantly depending on the level of AI execution autonomy. Because the Kruskal–Wallis test indicated an overall difference in intervention count across conditions, additional post-hoc pairwise Wilcoxon rank-sum tests were conducted. Bonferroni adjustment was applied to control for multiple comparisons.</p>
-<div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
-<caption>Pairwise Wilcoxon post-hoc comparisons for intervention count.</caption>
+<caption>Effect size (epsilon-squared) for the Kruskal–Wallis test on intervention count.</caption>
 <thead>
 <tr class="header">
-<th style="text-align: left;">Comparison</th>
-<th style="text-align: left;">p-value</th>
+<th style="text-align: center;">ε²</th>
+<th style="text-align: center;">Interpretation</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Assistance vs manual</td>
-<td style="text-align: left;">&lt; .001</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Execution vs manual</td>
-<td style="text-align: left;">&lt; .001</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Execution vs Assistance</td>
-<td style="text-align: left;">1.000</td>
+<td style="text-align: center;">0.157</td>
+<td style="text-align: center;">large</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p>Post-hoc pairwise Wilcoxon comparisons showed that intervention count was significantly lower in the Assistance condition than in the Manual condition (p &lt; .001) and significantly lower in the Execution condition than in the Manual condition (p &lt; .001). However, no significant difference was found between the Assistance and Execution conditions (p = 1.000). Overall, these results indicate that higher AI execution autonomy was associated with a lower frequency of user intervention compared with the Manual condition, although the difference between Assistance and Execution was not statistically significant.</p>
+<p>A Kruskal–Wallis test showed that intervention count differed significantly across autonomy conditions, H(2) = 26.69, p &lt; .001, ε² = .157. The effect size indicates a large association between autonomy condition and intervention frequency. Because the Kruskal–Wallis test indicated an overall difference in intervention count across conditions, additional post-hoc pairwise Wilcoxon rank-sum tests were conducted. Bonferroni adjustment was applied to control for multiple comparisons.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Pairwise Wilcoxon post-hoc comparisons for intervention count with rank-biserial correlation.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Comparison</th>
+<th style="text-align: center;">p-value</th>
+<th style="text-align: center;">r (rank-biserial)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Assistance vs manual</td>
+<td style="text-align: center;">&lt; .001</td>
+<td style="text-align: center;">-0.415</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Execution vs manual</td>
+<td style="text-align: center;">&lt; .001</td>
+<td style="text-align: center;">-0.546</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Execution vs Assistance</td>
+<td style="text-align: center;">1.000</td>
+<td style="text-align: center;">-0.098</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Post-hoc pairwise Wilcoxon comparisons showed that intervention count was significantly lower in the Assistance condition than in the Manual condition (p &lt; .001, r = −0.42) and significantly lower in the Execution condition than in the Manual condition (p &lt; .001, r = −0.55), indicating medium-to-large effects. No significant difference was found between the Assistance and Execution conditions (p = 1.00, r = −0.10). Overall, these results indicate that higher AI execution autonomy was associated with a substantially lower frequency of user intervention compared with the Manual condition, although the difference between Assistance and Execution was not statistically significant.</p>
 </section>
 <section id="types-of-intervention" class="level3" data-number="4.2.3">
 <h3 data-number="4.2.3" class="anchored" data-anchor-id="types-of-intervention"><span class="header-section-number">4.2.3</span> Types of Intervention</h3>
-<p>To further differentiate intervention behavior, the specific types of intervention were examined separately. Three event categories were considered: <code>FIELD_EDIT</code>, <code>OVERRIDE</code>, and <code>AI_SUGGESTION_REJECTED</code>. For the present analysis, these intervention types were summarized descriptively across started sessions in order to identify which forms of user intervention were most characteristic of each autonomy condition.</p>
+<p>To further differentiate intervention behavior, the specific types of intervention were examined separately. Three event categories were considered: <code>FIELD_EDIT</code>, <code>OVERRIDE</code>, and <code>AI_SUGGESTION_REJECTED</code>. Because the binary occurrence of each intervention type was expected to vary markedly across conditions, chi-square or Fisher’s exact tests were applied where assumptions permitted. Edit occurrence approached ceiling (&gt;90% in all conditions), which precluded reliable statistical testing due to low expected cell counts in the “no edit” category; it was therefore examined descriptively only. Override and Reject occurrence were tested formally using Fisher’s exact test, which was preferred over chi-square because some observed cell counts were zero.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-intervention-types-h2" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1061,7 +1105,31 @@ Figure&nbsp;12: Proportion of started sessions containing each intervention type
 </div>
 </div>
 </div>
-<p>Figure 13 shows the proportion of started sessions containing each intervention type across the three autonomy conditions. Edits were highly prevalent in all three conditions, occurring in more than 90% of started sessions in the Manual, Assistance, and Execution conditions. In contrast, override events occurred only in the Assistance and Execution conditions, with a particularly high proportion in Execution. Rejection-related intervention was observed only in the Assistance condition. These descriptive patterns suggest that the specific form of intervention varied across autonomy conditions, even when overall intervention occurrence remained similarly high.</p>
+<p>Figure 12 shows the proportion of started sessions containing each intervention type across the three autonomy conditions. Edits were highly prevalent in all three conditions, occurring in more than 90% of started sessions across all conditions (Manual: 92%, Assistance: 94%, Execution: 91%). In contrast, override events occurred only in the Assistance (81%) and Execution (91%) conditions and were entirely absent in the Manual condition. Rejection-related intervention was observed only in the Assistance condition (35%) and was absent in both the Manual and Execution conditions.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Fisher’s exact tests for Override and Reject intervention type occurrence across autonomy conditions.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Intervention Type</th>
+<th style="text-align: center;">Fisher’s p-value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Override</td>
+<td style="text-align: center;">&lt; .001</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Reject</td>
+<td style="text-align: center;">&lt; .001</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Fisher’s exact tests confirmed that both Override and Reject occurrence differed significantly across autonomy conditions (both p &lt; .001). The pattern for Override reflects the nature of the system-supported conditions: because the system generates suggestions in the Assistance and Execution conditions, users in those conditions have the opportunity to override AI output — an action that is structurally impossible in the Manual condition. The pattern for Reject, concentrated exclusively in the Assistance condition, suggests that users in that condition actively declined AI suggestions more often than those in the Execution condition, possibly reflecting a greater sense of perceived control or a less obligatory acceptance dynamic. Edit occurrence was not formally tested due to near-ceiling proportions in all conditions, which would have violated the expected cell count assumption.</p>
 <p>Taken together, the results provide partial support for H2. While intervention occurrence did not differ significantly across autonomy conditions, intervention count showed that users in the Manual condition intervened significantly more often than users in the Assistance and Execution conditions. The descriptive analysis of intervention types further showed that intervention was not uniform across conditions: edits were common in all three conditions, whereas overrides and rejection-related actions were concentrated in the system-supported conditions. Overall, these findings suggest that higher AI execution autonomy did not eliminate intervention altogether, but it reduced how frequently users needed to intervene and changed the form that intervention took.</p>
 </section>
 </section>
@@ -1113,8 +1181,8 @@ Figure&nbsp;12: Proportion of started sessions containing each intervention type
 <p>Overall, this study provides empirical evidence that AI execution autonomy can improve efficiency and reduce manual burden while preserving a continuing role for human supervision. By linking levels of execution autonomy to observable behavioral outcomes, it offers a more differentiated understanding of how control is redistributed in human–AI interaction and provides a foundation for future research on the design of effective and responsible execution-oriented AI systems.</p>
 </section>
 </section>
-<section id="references" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> References</h1>
+<section id="references" class="level1 unnumbered">
+<h1 class="unnumbered">References</h1>
 <p>Bainbridge, L. (1983). Ironies of automation. <em>Automatica, 19</em>(6), 775–779. https://doi.org/10.1016/0005-1098(83)90046-8</p>
 <p>Dietvorst, B. J., Simmons, J. P., &amp; Massey, C. (2015). Algorithm aversion: People erroneously avoid algorithms after seeing them err. <em>Journal of Experimental Psychology: General, 144</em>(1), 114–126. https://doi.org/10.1037/xge0000033</p>
 <p>Dietvorst, B. J., Simmons, J. P., &amp; Massey, C. (2018). Overcoming algorithm aversion: People will use imperfect algorithms if they can (even slightly) modify them. <em>Management Science, 64</em>(3), 1155–1170. https://doi.org/10.1287/mnsc.2016.2643</p>
@@ -1131,6 +1199,13 @@ Figure&nbsp;12: Proportion of started sessions containing each intervention type
 <p>Sarter, N. B., &amp; Woods, D. D. (1995). How in the world did we ever get into that mode? Mode error and awareness in supervisory control. <em>Human Factors, 37</em>(1), 5–19. https://doi.org/10.1518/001872095779049516</p>
 <p>Sheridan, T. B., &amp; Verplank, W. L. (1978). <em>Human and computer control of undersea teleoperators</em> (Technical Report). MIT Man-Machine Systems Laboratory.</p>
 <p>Wickens, C. D., Li, H., Santamaria, A., Sebok, A., &amp; Sarter, N. B. (2010). Stages and levels of automation: An integrated meta-analysis. <em>Proceedings of the Human Factors and Ergonomics Society Annual Meeting, 54</em>(4), 389–393. https://doi.org/10.1177/154193121005400425</p>
+</section>
+<section id="declaration-of-independence" class="level1 unnumbered">
+<h1 class="unnumbered">Declaration of Independence</h1>
+<p>I certify that I have written this thesis independently and without the use of any aids other than those stated. All passages taken verbatim or in spirit from publications or other sources are marked as such.</p>
+<p>&nbsp;</p>
+<p>Place, date: __________________________</p>
+<p>Signature: __________________________</p>
 </section>
 
 </main>
