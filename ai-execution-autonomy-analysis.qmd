@@ -11,7 +11,7 @@ format:
     css: styles.css
 
   docx:
-    toc: true
+    toc: false
     toc-depth: 3
     number-sections: true
     reference-doc: pfh-reference.docx
@@ -81,25 +81,186 @@ total_participants <- sum(participant_table$N_participants)
 total_sessions <- sum(session_table$N_sessions)
 ```
 
+::: {.content-visible when-format="html"}
+::: {.pfh-cover}
+
+<div class="pfh-cover-paper-title">
+The Impact of AI Execution Autonomy on User Task Performance and Intervention Behavior in Digital Workflows
+</div>
+
+<div class="pfh-cover-main">
+
+<div class="pfh-cover-type">
 Practical Project
+</div>
 
-Submitted as part of the degree program  
-User Experience Management & Design
+<div class="pfh-cover-subtitle">
+Submitted as part of the degree program<br>
+“User Experience Management & Design”
+</div>
 
-In partial fulfillment of the requirements for the degree of  
-Master of Science
+<div class="pfh-cover-degree">
+In partial fulfillment of the requirements for the degree of<br>
+“Master of Science”
+</div>
 
-At PFH Private University of Applied Sciences Göttingen
+<div class="pfh-cover-university">
+PFH Private University Göttingen
+</div>
 
-Submitted in May 2026
+<div class="pfh-cover-date">
+May 2026
+</div>
 
-Written by: Zahra Qasemzadeh
+</div>
 
-Address: Rosenbachweg 12, App. 103, 35075 Göttingen
-
-Matriculation Number: CMU1324EW171
-
+<div class="pfh-cover-bottom">
+Written by: Zahra Qasemzadeh<br>
 Supervisor: Prof. Dr. Hubert Schüle
+</div>
+
+:::
+:::
+
+```{=openxml}
+<w:p>
+  <w:pPr>
+    <w:jc w:val="center"/>
+    <w:spacing w:before="0" w:after="2400"/>
+  </w:pPr>
+  <w:r>
+    <w:rPr>
+      <w:b/>
+      <w:sz w:val="32"/>
+      <w:szCs w:val="32"/>
+    </w:rPr>
+    <w:t>The Impact of AI Execution Autonomy on User Task Performance and Intervention Behavior in Digital Workflows</w:t>
+  </w:r>
+</w:p>
+<w:p>
+  <w:pPr>
+    <w:jc w:val="center"/>
+    <w:spacing w:before="0" w:after="200"/>
+  </w:pPr>
+  <w:r>
+    <w:rPr><w:sz w:val="24"/><w:szCs w:val="24"/></w:rPr>
+    <w:t>Practical Project</w:t>
+  </w:r>
+</w:p>
+<w:p>
+  <w:pPr>
+    <w:jc w:val="center"/>
+    <w:spacing w:before="0" w:after="200"/>
+  </w:pPr>
+  <w:r>
+    <w:rPr><w:sz w:val="24"/><w:szCs w:val="24"/></w:rPr>
+    <w:t xml:space="preserve">Submitted as part of the degree program</w:t>
+  </w:r>
+  <w:r>
+    <w:rPr><w:sz w:val="24"/><w:szCs w:val="24"/></w:rPr>
+    <w:br/>
+  </w:r>
+  <w:r>
+    <w:rPr><w:sz w:val="24"/><w:szCs w:val="24"/></w:rPr>
+    <w:t>“User Experience Management &amp; Design”</w:t>
+  </w:r>
+</w:p>
+<w:p>
+  <w:pPr>
+    <w:jc w:val="center"/>
+    <w:spacing w:before="0" w:after="800"/>
+  </w:pPr>
+  <w:r>
+    <w:rPr><w:sz w:val="24"/><w:szCs w:val="24"/></w:rPr>
+    <w:t xml:space="preserve">In partial fulfillment of the requirements for the degree of</w:t>
+  </w:r>
+  <w:r>
+    <w:rPr><w:sz w:val="24"/><w:szCs w:val="24"/></w:rPr>
+    <w:br/>
+  </w:r>
+  <w:r>
+    <w:rPr><w:sz w:val="24"/><w:szCs w:val="24"/></w:rPr>
+    <w:t>“Master of Science”</w:t>
+  </w:r>
+</w:p>
+<w:p>
+  <w:pPr>
+    <w:jc w:val="center"/>
+    <w:spacing w:before="0" w:after="120"/>
+  </w:pPr>
+  <w:r>
+    <w:rPr><w:sz w:val="24"/><w:szCs w:val="24"/></w:rPr>
+    <w:t>PFH Private University Göttingen</w:t>
+  </w:r>
+</w:p>
+<w:p>
+  <w:pPr>
+    <w:jc w:val="center"/>
+    <w:spacing w:before="0" w:after="2400"/>
+  </w:pPr>
+  <w:r>
+    <w:rPr><w:sz w:val="24"/><w:szCs w:val="24"/></w:rPr>
+    <w:t>May 2026</w:t>
+  </w:r>
+</w:p>
+<w:p>
+  <w:pPr><w:spacing w:before="0" w:after="120"/></w:pPr>
+  <w:r>
+    <w:rPr><w:sz w:val="24"/><w:szCs w:val="24"/></w:rPr>
+    <w:t>Written by: Zahra Qasemzadeh</w:t>
+  </w:r>
+</w:p>
+<w:p>
+  <w:pPr><w:spacing w:before="0" w:after="0"/></w:pPr>
+  <w:r>
+    <w:rPr><w:sz w:val="24"/><w:szCs w:val="24"/></w:rPr>
+    <w:t>Supervisor: Prof. Dr. Hubert Schüle</w:t>
+  </w:r>
+</w:p>
+<w:p>
+  <w:r>
+    <w:br w:type="page"/>
+  </w:r>
+</w:p>
+<w:p>
+  <w:pPr>
+    <w:pStyle w:val="TOCHeading"/>
+  </w:pPr>
+  <w:r>
+    <w:t>Contents</w:t>
+  </w:r>
+</w:p>
+<w:p>
+  <w:r>
+    <w:fldChar w:fldCharType="begin" w:dirty="true"/>
+  </w:r>
+  <w:r>
+    <w:instrText xml:space="preserve"> TOC \o "1-3" \h \z \u </w:instrText>
+  </w:r>
+  <w:r>
+    <w:fldChar w:fldCharType="separate"/>
+  </w:r>
+  <w:r>
+    <w:fldChar w:fldCharType="end"/>
+  </w:r>
+</w:p>
+<w:p>
+  <w:r>
+    <w:br w:type="page"/>
+  </w:r>
+</w:p>
+```
+
+
+::: {.content-visible when-format="html"}
+<div style="margin-bottom: 2rem;">
+<a href="https://uwlzwc-ladan.shinyapps.io/ai-autonomy-analysis/" target="_blank"
+   style="display:inline-block; padding: 0.5rem 1.1rem; background:#1f4e79; color:#fff;
+          border-radius:4px; font-size:11pt; text-decoration:none; font-family:Arial,sans-serif;">
+  &#9654;&nbsp; Open Interactive Dashboard
+</a>
+</div>
+:::
 
 # Summary {.unnumbered}
 

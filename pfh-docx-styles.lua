@@ -9,6 +9,15 @@ end
 
 local in_references = false
 
+-- Remove automatic title block (title, author, date) from docx
+-- since we use a custom cover page instead
+local function remove_title_meta(meta)
+  meta.title = nil
+  meta.author = nil
+  meta.date = nil
+  return meta
+end
+
 local function styled_para(block, style)
   return pandoc.Div(
     pandoc.Para(block.content),
@@ -17,6 +26,9 @@ local function styled_para(block, style)
 end
 
 return {
+  {
+    Meta = remove_title_meta
+  },
   {
     Pandoc = function(doc)
       local result    = pandoc.List()

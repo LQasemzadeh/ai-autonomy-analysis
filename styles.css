@@ -273,4 +273,97 @@ a:hover {
   }
 }
 
+/* Hide Quarto automatic title block in HTML */
+#title-block-header {
+  display: none !important;
+}
 
+/* Remove default Quarto top spacing */
+main.content,
+#quarto-document-content {
+  padding-top: 0 !important;
+}
+
+/* =========================
+   PFH COVER PAGE - HTML
+   ========================= */
+
+.pfh-cover {
+  min-height: 100vh;
+  max-width: 900px;
+  margin: 0 auto 80px auto;
+  padding: 80px 40px 80px 40px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #000000;
+  page-break-after: always;
+  break-after: page;
+}
+
+.pfh-cover p {
+  text-indent: 0 !important;
+  text-align: center !important;
+  margin: 0;
+}
+
+.pfh-cover-paper-title {
+  font-size: 16pt;
+  font-weight: 700;
+  line-height: 1.35;
+  text-align: center;
+}
+
+.pfh-cover-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.pfh-cover-type {
+  font-size: 12pt;
+  font-weight: 400;
+  line-height: 1.4;
+  margin-bottom: 16px;
+}
+
+.pfh-cover-subtitle {
+  font-size: 12pt;
+  font-weight: 400;
+  line-height: 1.4;
+  margin-bottom: 16px;
+}
+
+.pfh-cover-degree {
+  font-size: 12pt;
+  font-weight: 400;
+  line-height: 1.4;
+  margin-bottom: 32px;
+}
+
+.pfh-cover-university {
+  font-size: 12pt;
+  font-weight: 400;
+  line-height: 1.4;
+  margin-bottom: 4px;
+}
+
+.pfh-cover-date {
+  font-size: 12pt;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.pfh-cover-bottom {
+  font-size: 12pt;
+  line-height: 1.5;
+  text-align: left;
+}
+
+/* Start real paper after cover */
+.pfh-cover + h1 {
+  margin-top: 60px;
+}
