@@ -83,21 +83,23 @@ total_sessions <- sum(session_table$N_sessions)
 
 Practical Project
 
-As part of the degree program “User Experience Management & Design”
+Submitted as part of the degree program  
+User Experience Management & Design
 
-With the degree “Master of Science”
+In partial fulfillment of the requirements for the degree of  
+Master of Science
 
-At the PFH-Private University of Applied Science Göttingen
+At PFH Private University of Applied Sciences Göttingen
 
-Submitted on 00.05.2026
+Submitted in May 2026
 
 Written by: Zahra Qasemzadeh
 
-Address: Rosenbachweg 12, App 103, 35075 Göttingen
+Address: Rosenbachweg 12, App. 103, 35075 Göttingen
 
 Matriculation Number: CMU1324EW171
 
-Professor: Pro. Dr. Hubert Schüle
+Supervisor: Prof. Dr. Hubert Schüle
 
 # Summary {.unnumbered}
 
