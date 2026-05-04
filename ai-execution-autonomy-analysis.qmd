@@ -1,6 +1,5 @@
 ---
 title: "The Impact of AI Execution Autonomy on User Task Performance and Intervention Behavior in Digital Workflows"
-author: "Ladan"
 
 format:
   html:
@@ -82,7 +81,23 @@ total_participants <- sum(participant_table$N_participants)
 total_sessions <- sum(session_table$N_sessions)
 ```
 
+Practical Project
 
+As part of the degree program “User Experience Management & Design”
+
+With the degree “Master of Science”
+
+At the PFH-Private University of Applied Science Göttingen
+
+Submitted on 00.05.2026
+
+Written by: Zahra Qasemzadeh
+
+Address: Rosenbachweg 12, App 103, 35075 Göttingen
+
+Matriculation Number: CMU1324EW171
+
+Professor: Pro. Dr. Hubert Schüle
 
 # Summary {.unnumbered}
 
