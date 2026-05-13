@@ -1,0 +1,1969 @@
+{
+  "metadata": {
+    "title": "AI Execution Autonomy Study",
+    "conditions": ["Manual", "Assistance", "Execution"],
+    "total_participants": 227,
+    "total_started_sessions": 160
+  },
+  "participants": {
+    "per_condition": [
+      {
+        "mode": "Assistance",
+        "n_participants": 75
+      },
+      {
+        "mode": "Execution",
+        "n_participants": 76
+      },
+      {
+        "mode": "Manual",
+        "n_participants": 76
+      }
+    ],
+    "sessions_per_condition": [
+      {
+        "mode": "Assistance",
+        "n_sessions": 75
+      },
+      {
+        "mode": "Execution",
+        "n_sessions": 76
+      },
+      {
+        "mode": "Manual",
+        "n_sessions": 76
+      }
+    ]
+  },
+  "task_progression_overall": [
+    {
+      "status": "Did not start",
+      "n": 64
+    },
+    {
+      "status": "Started and completed",
+      "n": 109
+    },
+    {
+      "status": "Started but not completed",
+      "n": 51
+    }
+  ],
+  "task_outcomes_by_mode": [
+    {
+      "mode": "Manual",
+      "outcome": "Abandoned",
+      "n": 24,
+      "proportion": 0.4528,
+      "label": "45%"
+    },
+    {
+      "mode": "Manual",
+      "outcome": "Completed",
+      "n": 29,
+      "proportion": 0.5472,
+      "label": "55%"
+    },
+    {
+      "mode": "Assistance",
+      "outcome": "Abandoned",
+      "n": 18,
+      "proportion": 0.3333,
+      "label": "33%"
+    },
+    {
+      "mode": "Assistance",
+      "outcome": "Completed",
+      "n": 36,
+      "proportion": 0.6667,
+      "label": "67%"
+    },
+    {
+      "mode": "Execution",
+      "outcome": "Abandoned",
+      "n": 9,
+      "proportion": 0.1698,
+      "label": "17%"
+    },
+    {
+      "mode": "Execution",
+      "outcome": "Completed",
+      "n": 44,
+      "proportion": 0.8302,
+      "label": "83%"
+    }
+  ],
+  "completion_time": {
+    "distribution": [
+      {
+        "session_id": "S-073YMZ05",
+        "mode": "Assistance",
+        "completion_time": 7.155
+      },
+      {
+        "session_id": "S-0BLAMD7R",
+        "mode": "Manual",
+        "completion_time": 17.276
+      },
+      {
+        "session_id": "S-0Q0AE0BD",
+        "mode": "Execution",
+        "completion_time": 7.669
+      },
+      {
+        "session_id": "S-0R34IEGD",
+        "mode": "Manual",
+        "completion_time": 53.4
+      },
+      {
+        "session_id": "S-0TCIZWT2",
+        "mode": "Execution",
+        "completion_time": 15.753
+      },
+      {
+        "session_id": "S-0YWDIBD4",
+        "mode": "Manual",
+        "completion_time": 18.215
+      },
+      {
+        "session_id": "S-1F6DA7SX",
+        "mode": "Assistance",
+        "completion_time": 6.991
+      },
+      {
+        "session_id": "S-21WAOP00",
+        "mode": "Manual",
+        "completion_time": 100.968
+      },
+      {
+        "session_id": "S-23ETDAI1",
+        "mode": "Manual",
+        "completion_time": 27.42
+      },
+      {
+        "session_id": "S-26UFONVZ",
+        "mode": "Execution",
+        "completion_time": 7.511
+      },
+      {
+        "session_id": "S-27UEDBRM",
+        "mode": "Assistance",
+        "completion_time": 7.612
+      },
+      {
+        "session_id": "S-3EESRI07",
+        "mode": "Execution",
+        "completion_time": 27.767
+      },
+      {
+        "session_id": "S-4CAOXI2Q",
+        "mode": "Assistance",
+        "completion_time": 11.808
+      },
+      {
+        "session_id": "S-4DG8AMA9",
+        "mode": "Execution",
+        "completion_time": 12.852
+      },
+      {
+        "session_id": "S-4GNOB2GI",
+        "mode": "Manual",
+        "completion_time": 55.04
+      },
+      {
+        "session_id": "S-4LNMOVX4",
+        "mode": "Execution",
+        "completion_time": 10.785
+      },
+      {
+        "session_id": "S-4T8SYEXS",
+        "mode": "Execution",
+        "completion_time": 8.643
+      },
+      {
+        "session_id": "S-4UDKC6NO",
+        "mode": "Manual",
+        "completion_time": 51.579
+      },
+      {
+        "session_id": "S-57E0DKBS",
+        "mode": "Manual",
+        "completion_time": 19.471
+      },
+      {
+        "session_id": "S-5PE8A04D",
+        "mode": "Execution",
+        "completion_time": 37.275
+      },
+      {
+        "session_id": "S-5WZH7F2A",
+        "mode": "Assistance",
+        "completion_time": 10.805
+      },
+      {
+        "session_id": "S-76RSWCYF",
+        "mode": "Assistance",
+        "completion_time": 10.572
+      },
+      {
+        "session_id": "S-77DDEV1G",
+        "mode": "Manual",
+        "completion_time": 12.772
+      },
+      {
+        "session_id": "S-77EZ8YNX",
+        "mode": "Execution",
+        "completion_time": 6.272
+      },
+      {
+        "session_id": "S-7HPZY5JW",
+        "mode": "Assistance",
+        "completion_time": 67.739
+      },
+      {
+        "session_id": "S-7I82MBW7",
+        "mode": "Assistance",
+        "completion_time": 10.369
+      },
+      {
+        "session_id": "S-7KCGNSVE",
+        "mode": "Execution",
+        "completion_time": 21.406
+      },
+      {
+        "session_id": "S-7NXKXDAP",
+        "mode": "Assistance",
+        "completion_time": 12.149
+      },
+      {
+        "session_id": "S-86W259S9",
+        "mode": "Assistance",
+        "completion_time": 10.785
+      },
+      {
+        "session_id": "S-8A4U6AVO",
+        "mode": "Assistance",
+        "completion_time": 66.537
+      },
+      {
+        "session_id": "S-9SKK9ZXY",
+        "mode": "Assistance",
+        "completion_time": 15.176
+      },
+      {
+        "session_id": "S-B1E2R54C",
+        "mode": "Execution",
+        "completion_time": 6.168
+      },
+      {
+        "session_id": "S-C6PPPNMV",
+        "mode": "Execution",
+        "completion_time": 6.24
+      },
+      {
+        "session_id": "S-CMJUPXON",
+        "mode": "Assistance",
+        "completion_time": 17.888
+      },
+      {
+        "session_id": "S-CVAVGJ0P",
+        "mode": "Execution",
+        "completion_time": 7.679
+      },
+      {
+        "session_id": "S-D1OVKMVX",
+        "mode": "Manual",
+        "completion_time": 24.646
+      },
+      {
+        "session_id": "S-DAY10IF4",
+        "mode": "Manual",
+        "completion_time": 15.751
+      },
+      {
+        "session_id": "S-DFJ5ED3Z",
+        "mode": "Execution",
+        "completion_time": 7.818
+      },
+      {
+        "session_id": "S-DJGN9WGG",
+        "mode": "Assistance",
+        "completion_time": 52.979
+      },
+      {
+        "session_id": "S-DMUAXPAM",
+        "mode": "Manual",
+        "completion_time": 25.31
+      },
+      {
+        "session_id": "S-DWPAP42P",
+        "mode": "Execution",
+        "completion_time": 15.583
+      },
+      {
+        "session_id": "S-F3DFR4KT",
+        "mode": "Manual",
+        "completion_time": 45.231
+      },
+      {
+        "session_id": "S-F5OFN5A6",
+        "mode": "Assistance",
+        "completion_time": 95.845
+      },
+      {
+        "session_id": "S-F8V8AMYI",
+        "mode": "Execution",
+        "completion_time": 5.885
+      },
+      {
+        "session_id": "S-FHIPI7ZO",
+        "mode": "Execution",
+        "completion_time": 6.422
+      },
+      {
+        "session_id": "S-FLSBC72X",
+        "mode": "Assistance",
+        "completion_time": 12.871
+      },
+      {
+        "session_id": "S-FRQ1PFYO",
+        "mode": "Assistance",
+        "completion_time": 84.2
+      },
+      {
+        "session_id": "S-G6IB5V7M",
+        "mode": "Assistance",
+        "completion_time": 12.852
+      },
+      {
+        "session_id": "S-G78BQ0JM",
+        "mode": "Manual",
+        "completion_time": 28.638
+      },
+      {
+        "session_id": "S-H73VNIFT",
+        "mode": "Execution",
+        "completion_time": 50.359
+      },
+      {
+        "session_id": "S-HHIDLZZT",
+        "mode": "Execution",
+        "completion_time": 17.233
+      },
+      {
+        "session_id": "S-HO2HAL02",
+        "mode": "Manual",
+        "completion_time": 23.018
+      },
+      {
+        "session_id": "S-HRTXKJ6Q",
+        "mode": "Assistance",
+        "completion_time": 29.527
+      },
+      {
+        "session_id": "S-HWKEZBDT",
+        "mode": "Assistance",
+        "completion_time": 23.609
+      },
+      {
+        "session_id": "S-HXUZS215",
+        "mode": "Execution",
+        "completion_time": 67.577
+      },
+      {
+        "session_id": "S-I8AFXYJ8",
+        "mode": "Manual",
+        "completion_time": 16.196
+      },
+      {
+        "session_id": "S-INFAG1LM",
+        "mode": "Execution",
+        "completion_time": 7.472
+      },
+      {
+        "session_id": "S-IQNM8WFY",
+        "mode": "Execution",
+        "completion_time": 8.287
+      },
+      {
+        "session_id": "S-J8CZABQ8",
+        "mode": "Execution",
+        "completion_time": 6.181
+      },
+      {
+        "session_id": "S-J9JP63LF",
+        "mode": "Assistance",
+        "completion_time": 40.008
+      },
+      {
+        "session_id": "S-JHTI4T58",
+        "mode": "Execution",
+        "completion_time": 22.583
+      },
+      {
+        "session_id": "S-JJV1VAHE",
+        "mode": "Execution",
+        "completion_time": 5.335
+      },
+      {
+        "session_id": "S-KBCAOPV2",
+        "mode": "Execution",
+        "completion_time": 45.074
+      },
+      {
+        "session_id": "S-KQ1H9IHE",
+        "mode": "Execution",
+        "completion_time": 9.621
+      },
+      {
+        "session_id": "S-L44273WY",
+        "mode": "Manual",
+        "completion_time": 42.858
+      },
+      {
+        "session_id": "S-LALLHNS8",
+        "mode": "Assistance",
+        "completion_time": 8.652
+      },
+      {
+        "session_id": "S-LSUJ3REI",
+        "mode": "Assistance",
+        "completion_time": 23.524
+      },
+      {
+        "session_id": "S-M3JWS2X8",
+        "mode": "Execution",
+        "completion_time": 19.705
+      },
+      {
+        "session_id": "S-M5FNDWOZ",
+        "mode": "Execution",
+        "completion_time": 44.55
+      },
+      {
+        "session_id": "S-MZ5WRHMH",
+        "mode": "Assistance",
+        "completion_time": 14.707
+      },
+      {
+        "session_id": "S-NJ0B2YB1",
+        "mode": "Execution",
+        "completion_time": 6.376
+      },
+      {
+        "session_id": "S-NS5U3Y7S",
+        "mode": "Manual",
+        "completion_time": 29.62
+      },
+      {
+        "session_id": "S-O1IMAN9C",
+        "mode": "Manual",
+        "completion_time": 94.098
+      },
+      {
+        "session_id": "S-OG3TMUE5",
+        "mode": "Execution",
+        "completion_time": 30.435
+      },
+      {
+        "session_id": "S-OGIY818X",
+        "mode": "Execution",
+        "completion_time": 13.41
+      },
+      {
+        "session_id": "S-ON3M7Z03",
+        "mode": "Manual",
+        "completion_time": 36.712
+      },
+      {
+        "session_id": "S-OU8QY5BR",
+        "mode": "Execution",
+        "completion_time": 21.006
+      },
+      {
+        "session_id": "S-OX35YEN9",
+        "mode": "Manual",
+        "completion_time": 19.273
+      },
+      {
+        "session_id": "S-P9H524GS",
+        "mode": "Manual",
+        "completion_time": 25.895
+      },
+      {
+        "session_id": "S-PC1XGRHU",
+        "mode": "Execution",
+        "completion_time": 20.636
+      },
+      {
+        "session_id": "S-PNEDXBPY",
+        "mode": "Execution",
+        "completion_time": 5.999
+      },
+      {
+        "session_id": "S-PRD7A0WO",
+        "mode": "Manual",
+        "completion_time": 29.074
+      },
+      {
+        "session_id": "S-QHW6KG6F",
+        "mode": "Assistance",
+        "completion_time": 22.017
+      },
+      {
+        "session_id": "S-QOB62GI6",
+        "mode": "Manual",
+        "completion_time": 15.479
+      },
+      {
+        "session_id": "S-QWUTEQ2V",
+        "mode": "Execution",
+        "completion_time": 18.159
+      },
+      {
+        "session_id": "S-ROSGYDNE",
+        "mode": "Execution",
+        "completion_time": 9.489
+      },
+      {
+        "session_id": "S-S89ZUGQD",
+        "mode": "Assistance",
+        "completion_time": 35.586
+      },
+      {
+        "session_id": "S-SA2QC9IC",
+        "mode": "Assistance",
+        "completion_time": 48.727
+      },
+      {
+        "session_id": "S-TPMTAKAZ",
+        "mode": "Assistance",
+        "completion_time": 30.522
+      },
+      {
+        "session_id": "S-ULNY9ODA",
+        "mode": "Execution",
+        "completion_time": 5.424
+      },
+      {
+        "session_id": "S-UXZRC58I",
+        "mode": "Manual",
+        "completion_time": 24.755
+      },
+      {
+        "session_id": "S-VGXYRSEG",
+        "mode": "Assistance",
+        "completion_time": 21.157
+      },
+      {
+        "session_id": "S-VOL5FDH7",
+        "mode": "Assistance",
+        "completion_time": 21.121
+      },
+      {
+        "session_id": "S-VOTT4FML",
+        "mode": "Execution",
+        "completion_time": 19.856
+      },
+      {
+        "session_id": "S-VR7ZMKBA",
+        "mode": "Manual",
+        "completion_time": 22.976
+      },
+      {
+        "session_id": "S-VRPYRL3V",
+        "mode": "Execution",
+        "completion_time": 36.285
+      },
+      {
+        "session_id": "S-VSIEJNQB",
+        "mode": "Assistance",
+        "completion_time": 13.607
+      },
+      {
+        "session_id": "S-W0LTDYGA",
+        "mode": "Manual",
+        "completion_time": 47.397
+      },
+      {
+        "session_id": "S-WAR5EZYH",
+        "mode": "Execution",
+        "completion_time": 48.323
+      },
+      {
+        "session_id": "S-WKQTP7TH",
+        "mode": "Assistance",
+        "completion_time": 20.02
+      },
+      {
+        "session_id": "S-WZOV049U",
+        "mode": "Assistance",
+        "completion_time": 16.333
+      },
+      {
+        "session_id": "S-X5BAQHWO",
+        "mode": "Assistance",
+        "completion_time": 18.987
+      },
+      {
+        "session_id": "S-YHQVIOUF",
+        "mode": "Execution",
+        "completion_time": 8.155
+      },
+      {
+        "session_id": "S-YQDFEGSU",
+        "mode": "Assistance",
+        "completion_time": 24.144
+      },
+      {
+        "session_id": "S-YR1TNHV0",
+        "mode": "Manual",
+        "completion_time": 33.449
+      },
+      {
+        "session_id": "S-YVX9XOUD",
+        "mode": "Execution",
+        "completion_time": 8.073
+      },
+      {
+        "session_id": "S-ZGGDZI00",
+        "mode": "Assistance",
+        "completion_time": 12.296
+      },
+      {
+        "session_id": "S-ZWN4PELR",
+        "mode": "Manual",
+        "completion_time": 89.414
+      }
+    ],
+    "summary_before_outlier_removal": [
+      {
+        "Condition": "Manual",
+        "Mean": 36.07,
+        "Median": 27.42,
+        "Min": 12.77,
+        "Max": 100.97
+      },
+      {
+        "Condition": "Assistance",
+        "Mean": 26.08,
+        "Median": 18.44,
+        "Min": 6.99,
+        "Max": 95.84
+      },
+      {
+        "Condition": "Execution",
+        "Mean": 84.82,
+        "Median": 11.82,
+        "Min": 5.34,
+        "Max": 2964.74
+      }
+    ],
+    "summary_after_outlier_removal": [
+      {
+        "Condition": "Manual",
+        "Mean": 36.07,
+        "Median": 27.42,
+        "Min": 12.77,
+        "Max": 100.97
+      },
+      {
+        "Condition": "Assistance",
+        "Mean": 26.08,
+        "Median": 18.44,
+        "Min": 6.99,
+        "Max": 95.84
+      },
+      {
+        "Condition": "Execution",
+        "Mean": 17.84,
+        "Median": 10.79,
+        "Min": 5.34,
+        "Max": 67.58
+      }
+    ],
+    "outlier_note": "One session with completion_time ≈ 2965 s was excluded (threshold: 300 s)",
+    "kruskal_wallis": {
+      "statistic": 21.506,
+      "df": 2,
+      "p_value": "< .001"
+    },
+    "effect_size": {
+      "epsilon_squared": 0.186,
+      "interpretation": "large"
+    },
+    "posthoc_pairwise_wilcoxon": [
+      {
+        "comparison": "Assistance vs Manual",
+        "p_value": "0.0136"
+      },
+      {
+        "comparison": "Execution vs Manual",
+        "p_value": "< .001"
+      },
+      {
+        "comparison": "Execution vs Assistance",
+        "p_value": "0.0367"
+      }
+    ]
+  },
+  "error_by_outcome": [
+    {
+      "outcome": "Abandoned",
+      "error_status": "At least one error",
+      "n": 19,
+      "proportion": 0.3725,
+      "label": "37%"
+    },
+    {
+      "outcome": "Abandoned",
+      "error_status": "No error",
+      "n": 32,
+      "proportion": 0.6275,
+      "label": "63%"
+    },
+    {
+      "outcome": "Completed",
+      "error_status": "At least one error",
+      "n": 30,
+      "proportion": 0.2752,
+      "label": "28%"
+    },
+    {
+      "outcome": "Completed",
+      "error_status": "No error",
+      "n": 79,
+      "proportion": 0.7248,
+      "label": "72%"
+    }
+  ],
+  "error_by_outcome_mode": [
+    {
+      "mode": "Manual",
+      "outcome": "Abandoned",
+      "error_status": "At least one error",
+      "n": 13,
+      "proportion": 0.5417,
+      "label": "54%"
+    },
+    {
+      "mode": "Manual",
+      "outcome": "Abandoned",
+      "error_status": "No error",
+      "n": 11,
+      "proportion": 0.4583,
+      "label": "46%"
+    },
+    {
+      "mode": "Manual",
+      "outcome": "Completed",
+      "error_status": "At least one error",
+      "n": 17,
+      "proportion": 0.5862,
+      "label": "59%"
+    },
+    {
+      "mode": "Manual",
+      "outcome": "Completed",
+      "error_status": "No error",
+      "n": 12,
+      "proportion": 0.4138,
+      "label": "41%"
+    },
+    {
+      "mode": "Assistance",
+      "outcome": "Abandoned",
+      "error_status": "At least one error",
+      "n": 5,
+      "proportion": 0.2778,
+      "label": "28%"
+    },
+    {
+      "mode": "Assistance",
+      "outcome": "Abandoned",
+      "error_status": "No error",
+      "n": 13,
+      "proportion": 0.7222,
+      "label": "72%"
+    },
+    {
+      "mode": "Assistance",
+      "outcome": "Completed",
+      "error_status": "At least one error",
+      "n": 6,
+      "proportion": 0.1667,
+      "label": "17%"
+    },
+    {
+      "mode": "Assistance",
+      "outcome": "Completed",
+      "error_status": "No error",
+      "n": 30,
+      "proportion": 0.8333,
+      "label": "83%"
+    },
+    {
+      "mode": "Execution",
+      "outcome": "Abandoned",
+      "error_status": "At least one error",
+      "n": 1,
+      "proportion": 0.1111,
+      "label": "11%"
+    },
+    {
+      "mode": "Execution",
+      "outcome": "Abandoned",
+      "error_status": "No error",
+      "n": 8,
+      "proportion": 0.8889,
+      "label": "89%"
+    },
+    {
+      "mode": "Execution",
+      "outcome": "Completed",
+      "error_status": "At least one error",
+      "n": 7,
+      "proportion": 0.1591,
+      "label": "16%"
+    },
+    {
+      "mode": "Execution",
+      "outcome": "Completed",
+      "error_status": "No error",
+      "n": 37,
+      "proportion": 0.8409,
+      "label": "84%"
+    }
+  ],
+  "errors": {
+    "by_mode": [
+      {
+        "mode": "Manual",
+        "error_status": "At least one error",
+        "n": 30,
+        "proportion": 0.566,
+        "label": "57%"
+      },
+      {
+        "mode": "Manual",
+        "error_status": "No error",
+        "n": 23,
+        "proportion": 0.434,
+        "label": "43%"
+      },
+      {
+        "mode": "Assistance",
+        "error_status": "At least one error",
+        "n": 11,
+        "proportion": 0.2037,
+        "label": "20%"
+      },
+      {
+        "mode": "Assistance",
+        "error_status": "No error",
+        "n": 43,
+        "proportion": 0.7963,
+        "label": "80%"
+      },
+      {
+        "mode": "Execution",
+        "error_status": "At least one error",
+        "n": 8,
+        "proportion": 0.1509,
+        "label": "15%"
+      },
+      {
+        "mode": "Execution",
+        "error_status": "No error",
+        "n": 45,
+        "proportion": 0.8491,
+        "label": "85%"
+      }
+    ],
+    "chi_square": {
+      "statistic": 25.525,
+      "df": 2,
+      "p_value": "< .001"
+    },
+    "effect_size": {
+      "cramers_v": 0.399,
+      "interpretation": "medium"
+    },
+    "posthoc_pairwise_prop": [
+      {
+        "comparison": "Assistance vs Manual",
+        "p_value": "< .001"
+      },
+      {
+        "comparison": "Execution vs Manual",
+        "p_value": "< .001"
+      },
+      {
+        "comparison": "Execution vs Assistance",
+        "p_value": "1.000"
+      }
+    ]
+  },
+  "abandonment": {
+    "by_mode": [
+      {
+        "mode": "Manual",
+        "outcome": "Abandoned",
+        "n": 24,
+        "proportion": 0.4528,
+        "label": "45%"
+      },
+      {
+        "mode": "Manual",
+        "outcome": "Completed",
+        "n": 29,
+        "proportion": 0.5472,
+        "label": "55%"
+      },
+      {
+        "mode": "Assistance",
+        "outcome": "Abandoned",
+        "n": 18,
+        "proportion": 0.3333,
+        "label": "33%"
+      },
+      {
+        "mode": "Assistance",
+        "outcome": "Completed",
+        "n": 36,
+        "proportion": 0.6667,
+        "label": "67%"
+      },
+      {
+        "mode": "Execution",
+        "outcome": "Abandoned",
+        "n": 9,
+        "proportion": 0.1698,
+        "label": "17%"
+      },
+      {
+        "mode": "Execution",
+        "outcome": "Completed",
+        "n": 44,
+        "proportion": 0.8302,
+        "label": "83%"
+      }
+    ],
+    "chi_square": {
+      "statistic": 9.855,
+      "df": 2,
+      "p_value": 0.0072
+    },
+    "effect_size": {
+      "cramers_v": 0.248,
+      "interpretation": "small"
+    },
+    "posthoc_pairwise_prop": [
+      {
+        "comparison": "Assistance vs Manual",
+        "p_value": "0.857"
+      },
+      {
+        "comparison": "Execution vs Manual",
+        "p_value": "0.010"
+      },
+      {
+        "comparison": "Execution vs Assistance",
+        "p_value": "0.254"
+      }
+    ],
+    "odds_ratios": [
+      {
+        "comparison": "Manual vs Assistance",
+        "odds_ratio": 1.66,
+        "ci_95": "[0.76, 3.62]"
+      },
+      {
+        "comparison": "Manual vs Execution",
+        "odds_ratio": 4.05,
+        "ci_95": "[1.65, 9.93]"
+      },
+      {
+        "comparison": "Assistance vs Execution",
+        "odds_ratio": 2.44,
+        "ci_95": "[0.98, 6.09]"
+      }
+    ]
+  },
+  "intervention_occurrence": {
+    "by_mode": [
+      {
+        "mode": "Manual",
+        "intervention_status": "No intervention",
+        "n": 4,
+        "proportion": 0.0755,
+        "label": "8%"
+      },
+      {
+        "mode": "Manual",
+        "intervention_status": "With intervention",
+        "n": 49,
+        "proportion": 0.9245,
+        "label": "92%"
+      },
+      {
+        "mode": "Assistance",
+        "intervention_status": "No intervention",
+        "n": 3,
+        "proportion": 0.0556,
+        "label": "6%"
+      },
+      {
+        "mode": "Assistance",
+        "intervention_status": "With intervention",
+        "n": 51,
+        "proportion": 0.9444,
+        "label": "94%"
+      },
+      {
+        "mode": "Execution",
+        "intervention_status": "No intervention",
+        "n": 5,
+        "proportion": 0.0943,
+        "label": "9%"
+      },
+      {
+        "mode": "Execution",
+        "intervention_status": "With intervention",
+        "n": 48,
+        "proportion": 0.9057,
+        "label": "91%"
+      }
+    ],
+    "chi_square": {
+      "statistic": 0.58,
+      "df": 2,
+      "p_value": 0.7482
+    },
+    "effect_size": {
+      "cramers_v": 0.06,
+      "interpretation": "small"
+    }
+  },
+  "intervention_count": {
+    "distribution": [
+      {
+        "session_id": "S-073YMZ05",
+        "mode": "Assistance",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-0BLAMD7R",
+        "mode": "Manual",
+        "intervention_count": 5
+      },
+      {
+        "session_id": "S-0HWXRYVJ",
+        "mode": "Execution",
+        "intervention_count": 7
+      },
+      {
+        "session_id": "S-0Q0AE0BD",
+        "mode": "Execution",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-0R34IEGD",
+        "mode": "Manual",
+        "intervention_count": 23
+      },
+      {
+        "session_id": "S-0TCIZWT2",
+        "mode": "Execution",
+        "intervention_count": 6
+      },
+      {
+        "session_id": "S-0YWDIBD4",
+        "mode": "Manual",
+        "intervention_count": 8
+      },
+      {
+        "session_id": "S-1F22HLP7",
+        "mode": "Manual",
+        "intervention_count": 12
+      },
+      {
+        "session_id": "S-1F6DA7SX",
+        "mode": "Assistance",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-21WAOP00",
+        "mode": "Manual",
+        "intervention_count": 22
+      },
+      {
+        "session_id": "S-23ETDAI1",
+        "mode": "Manual",
+        "intervention_count": 7
+      },
+      {
+        "session_id": "S-24LCMXBO",
+        "mode": "Manual",
+        "intervention_count": 4
+      },
+      {
+        "session_id": "S-26UFONVZ",
+        "mode": "Execution",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-27UEDBRM",
+        "mode": "Assistance",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-3EESRI07",
+        "mode": "Execution",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-42TJ0JV6",
+        "mode": "Execution",
+        "intervention_count": 2
+      },
+      {
+        "session_id": "S-4CAOXI2Q",
+        "mode": "Assistance",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-4DG8AMA9",
+        "mode": "Execution",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-4GNOB2GI",
+        "mode": "Manual",
+        "intervention_count": 17
+      },
+      {
+        "session_id": "S-4LNMOVX4",
+        "mode": "Execution",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-4O6SJ45T",
+        "mode": "Execution",
+        "intervention_count": 0
+      },
+      {
+        "session_id": "S-4T8SYEXS",
+        "mode": "Execution",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-4UDKC6NO",
+        "mode": "Manual",
+        "intervention_count": 19
+      },
+      {
+        "session_id": "S-57E0DKBS",
+        "mode": "Manual",
+        "intervention_count": 6
+      },
+      {
+        "session_id": "S-5PE8A04D",
+        "mode": "Execution",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-5WZH7F2A",
+        "mode": "Assistance",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-6370GK1M",
+        "mode": "Assistance",
+        "intervention_count": 6
+      },
+      {
+        "session_id": "S-72776UI3",
+        "mode": "Manual",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-76RSWCYF",
+        "mode": "Assistance",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-77DDEV1G",
+        "mode": "Manual",
+        "intervention_count": 5
+      },
+      {
+        "session_id": "S-77EZ8YNX",
+        "mode": "Execution",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-7BL3PGNF",
+        "mode": "Assistance",
+        "intervention_count": 5
+      },
+      {
+        "session_id": "S-7FKTHGRQ",
+        "mode": "Manual",
+        "intervention_count": 1
+      },
+      {
+        "session_id": "S-7GNOK7OV",
+        "mode": "Assistance",
+        "intervention_count": 13
+      },
+      {
+        "session_id": "S-7HPZY5JW",
+        "mode": "Assistance",
+        "intervention_count": 9
+      },
+      {
+        "session_id": "S-7I82MBW7",
+        "mode": "Assistance",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-7KCGNSVE",
+        "mode": "Execution",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-7NXKXDAP",
+        "mode": "Assistance",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-86W259S9",
+        "mode": "Assistance",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-88HZ0I1Z",
+        "mode": "Assistance",
+        "intervention_count": 1
+      },
+      {
+        "session_id": "S-8A4U6AVO",
+        "mode": "Assistance",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-8DIA3QJY",
+        "mode": "Execution",
+        "intervention_count": 6
+      },
+      {
+        "session_id": "S-97VWWB2P",
+        "mode": "Assistance",
+        "intervention_count": 29
+      },
+      {
+        "session_id": "S-9SKK9ZXY",
+        "mode": "Assistance",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-B1E2R54C",
+        "mode": "Execution",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-B38LWV6O",
+        "mode": "Manual",
+        "intervention_count": 7
+      },
+      {
+        "session_id": "S-C6PPPNMV",
+        "mode": "Execution",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-CMJUPXON",
+        "mode": "Assistance",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-CVAVGJ0P",
+        "mode": "Execution",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-D1OVKMVX",
+        "mode": "Manual",
+        "intervention_count": 11
+      },
+      {
+        "session_id": "S-DAY10IF4",
+        "mode": "Manual",
+        "intervention_count": 11
+      },
+      {
+        "session_id": "S-DFJ5ED3Z",
+        "mode": "Execution",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-DHBS24IM",
+        "mode": "Assistance",
+        "intervention_count": 0
+      },
+      {
+        "session_id": "S-DJGN9WGG",
+        "mode": "Assistance",
+        "intervention_count": 5
+      },
+      {
+        "session_id": "S-DMUAXPAM",
+        "mode": "Manual",
+        "intervention_count": 7
+      },
+      {
+        "session_id": "S-DWPAP42P",
+        "mode": "Execution",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-E1WBD47E",
+        "mode": "Execution",
+        "intervention_count": 6
+      },
+      {
+        "session_id": "S-F3DFR4KT",
+        "mode": "Manual",
+        "intervention_count": 9
+      },
+      {
+        "session_id": "S-F5OFN5A6",
+        "mode": "Assistance",
+        "intervention_count": 11
+      },
+      {
+        "session_id": "S-F8V8AMYI",
+        "mode": "Execution",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-F8VA0CJJ",
+        "mode": "Execution",
+        "intervention_count": 7
+      },
+      {
+        "session_id": "S-FHIPI7ZO",
+        "mode": "Execution",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-FLSBC72X",
+        "mode": "Assistance",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-FMSCPGKW",
+        "mode": "Manual",
+        "intervention_count": 21
+      },
+      {
+        "session_id": "S-FRQ1PFYO",
+        "mode": "Assistance",
+        "intervention_count": 6
+      },
+      {
+        "session_id": "S-FTDN1OGU",
+        "mode": "Assistance",
+        "intervention_count": 1
+      },
+      {
+        "session_id": "S-G2AUNIV1",
+        "mode": "Manual",
+        "intervention_count": 7
+      },
+      {
+        "session_id": "S-G68L1GP2",
+        "mode": "Assistance",
+        "intervention_count": 9
+      },
+      {
+        "session_id": "S-G6IB5V7M",
+        "mode": "Assistance",
+        "intervention_count": 5
+      },
+      {
+        "session_id": "S-G78BQ0JM",
+        "mode": "Manual",
+        "intervention_count": 5
+      },
+      {
+        "session_id": "S-GPFBGTNF",
+        "mode": "Assistance",
+        "intervention_count": 1
+      },
+      {
+        "session_id": "S-H73VNIFT",
+        "mode": "Execution",
+        "intervention_count": 24
+      },
+      {
+        "session_id": "S-H7I1WWBU",
+        "mode": "Assistance",
+        "intervention_count": 5
+      },
+      {
+        "session_id": "S-HHIDLZZT",
+        "mode": "Execution",
+        "intervention_count": 6
+      },
+      {
+        "session_id": "S-HO2HAL02",
+        "mode": "Manual",
+        "intervention_count": 5
+      },
+      {
+        "session_id": "S-HRTXKJ6Q",
+        "mode": "Assistance",
+        "intervention_count": 9
+      },
+      {
+        "session_id": "S-HWKEZBDT",
+        "mode": "Assistance",
+        "intervention_count": 9
+      },
+      {
+        "session_id": "S-HXEI8TJU",
+        "mode": "Assistance",
+        "intervention_count": 1
+      },
+      {
+        "session_id": "S-HXUZS215",
+        "mode": "Execution",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-I8AFXYJ8",
+        "mode": "Manual",
+        "intervention_count": 5
+      },
+      {
+        "session_id": "S-IDH5CHWH",
+        "mode": "Manual",
+        "intervention_count": 19
+      },
+      {
+        "session_id": "S-INFAG1LM",
+        "mode": "Execution",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-IO6L9D7V",
+        "mode": "Manual",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-IQNM8WFY",
+        "mode": "Execution",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-J8CZABQ8",
+        "mode": "Execution",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-J9JP63LF",
+        "mode": "Assistance",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-JHTI4T58",
+        "mode": "Execution",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-JJV1VAHE",
+        "mode": "Execution",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-KBCAOPV2",
+        "mode": "Execution",
+        "intervention_count": 9
+      },
+      {
+        "session_id": "S-KQ1H9IHE",
+        "mode": "Execution",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-L44273WY",
+        "mode": "Manual",
+        "intervention_count": 6
+      },
+      {
+        "session_id": "S-L675PHTJ",
+        "mode": "Assistance",
+        "intervention_count": 1
+      },
+      {
+        "session_id": "S-L7GDHLZI",
+        "mode": "Manual",
+        "intervention_count": 7
+      },
+      {
+        "session_id": "S-LALLHNS8",
+        "mode": "Assistance",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-LJM7OKT1",
+        "mode": "Execution",
+        "intervention_count": 0
+      },
+      {
+        "session_id": "S-LSUJ3REI",
+        "mode": "Assistance",
+        "intervention_count": 6
+      },
+      {
+        "session_id": "S-LXQPLZA0",
+        "mode": "Manual",
+        "intervention_count": 8
+      },
+      {
+        "session_id": "S-M2QWUX4V",
+        "mode": "Manual",
+        "intervention_count": 15
+      },
+      {
+        "session_id": "S-M3JWS2X8",
+        "mode": "Execution",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-M5FNDWOZ",
+        "mode": "Execution",
+        "intervention_count": 17
+      },
+      {
+        "session_id": "S-MPV1P596",
+        "mode": "Manual",
+        "intervention_count": 0
+      },
+      {
+        "session_id": "S-MZ5WRHMH",
+        "mode": "Assistance",
+        "intervention_count": 6
+      },
+      {
+        "session_id": "S-N5DNYCXZ",
+        "mode": "Manual",
+        "intervention_count": 9
+      },
+      {
+        "session_id": "S-N7XZPQYA",
+        "mode": "Execution",
+        "intervention_count": 0
+      },
+      {
+        "session_id": "S-N9FBZ2V0",
+        "mode": "Manual",
+        "intervention_count": 0
+      },
+      {
+        "session_id": "S-NJ0B2YB1",
+        "mode": "Execution",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-NS5U3Y7S",
+        "mode": "Manual",
+        "intervention_count": 5
+      },
+      {
+        "session_id": "S-NVPXAV1F",
+        "mode": "Manual",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-O1IMAN9C",
+        "mode": "Manual",
+        "intervention_count": 21
+      },
+      {
+        "session_id": "S-OG3TMUE5",
+        "mode": "Execution",
+        "intervention_count": 9
+      },
+      {
+        "session_id": "S-OGIY818X",
+        "mode": "Execution",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-ON3M7Z03",
+        "mode": "Manual",
+        "intervention_count": 7
+      },
+      {
+        "session_id": "S-OU8QY5BR",
+        "mode": "Execution",
+        "intervention_count": 6
+      },
+      {
+        "session_id": "S-OX35YEN9",
+        "mode": "Manual",
+        "intervention_count": 7
+      },
+      {
+        "session_id": "S-P9H524GS",
+        "mode": "Manual",
+        "intervention_count": 7
+      },
+      {
+        "session_id": "S-PC1XGRHU",
+        "mode": "Execution",
+        "intervention_count": 5
+      },
+      {
+        "session_id": "S-PNEDXBPY",
+        "mode": "Execution",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-PRD7A0WO",
+        "mode": "Manual",
+        "intervention_count": 14
+      },
+      {
+        "session_id": "S-PZT4E1PF",
+        "mode": "Assistance",
+        "intervention_count": 0
+      },
+      {
+        "session_id": "S-QHW6KG6F",
+        "mode": "Assistance",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-QOB62GI6",
+        "mode": "Manual",
+        "intervention_count": 5
+      },
+      {
+        "session_id": "S-QWE4OV7E",
+        "mode": "Manual",
+        "intervention_count": 21
+      },
+      {
+        "session_id": "S-QWUTEQ2V",
+        "mode": "Execution",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-QX5YFSH3",
+        "mode": "Manual",
+        "intervention_count": 2
+      },
+      {
+        "session_id": "S-R2ODKC7O",
+        "mode": "Execution",
+        "intervention_count": 0
+      },
+      {
+        "session_id": "S-R6R53IQJ",
+        "mode": "Manual",
+        "intervention_count": 11
+      },
+      {
+        "session_id": "S-RO030U0L",
+        "mode": "Assistance",
+        "intervention_count": 0
+      },
+      {
+        "session_id": "S-ROSGYDNE",
+        "mode": "Execution",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-RX3C3IJP",
+        "mode": "Assistance",
+        "intervention_count": 1
+      },
+      {
+        "session_id": "S-S61ZBOB0",
+        "mode": "Assistance",
+        "intervention_count": 6
+      },
+      {
+        "session_id": "S-S89ZUGQD",
+        "mode": "Assistance",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-SA2QC9IC",
+        "mode": "Assistance",
+        "intervention_count": 13
+      },
+      {
+        "session_id": "S-SA6GSEUM",
+        "mode": "Manual",
+        "intervention_count": 9
+      },
+      {
+        "session_id": "S-TPMTAKAZ",
+        "mode": "Assistance",
+        "intervention_count": 11
+      },
+      {
+        "session_id": "S-UGWRCZ48",
+        "mode": "Assistance",
+        "intervention_count": 17
+      },
+      {
+        "session_id": "S-ULNY9ODA",
+        "mode": "Execution",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-UXZRC58I",
+        "mode": "Manual",
+        "intervention_count": 11
+      },
+      {
+        "session_id": "S-VFZU7LQI",
+        "mode": "Manual",
+        "intervention_count": 9
+      },
+      {
+        "session_id": "S-VGXYRSEG",
+        "mode": "Assistance",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-VOL5FDH7",
+        "mode": "Assistance",
+        "intervention_count": 6
+      },
+      {
+        "session_id": "S-VOTT4FML",
+        "mode": "Execution",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-VR7ZMKBA",
+        "mode": "Manual",
+        "intervention_count": 7
+      },
+      {
+        "session_id": "S-VRPYRL3V",
+        "mode": "Execution",
+        "intervention_count": 13
+      },
+      {
+        "session_id": "S-VSIEJNQB",
+        "mode": "Assistance",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-W0LTDYGA",
+        "mode": "Manual",
+        "intervention_count": 9
+      },
+      {
+        "session_id": "S-WAR5EZYH",
+        "mode": "Execution",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-WK95NWII",
+        "mode": "Manual",
+        "intervention_count": 0
+      },
+      {
+        "session_id": "S-WKQTP7TH",
+        "mode": "Assistance",
+        "intervention_count": 8
+      },
+      {
+        "session_id": "S-WZOV049U",
+        "mode": "Assistance",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-X5BAQHWO",
+        "mode": "Assistance",
+        "intervention_count": 10
+      },
+      {
+        "session_id": "S-XF0PXVCL",
+        "mode": "Assistance",
+        "intervention_count": 1
+      },
+      {
+        "session_id": "S-XRSCZJ1X",
+        "mode": "Execution",
+        "intervention_count": 0
+      },
+      {
+        "session_id": "S-YHQVIOUF",
+        "mode": "Execution",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-YQDFEGSU",
+        "mode": "Assistance",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-YR1TNHV0",
+        "mode": "Manual",
+        "intervention_count": 9
+      },
+      {
+        "session_id": "S-YVX9XOUD",
+        "mode": "Execution",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-ZGGDZI00",
+        "mode": "Assistance",
+        "intervention_count": 3
+      },
+      {
+        "session_id": "S-ZQ3Q9VVD",
+        "mode": "Manual",
+        "intervention_count": 13
+      },
+      {
+        "session_id": "S-ZWEAA92T",
+        "mode": "Manual",
+        "intervention_count": 0
+      },
+      {
+        "session_id": "S-ZWN4PELR",
+        "mode": "Manual",
+        "intervention_count": 5
+      }
+    ],
+    "summary": [
+      {
+        "Condition": "Manual",
+        "n": 53,
+        "Median": 7,
+        "IQR": 6,
+        "Mean": 8.7
+      },
+      {
+        "Condition": "Assistance",
+        "n": 54,
+        "Median": 3,
+        "IQR": 3,
+        "Mean": 5.1
+      },
+      {
+        "Condition": "Execution",
+        "n": 53,
+        "Median": 3,
+        "IQR": 0,
+        "Mean": 4.2
+      }
+    ],
+    "kruskal_wallis": {
+      "statistic": 26.693,
+      "df": 2,
+      "p_value": "< .001"
+    },
+    "effect_size": {
+      "epsilon_squared": 0.157,
+      "interpretation": "large"
+    },
+    "posthoc_pairwise_wilcoxon": [
+      {
+        "comparison": "Assistance vs Manual",
+        "p_value": "< .001",
+        "r_rank_biserial": -0.415
+      },
+      {
+        "comparison": "Execution vs Manual",
+        "p_value": "< .001",
+        "r_rank_biserial": -0.546
+      },
+      {
+        "comparison": "Execution vs Assistance",
+        "p_value": "1.000",
+        "r_rank_biserial": -0.098
+      }
+    ]
+  },
+  "intervention_types": {
+    "proportions_by_mode": [
+      {
+        "mode": "Manual",
+        "intervention_type": "Edit",
+        "proportion": 0.9245,
+        "label": "92%"
+      },
+      {
+        "mode": "Manual",
+        "intervention_type": "Override",
+        "proportion": 0,
+        "label": "0%"
+      },
+      {
+        "mode": "Manual",
+        "intervention_type": "Reject",
+        "proportion": 0,
+        "label": "0%"
+      },
+      {
+        "mode": "Assistance",
+        "intervention_type": "Edit",
+        "proportion": 0.9444,
+        "label": "94%"
+      },
+      {
+        "mode": "Assistance",
+        "intervention_type": "Override",
+        "proportion": 0.8148,
+        "label": "81%"
+      },
+      {
+        "mode": "Assistance",
+        "intervention_type": "Reject",
+        "proportion": 0.3519,
+        "label": "35%"
+      },
+      {
+        "mode": "Execution",
+        "intervention_type": "Edit",
+        "proportion": 0.9057,
+        "label": "91%"
+      },
+      {
+        "mode": "Execution",
+        "intervention_type": "Override",
+        "proportion": 0.9057,
+        "label": "91%"
+      },
+      {
+        "mode": "Execution",
+        "intervention_type": "Reject",
+        "proportion": 0,
+        "label": "0%"
+      }
+    ],
+    "fisher_tests": [
+      {
+        "intervention_type": "Override",
+        "p_value": "< .001"
+      },
+      {
+        "intervention_type": "Reject",
+        "p_value": "< .001"
+      }
+    ]
+  }
+}

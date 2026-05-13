@@ -394,8 +394,18 @@ The inspection showed that the "Information" mode contained only four log entrie
 ```{r}
 data_clean <- data %>%
   filter(mode != "Information")
-```
 
+data_clean <- data_clean %>%
+  mutate(
+    mode = case_when(
+      mode == "manual" ~ "Manual",
+      mode == "Assistance" ~ "Assistance",
+      mode == "Execution" ~ "Execution",
+      TRUE ~ mode
+    )
+  )
+```
+  
 ```{r}
 participant_table_clean <- data_clean %>%
   distinct(session_id, mode) %>%
@@ -532,7 +542,7 @@ task_outcome_by_mode <- data_clean |>
       completed ~ "Started and completed",
       !completed ~ "Started but not completed"
     ),
-    mode = factor(mode, levels = c("manual", "Assistance", "Execution")),
+    mode = factor(mode, levels = c("Manual", "Assistance", "Execution")),
     outcome = factor(
       outcome,
       levels = c("Started but not completed", "Started and completed")
@@ -647,7 +657,7 @@ error_by_outcome_mode <- data_clean |>
       had_error ~ "At least one error",
       !had_error ~ "No error"
     ),
-    mode = factor(mode, levels = c("manual", "Assistance", "Execution")),
+    mode = factor(mode, levels = c("Manual", "Assistance", "Execution")),
     outcome = factor(outcome, levels = c("Completed", "Abandoned")),
     error_status = factor(error_status, levels = c("No error", "At least one error"))
   ) |>
@@ -704,7 +714,7 @@ intervention_by_mode <- data_clean |>
       had_intervention ~ "At least one intervention",
       !had_intervention ~ "No intervention"
     ),
-    mode = factor(mode, levels = c("manual", "Assistance", "Execution")),
+    mode = factor(mode, levels = c("Manual", "Assistance", "Execution")),
     intervention_status = factor(
       intervention_status,
       levels = c("No intervention", "At least one intervention")
@@ -763,7 +773,7 @@ intervention_count_by_mode <- data_clean |>
   ) |>
   dplyr::filter(started) |>
   dplyr::mutate(
-    mode = factor(mode, levels = c("manual", "Assistance", "Execution"))
+    mode = factor(mode, levels = c("Manual", "Assistance", "Execution"))
   )
 
 ggplot(intervention_count_by_mode, aes(x = mode, y = intervention_count, fill = mode)) +
@@ -783,7 +793,7 @@ ggplot(intervention_count_by_mode, aes(x = mode, y = intervention_count, fill = 
     y = "Intervention count"
   ) +
   scale_fill_manual(values = c(
-    "manual" = "#8DA0CB",
+    "Manual" = "#8DA0CB",
     "Assistance" = "#66C2A5",
     "Execution" = "#FC8D62"
   )) +
@@ -828,13 +838,12 @@ Task completion time was operationalized as the elapsed time between the beginni
 #| label: completion-time-setup
 #| include: false
 
-data_clean <- data |>
-  dplyr::filter(mode != "Information") |>
+data_with_time <- data_clean |>
   dplyr::mutate(
     client_ts_sec = client_ts_ms / 1000
   )
 
-completion_time_data <- data_clean |>
+completion_time_data <- data_with_time |>
   dplyr::group_by(session_id, mode) |>
   dplyr::summarise(
     started = any(action == "TASK_STARTED"),
@@ -854,7 +863,7 @@ completion_time_data <- data_clean |>
   dplyr::filter(started == TRUE, completed == TRUE) |>
   dplyr::mutate(
     completion_time = end_time - start_time,
-    mode = factor(mode, levels = c("manual", "Assistance", "Execution"))
+    mode = factor(mode, levels = c("Manual", "Assistance", "Execution"))
   )
 ```
 
@@ -955,7 +964,7 @@ ggplot(completion_time_data_clean, aes(x = mode, y = completion_time, fill = mod
     y = "Completion time (seconds)"
   ) +
   scale_fill_manual(values = c(
-    "manual" = "#8DA0CB",
+    "Manual" = "#8DA0CB",
     "Assistance" = "#66C2A5",
     "Execution" = "#FC8D62"
   )) +
@@ -1066,7 +1075,7 @@ error_by_mode <- data_clean |>
       had_error ~ "At least one error",
       !had_error ~ "No error"
     ),
-    mode = factor(mode, levels = c("manual", "Assistance", "Execution")),
+    mode = factor(mode, levels = c("Manual", "Assistance", "Execution")),
     error_status = factor(error_status, levels = c("No error", "At least one error"))
   ) |>
   dplyr::count(mode, error_status, name = "n") |>
@@ -1114,7 +1123,7 @@ error_test_data <- data_clean |>
   ) |>
   dplyr::filter(started) |>
   dplyr::mutate(
-    mode = factor(mode, levels = c("manual", "Assistance", "Execution"))
+    mode = factor(mode, levels = c("Manual", "Assistance", "Execution"))
   )
 
 error_table <- table(error_test_data$mode, error_test_data$had_error)
@@ -1207,7 +1216,7 @@ abandonment_by_mode <- data_clean |>
       completed ~ "Completed",
       !completed ~ "Abandoned"
     ),
-    mode = factor(mode, levels = c("manual", "Assistance", "Execution")),
+    mode = factor(mode, levels = c("Manual", "Assistance", "Execution")),
     outcome = factor(outcome, levels = c("Completed", "Abandoned"))
   ) |>
   dplyr::count(mode, outcome, name = "n") |>
@@ -1258,7 +1267,7 @@ abandonment_test_data <- data_clean |>
       completed ~ "Completed",
       !completed ~ "Abandoned"
     ),
-    mode = factor(mode, levels = c("manual", "Assistance", "Execution"))
+    mode = factor(mode, levels = c("Manual", "Assistance", "Execution"))
   )
 
 abandonment_table <- table(abandonment_test_data$mode, abandonment_test_data$outcome)
@@ -1346,8 +1355,8 @@ compute_or <- function(tbl, row1, row2) {
 }
 
 or_abandonment_table <- dplyr::bind_rows(
-  compute_or(abandonment_table, "manual", "Assistance"),
-  compute_or(abandonment_table, "manual", "Execution"),
+  compute_or(abandonment_table, "Manual", "Assistance"),
+  compute_or(abandonment_table, "Manual", "Execution"),
   compute_or(abandonment_table, "Assistance", "Execution")
 )
 
@@ -1388,7 +1397,7 @@ intervention_by_mode <- data_clean |>
       had_intervention ~ "At least one intervention",
       !had_intervention ~ "No intervention"
     ),
-    mode = factor(mode, levels = c("manual", "Assistance", "Execution")),
+    mode = factor(mode, levels = c("Manual", "Assistance", "Execution")),
     intervention_status = factor(
       intervention_status,
       levels = c("No intervention", "At least one intervention")
@@ -1438,7 +1447,7 @@ intervention_occurrence_data <- data_clean |>
   ) |>
   dplyr::filter(started) |>
   dplyr::mutate(
-    mode = factor(mode, levels = c("manual", "Assistance", "Execution"))
+    mode = factor(mode, levels = c("Manual", "Assistance", "Execution"))
   )
 
 intervention_occurrence_table <- table(
@@ -1507,7 +1516,7 @@ intervention_count_by_mode <- data_clean |>
   ) |>
   dplyr::filter(started) |>
   dplyr::mutate(
-    mode = factor(mode, levels = c("manual", "Assistance", "Execution"))
+    mode = factor(mode, levels = c("Manual", "Assistance", "Execution"))
   )
 
 ggplot(intervention_count_by_mode, aes(x = mode, y = intervention_count, fill = mode)) +
@@ -1527,7 +1536,7 @@ ggplot(intervention_count_by_mode, aes(x = mode, y = intervention_count, fill = 
     y = "Intervention count"
   ) +
   scale_fill_manual(values = c(
-    "manual" = "#8DA0CB",
+    "Manual" = "#8DA0CB",
     "Assistance" = "#66C2A5",
     "Execution" = "#FC8D62"
   )) +
@@ -1635,7 +1644,7 @@ compute_rb_ic <- function(x, y) {
   round(as.numeric(1 - (2 * w) / (n1 * n2)), 3)
 }
 
-manual_ic     <- intervention_count_by_mode$intervention_count[intervention_count_by_mode$mode == "manual"]
+manual_ic     <- intervention_count_by_mode$intervention_count[intervention_count_by_mode$mode == "Manual"]
 assistance_ic <- intervention_count_by_mode$intervention_count[intervention_count_by_mode$mode == "Assistance"]
 execution_ic  <- intervention_count_by_mode$intervention_count[intervention_count_by_mode$mode == "Execution"]
 
@@ -1678,7 +1687,7 @@ intervention_types_raw <- data_clean |>
   ) |>
   dplyr::filter(started) |>
   dplyr::mutate(
-    mode = factor(mode, levels = c("manual", "Assistance", "Execution"))
+    mode = factor(mode, levels = c("Manual", "Assistance", "Execution"))
   )
 
 intervention_types_data <- intervention_types_raw |>
@@ -1727,7 +1736,7 @@ ggplot(intervention_types_data, aes(x = intervention_type, y = proportion, fill 
   ) +
   scale_y_continuous(labels = scales::percent, limits = c(0, 1.05)) +
   scale_fill_manual(values = c(
-    "manual" = "#8DA0CB",
+    "Manual" = "#8DA0CB",
     "Assistance" = "#66C2A5",
     "Execution" = "#FC8D62"
   )) +
@@ -1878,3 +1887,93 @@ I certify that I have written this thesis independently and without the use of a
 Place, date: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
 Signature: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+```{r}
+#| label: export-json
+#| echo: false
+
+library(jsonlite)
+
+dashboard_export <- list(
+
+  metadata = list(
+    title = "AI Execution Autonomy Study",
+    total_started_sessions = 160,
+    conditions = c("Manual", "Assistance", "Execution")
+  ),
+
+  completion_time_summary = completion_time_summary_clean,
+
+  completion_time_distribution =
+    completion_time_data_clean |>
+    dplyr::select(mode, completion_time),
+
+  completion_time_kruskal = list(
+    statistic = round(as.numeric(kruskal_completion$statistic), 3),
+    p_value = kruskal_completion$p.value,
+    epsilon_squared = round(as.numeric(epsilon_sq), 3)
+  ),
+
+  completion_time_posthoc =
+    pairwise_table,
+
+  intervention_summary =
+    intervention_count_summary,
+
+  intervention_distribution =
+    intervention_count_by_mode |>
+    dplyr::select(mode, intervention_count),
+
+  intervention_kruskal = list(
+    statistic = round(as.numeric(kruskal_intervention_count$statistic), 3),
+    p_value = kruskal_intervention_count$p.value,
+    epsilon_squared = round(as.numeric(epsilon_sq_ic), 3)
+  ),
+
+  intervention_posthoc =
+    pairwise_intervention_count_table,
+
+  intervention_occurrence =
+    intervention_by_mode,
+
+  intervention_types =
+    intervention_types_data,
+
+  errors =
+    error_by_mode,
+
+  error_test = list(
+    statistic = round(as.numeric(chi_error$statistic), 3),
+    p_value = chi_error$p.value,
+    cramers_v = round(as.numeric(cramers_v_error), 3)
+  ),
+
+  error_pairwise =
+    pairwise_error_table,
+
+  abandonment =
+    abandonment_by_mode,
+
+  abandonment_test = list(
+    statistic = round(as.numeric(chi_abandonment$statistic), 3),
+    p_value = chi_abandonment$p.value,
+    cramers_v = round(as.numeric(cramers_v_abandonment), 3)
+  ),
+
+  abandonment_pairwise =
+    pairwise_abandonment_table,
+
+  abandonment_odds_ratios =
+    or_abandonment_table,
+
+  task_outcomes =
+    task_outcome_by_mode
+)
+
+write_json(
+  dashboard_export,
+  "dashboard_results.json",
+  pretty = TRUE,
+  auto_unbox = TRUE
+)
+```
