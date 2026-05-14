@@ -1670,110 +1670,167 @@ Post-hoc pairwise Wilcoxon comparisons showed that intervention count was signif
 
 ### Types of Intervention
 
-To further differentiate intervention behavior, the specific types of intervention were examined separately. Three event categories were considered: `FIELD_EDIT`, `OVERRIDE`, and `AI_SUGGESTION_REJECTED`. Because the binary occurrence of each intervention type was expected to vary markedly across conditions, chi-square or Fisher's exact tests were applied where assumptions permitted. Edit occurrence approached ceiling (>90% in all conditions), which precluded reliable statistical testing due to low expected cell counts in the "no edit" category; it was therefore examined descriptively only. Override and Reject occurrence were tested formally using Fisher's exact test, which was preferred over chi-square because some observed cell counts were zero.
+To further differentiate intervention behavior, the specific types of intervention were examined using a behavior-based taxonomy rather than raw UI event labels. Raw log events were semantically recoded to reflect what users were actually able to do in each condition: in the Manual condition, users could only perform direct field edits; in the Assistance condition, users could edit fields directly, override AI suggestions, or reject suggestions; in the Execution condition, users could not edit fields directly — they could only accept, skip, or request a new AI suggestion. Three behavioral categories were therefore defined: **Direct Editing**, **Suggestion Rejection / Regeneration**, and **Override**.
+
+*Methodological note on event recoding:* Several raw interaction events required semantic reinterpretation to avoid cross-condition confounding. In the Execution condition, `FIELD_EDIT` events were triggered by dropdown interactions (semester selection) and UI state changes — not by direct content editing, which was structurally unavailable in this condition. Accordingly, `FIELD_EDIT` is classified as Not Available for Execution and excluded from the Direct Editing category. Conversely, `skip_execution_preview` events — logged under the `OVERRIDE` event type in the raw data — were reclassified as Suggestion Rejection / Regeneration behavior, reflecting their functional equivalence to the `AI_SUGGESTION_REJECTED` action in the Assistance condition. All other `OVERRIDE` events in the Execution condition (e.g., `manual_edit_request`, `change_semester_after_suggestion`) were retained under Override.
+
+Because behavioral availability differed by condition, the analysis strategy was adapted accordingly. Direct Editing was examined only in the Manual and Assistance conditions (where it was available), using a Fisher's exact test. Override and Rejection occurrence were tested across all three conditions using Fisher's exact tests, which were preferred over chi-square because some observed cell counts were zero.
 
 ```{r}
 #| label: intervention-types-setup
 #| include: false
 
+# Classify OVERRIDE sub-types in Execution to distinguish
+# skip/regeneration behavior from other supervisory overrides
+execution_override_types <- data_clean |>
+  dplyr::filter(mode == "Execution", action == "OVERRIDE") |>
+  dplyr::mutate(override_action = sapply(details, function(d) {
+    tryCatch(jsonlite::fromJSON(d)$action, error = function(e) NA_character_)
+  })) |>
+  dplyr::group_by(session_id) |>
+  dplyr::summarise(
+    had_skip_exec        = any(override_action == "skip_execution_preview", na.rm = TRUE),
+    had_nonskip_override = any(override_action != "skip_execution_preview", na.rm = TRUE),
+    .groups = "drop"
+  )
+
+# Behavioral recoding:
+#   Direct Editing       = FIELD_EDIT in Manual/Assistance; N/A in Execution
+#   Suggestion Rejection = AI_SUGGESTION_REJECTED in Manual/Assistance;
+#                          skip_execution_preview OVERRIDE in Execution
+#   Override = OVERRIDE (non-skip) across all conditions
 intervention_types_raw <- data_clean |>
   dplyr::group_by(session_id, mode) |>
   dplyr::summarise(
-    started      = any(action == "TASK_STARTED"),
-    had_edit     = any(action == "FIELD_EDIT"),
-    had_override = any(action == "OVERRIDE"),
-    had_reject   = any(action == "AI_SUGGESTION_REJECTED"),
+    started          = any(action == "TASK_STARTED"),
+    had_edit_raw     = any(action == "FIELD_EDIT"),
+    had_override_raw = any(action == "OVERRIDE"),
+    had_reject_raw   = any(action == "AI_SUGGESTION_REJECTED"),
     .groups = "drop"
   ) |>
   dplyr::filter(started) |>
+  dplyr::left_join(execution_override_types, by = "session_id") |>
   dplyr::mutate(
-    mode = factor(mode, levels = c("Manual", "Assistance", "Execution"))
-  )
+    mode = factor(mode, levels = c("Manual", "Assistance", "Execution")),
+    had_edit = dplyr::if_else(mode == "Execution", NA, had_edit_raw),
+    had_reject = dplyr::case_when(
+      mode == "Execution" ~ dplyr::coalesce(had_skip_exec, FALSE),
+      TRUE                ~ had_reject_raw
+    ),
+    had_override = dplyr::case_when(
+      mode == "Execution" ~ dplyr::coalesce(had_nonskip_override, FALSE),
+      TRUE                ~ had_override_raw
+    )
+  ) |>
+  dplyr::select(session_id, mode, started, had_edit, had_override, had_reject)
 
 intervention_types_data <- intervention_types_raw |>
   tidyr::pivot_longer(
     cols = c(had_edit, had_override, had_reject),
-    names_to = "intervention_type",
+    names_to  = "intervention_type",
     values_to = "present"
   ) |>
   dplyr::mutate(
     intervention_type = dplyr::case_match(
       intervention_type,
-      "had_edit"     ~ "Edit",
+      "had_edit"     ~ "Direct Editing",
       "had_override" ~ "Override",
-      "had_reject"   ~ "Reject"
+      "had_reject"   ~ "Suggestion Rejection"
     )
   ) |>
   dplyr::group_by(mode, intervention_type) |>
   dplyr::summarise(
-    proportion = mean(present),
-    .groups = "drop"
+    proportion = mean(present, na.rm = TRUE),
+    .groups    = "drop"
   ) |>
   dplyr::mutate(
-    label = paste0(round(proportion * 100), "%")
+    proportion = dplyr::if_else(is.nan(proportion), NA_real_, proportion),
+    label      = dplyr::if_else(is.na(proportion), "N/A", paste0(round(proportion * 100), "%"))
   )
 ```
 
 ```{r}
 #| label: fig-intervention-types-h2
 #| echo: false
-#| fig-cap: "Proportion of started sessions containing each intervention type across autonomy conditions."
+#| fig-cap: "Proportion of started sessions containing each behavioral intervention type across autonomy conditions. Intervention types are defined by what users were structurally able to do in each condition. Direct Editing was not available in the Execution condition (N/A)."
 #| fig-width: 7
 #| fig-height: 4.5
 
-ggplot(intervention_types_data, aes(x = intervention_type, y = proportion, fill = mode)) +
+plot_data_it <- intervention_types_data |>
+  dplyr::filter(!is.na(proportion)) |>
+  dplyr::filter(!(mode == "Execution" & intervention_type == "Override"))
+na_data_it   <- intervention_types_data |> dplyr::filter(is.na(proportion))
+
+ggplot(plot_data_it, aes(x = intervention_type, y = proportion, fill = mode)) +
   geom_col(position = position_dodge(width = 0.75), width = 0.65) +
   geom_text(
     aes(label = label),
     position = position_dodge(width = 0.75),
-    vjust = -0.3,
+    vjust = -0.4,
     size = 3.5
   ) +
+  geom_text(
+    data = na_data_it,
+    aes(x = intervention_type, label = paste0(mode, ":\nN/A")),
+    y = 0.04,
+    color = "#FC8D62",
+    size = 3,
+    fontface = "italic",
+    inherit.aes = FALSE
+  ) +
   labs(
-    x = "Intervention type",
+    x = "Behavioral intervention type",
     y = "Proportion of sessions",
     fill = "Autonomy condition"
   ) +
-  scale_y_continuous(labels = scales::percent, limits = c(0, 1.05)) +
+  scale_y_continuous(labels = scales::percent, limits = c(0, 1.1)) +
   scale_fill_manual(values = c(
-    "Manual" = "#8DA0CB",
+    "Manual"     = "#8DA0CB",
     "Assistance" = "#66C2A5",
-    "Execution" = "#FC8D62"
+    "Execution"  = "#FC8D62"
   )) +
   theme_minimal(base_size = 11)
 ```
-Figure 12 shows the proportion of started sessions containing each intervention type across the three autonomy conditions. Edits were highly prevalent in all three conditions, occurring in more than 90% of started sessions across all conditions (Manual: 92%, Assistance: 94%, Execution: 91%). In contrast, override events occurred only in the Assistance (81%) and Execution (91%) conditions and were entirely absent in the Manual condition. Rejection-related intervention was observed only in the Assistance condition (35%) and was absent in both the Manual and Execution conditions.
+Figure 12 shows the proportion of started sessions containing each behavioral intervention type across the three autonomy conditions. Direct Editing was available in the Manual and Assistance conditions, where it was highly prevalent (Manual: 92%, Assistance: 94%). Direct Editing was not structurally available in the Execution condition and is therefore excluded from that condition's display. Override occurred in the Assistance (81%) and Execution (89%) conditions and was absent in the Manual condition, reflecting the fact that override behavior presupposes an AI-generated suggestion. Suggestion Rejection / Regeneration was present in both the Assistance condition (35%, via the reject action) and the Execution condition (23%, via skip/regeneration), and was absent in the Manual condition.
 
 ```{r}
 #| label: intervention-types-fisher
 #| echo: false
 
-# Fisher's exact test for Override occurrence
+# Fisher's exact test for Override (all three conditions)
 override_table <- table(intervention_types_raw$mode, intervention_types_raw$had_override)
 fisher_override <- fisher.test(override_table)
 
-# Fisher's exact test for Reject occurrence
+# Fisher's exact test for Suggestion Rejection (all three conditions;
+# Execution uses skip_execution_preview, Assistance uses AI_SUGGESTION_REJECTED)
 reject_table <- table(intervention_types_raw$mode, intervention_types_raw$had_reject)
 fisher_reject <- fisher.test(reject_table)
 
+# Fisher's exact test for Direct Editing (Manual vs Assistance only;
+# Execution excluded because direct editing was structurally unavailable)
+edit_ma <- intervention_types_raw |> dplyr::filter(mode != "Execution")
+edit_table_ma <- table(edit_ma$mode, edit_ma$had_edit)
+fisher_edit <- fisher.test(edit_table_ma)
+
 fisher_types_table <- tibble::tibble(
-  `Intervention Type` = c("Override", "Reject"),
-  `Fisher's p-value`  = c(
-    ifelse(fisher_override$p.value < .001, "< .001", round(fisher_override$p.value, 3)),
-    ifelse(fisher_reject$p.value < .001,  "< .001", round(fisher_reject$p.value, 3))
+  `Behavioral Category`  = c("Direct Editing (Manual vs. Assistance only)", "Suggestion Rejection", "Override"),
+  `Fisher's p-value`     = c(
+    ifelse(fisher_edit$p.value    < .001, "< .001", round(fisher_edit$p.value,     3)),
+    ifelse(fisher_reject$p.value  < .001, "< .001", round(fisher_reject$p.value,   3)),
+    ifelse(fisher_override$p.value < .001, "< .001", round(fisher_override$p.value, 3))
   )
 )
 
 knitr::kable(
   fisher_types_table,
-  caption = "Fisher's exact tests for Override and Reject intervention type occurrence across autonomy conditions.",
+  caption = "Fisher's exact tests for behavioral intervention type occurrence. Direct Editing was tested only between the Manual and Assistance conditions, as it was structurally unavailable in the Execution condition.",
   align = c("l", "c")
 )
 ```
 
-Fisher's exact tests confirmed that both Override and Reject occurrence differed significantly across autonomy conditions (both p < .001). The pattern for Override reflects the nature of the system-supported conditions: because the system generates suggestions in the Assistance and Execution conditions, users in those conditions have the opportunity to override AI output — an action that is structurally impossible in the Manual condition. The pattern for Reject, concentrated exclusively in the Assistance condition, suggests that users in that condition actively declined AI suggestions more often than those in the Execution condition, possibly reflecting a greater sense of perceived control or a less obligatory acceptance dynamic. Edit occurrence was not formally tested due to near-ceiling proportions in all conditions, which would have violated the expected cell count assumption.
+Fisher's exact tests confirmed significant differences across conditions for Override (p < .001) and Suggestion Rejection (p < .001). Direct Editing did not differ significantly between the Manual and Assistance conditions (p = .716), reflecting near-ceiling rates in both (92% and 94%, respectively). The pattern for Override reflects the structural logic of the system-supported conditions: override behavior presupposes an AI-generated suggestion and is therefore only possible in the Assistance and Execution conditions. The pattern for Suggestion Rejection shows that rejection or regeneration behavior was not exclusive to the Assistance condition — Execution users also engaged in rejection-like behavior via the skip/regenerate function (23%), though at a lower rate than Assistance users (35%), who could explicitly reject AI suggestions at any point.
 
-Taken together, the results provide partial support for H2. While intervention occurrence did not differ significantly across autonomy conditions, intervention count showed that users in the Manual condition intervened significantly more often than users in the Assistance and Execution conditions. The descriptive analysis of intervention types further showed that intervention was not uniform across conditions: edits were common in all three conditions, whereas overrides and rejection-related actions were concentrated in the system-supported conditions. Overall, these findings suggest that higher AI execution autonomy did not eliminate intervention altogether, but it reduced how frequently users needed to intervene and changed the form that intervention took.
+Taken together, the results provide partial support for H2. While intervention occurrence did not differ significantly across autonomy conditions, intervention count showed that users in the Manual condition intervened significantly more often than users in the Assistance and Execution conditions. The behavioral analysis of intervention types further showed that intervention was not uniform across conditions: Direct Editing was available and common in the Manual and Assistance conditions but structurally absent in the Execution condition; Override was concentrated in the system-supported conditions; and Suggestion Rejection / Regeneration was present in both the Assistance and Execution conditions, though at a higher rate in the Assistance condition (35% vs. 23%). Overall, these findings suggest that higher AI execution autonomy did not eliminate intervention altogether, but it reduced how frequently users needed to intervene and changed the form that intervention took.
 
 # Discussion
 ## Evaluation of Hypotheses
@@ -1782,10 +1839,10 @@ The present study examined how different levels of AI execution autonomy influen
 
 H1 was largely supported. Higher levels of AI execution autonomy were associated with improved task performance across multiple indicators. For completion time, a clear and statistically significant stepwise pattern was observed, with the Manual condition showing the longest completion times, the Assistance condition showing shorter times, and the Execution condition showing the shortest times. This finding suggests that increasing execution autonomy can reduce the amount of manual effort required to complete a task. For detected errors, the Manual condition showed a significantly higher proportion of started sessions with at least one error compared with both the Assistance and Execution conditions, whereas the difference between Assistance and Execution was not statistically significant. A similar pattern emerged for task completion versus abandonment: overall differences across conditions were significant, but the clearest pairwise difference was found between the Manual and Execution conditions. Taken together, these results indicate that higher execution autonomy improved task performance, although this effect was not equally strong across all performance indicators.
 
-H2 was only partially supported. Intervention occurrence, operationalized as whether any intervention took place during a started session, did not differ significantly across autonomy conditions. In contrast, intervention count showed a significant effect: participants in the Manual condition intervened significantly more often than participants in both the Assistance and Execution conditions, whereas no significant difference was found between the Assistance and Execution conditions. The descriptive analysis of intervention types also showed that intervention was not uniform across conditions. Edits were frequent in all three conditions, while override and rejection-related actions were concentrated in the system-supported conditions. Thus, higher AI execution autonomy did not eliminate intervention altogether, but it did reduce how often users needed to intervene and altered the form that intervention took.
+H2 was only partially supported. Intervention occurrence, operationalized as whether any intervention took place during a started session, did not differ significantly across autonomy conditions. In contrast, intervention count showed a significant effect: participants in the Manual condition intervened significantly more often than participants in both the Assistance and Execution conditions, whereas no significant difference was found between the Assistance and Execution conditions. The behavioral analysis of intervention types also showed that intervention was not uniform across conditions. Direct Editing was available and common in the Manual and Assistance conditions but was structurally unavailable in the Execution condition. Override was present in both system-supported conditions and absent in the Manual condition. Suggestion Rejection / Regeneration behavior was observed in both the Assistance and Execution conditions, albeit at a lower rate in Execution (23% vs. 35%), and was absent in the Manual condition. Thus, higher AI execution autonomy did not eliminate intervention altogether, but it did reduce how often users needed to intervene and altered the form that intervention took.
 
 ## Summary of Findings
-Several overarching findings emerge from the results. First, increasing AI execution autonomy was associated with more efficient task completion. Completion time decreased progressively from the Manual condition to the Assistance condition and further to the Execution condition. Second, higher autonomy was associated with fewer detected errors, particularly when comparing the Manual condition with the two system-supported conditions. Third, abandonment decreased under higher autonomy, although this effect was most clearly evident in the comparison between the Manual and Execution conditions. Fourth, intervention behavior was more complex than initially expected. While intervention occurrence remained high across all conditions, intervention count decreased under higher autonomy. This suggests that users continued to engage with the system across all conditions, but the amount of intervention required was lower when the system took over a larger share of task execution.
+Several overarching findings emerge from the results. First, increasing AI execution autonomy was associated with more efficient task completion. Completion time decreased progressively from the Manual condition to the Assistance condition and further to the Execution condition. Second, higher autonomy was associated with fewer detected errors, particularly when comparing the Manual condition with the two system-supported conditions. Third, abandonment decreased under higher autonomy, although this effect was most clearly evident in the comparison between the Manual and Execution conditions. Fourth, intervention behavior was more complex than initially expected. While intervention occurrence remained high across all conditions, intervention count decreased under higher autonomy. Additionally, the type of intervention differed meaningfully by condition: Direct Editing was exclusive to the Manual and Assistance conditions; Override and Suggestion Rejection / Regeneration were concentrated in the system-supported conditions. This suggests that users continued to engage with the system across all conditions, but the amount of intervention required was lower when the system took over a larger share of task execution, and the nature of that intervention shifted from content editing toward supervisory control.
 
 Taken together, these findings suggest that AI execution autonomy primarily improved task performance by reducing manual workload and limiting the number of corrective actions required during task execution. At the same time, user involvement was not removed entirely, indicating that even execution-oriented systems still operate within a human-supervised interaction structure.
 
