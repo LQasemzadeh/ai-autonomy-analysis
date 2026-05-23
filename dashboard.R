@@ -131,6 +131,16 @@ ui <- page_navbar(
   ),
   fillable = FALSE,
   header   = tags$head(tags$style(HTML(dashboard_css))),
+  nav_spacer(),
+  nav_item(
+    tags$a(
+      href   = "https://lqasemzadeh.github.io/ai-autonomy-dashboard/",
+      target = "_blank",
+      class  = "btn btn-sm btn-outline-light",
+      style  = "margin-right: 0.5rem;",
+      "\u25b6\u00a0 Open Interactive Dashboard"
+    )
+  ),
 
   # ── Overview ────────────────────────────────────────────────────────────
   nav_panel(
