@@ -1731,7 +1731,7 @@ intervention_types_data <- intervention_types_raw |>
 ```{r}
 #| label: fig-intervention-types-h2
 #| echo: false
-#| fig-cap: "Proportion of started sessions containing each behavioral intervention type across autonomy conditions. Intervention types are defined by what users were structurally able to do in each condition. Direct Editing was not available in the Execution condition (N/A)."
+#| fig-cap: "Proportion of started sessions containing each behavioral intervention type across autonomy conditions. Direct Editing was not available in the Execution condition (N/A). In the Execution condition, Override includes follow-up adjustments after suggestion regeneration."
 #| fig-width: 7
 #| fig-height: 4.5
 
@@ -1769,7 +1769,13 @@ ggplot(plot_data_it, aes(x = intervention_type, y = proportion, fill = mode)) +
   )) +
   theme_minimal(base_size = 11)
 ```
-Figure 12 shows the proportion of started sessions containing each behavioral intervention type across the three autonomy conditions. Direct Editing was available in the Manual and Assistance conditions, where it was highly prevalent (Manual: 92%, Assistance: 94%). Direct Editing was not structurally available in the Execution condition and is therefore excluded from that condition's display. Override occurred in the Assistance (81%) and Execution (89%) conditions and was absent in the Manual condition, reflecting the fact that override behavior presupposes an AI-generated suggestion. Suggestion Rejection / Regeneration was present in both the Assistance condition (35%, via the reject action) and the Execution condition (23%, via skip/regeneration), and was absent in the Manual condition.
+Figure 12 shows the proportion of started sessions containing each behavioral intervention type across the three autonomy conditions. Direct Editing was available in the Manual and Assistance conditions, where it was highly prevalent (Manual: 92%; Assistance: 94%). Direct Editing was not structurally available in the Execution condition and was therefore excluded from that condition’s display.
+
+Override occurred in the Assistance (81%) and Execution (91%) conditions and was absent in the Manual condition. In the Assistance condition, override reflected explicit user modification of AI-generated suggestions. In the Execution condition, override additionally included follow-up adjustments after suggestion regeneration, such as reselecting the semester after skipping a previous suggestion.
+
+Suggestion Rejection / Regeneration was present in both the Assistance condition (35%, via the reject action) and the Execution condition (91%, via skip/regeneration), and was absent in the Manual condition.
+
+Overall, the behavioral pattern indicates that intervention remained common across autonomy conditions, but differed in form depending on the degree of AI execution autonomy. While Manual and Assistance relied strongly on direct editing, Execution interventions were concentrated around regeneration and follow-up adjustments after AI-generated suggestions.
 
 ```{r}
 #| label: intervention-types-fisher
