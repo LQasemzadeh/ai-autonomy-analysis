@@ -1680,53 +1680,32 @@ Because behavioral availability differed by condition, the analysis strategy was
 #| label: intervention-types-setup
 #| include: false
 
-# Classify OVERRIDE sub-types in Execution to distinguish
-# skip/regeneration behavior from other supervisory overrides
-execution_override_types <- data_clean |>
-  dplyr::filter(mode == "Execution", action == "OVERRIDE") |>
-  dplyr::mutate(override_action = sapply(details, function(d) {
-    tryCatch(jsonlite::fromJSON(d)$action, error = function(e) NA_character_)
-  })) |>
-  dplyr::group_by(session_id) |>
-  dplyr::summarise(
-    had_skip_exec        = any(override_action == "skip_execution_preview", na.rm = TRUE),
-    had_nonskip_override = any(override_action != "skip_execution_preview", na.rm = TRUE),
-    .groups = "drop"
-  )
-
-# Behavioral recoding:
-#   Direct Editing       = FIELD_EDIT in Manual/Assistance; N/A in Execution
-#   Suggestion Rejection = AI_SUGGESTION_REJECTED in Manual/Assistance;
-#                          skip_execution_preview OVERRIDE in Execution
-#   Override = OVERRIDE (non-skip) across all conditions
+# Intervention type breakdown — consistent with 01_load_data.R:
+#   Direct Editing       = FIELD_EDIT > 0  (N/A for Execution: mandatory workflow step)
+#   Override             = OVERRIDE > 0
+#   Suggestion Rejection = AI_SUGGESTION_REJECTED > 0
 intervention_types_raw <- data_clean |>
   dplyr::group_by(session_id, mode) |>
   dplyr::summarise(
     started          = any(action == "TASK_STARTED"),
-    had_edit_raw     = any(action == "FIELD_EDIT"),
+    had_edit         = any(action == "FIELD_EDIT"),
     had_override_raw = any(action == "OVERRIDE"),
     had_reject_raw   = any(action == "AI_SUGGESTION_REJECTED"),
     .groups = "drop"
   ) |>
   dplyr::filter(started) |>
-  dplyr::left_join(execution_override_types, by = "session_id") |>
   dplyr::mutate(
-    mode = factor(mode, levels = c("Manual", "Assistance", "Execution")),
-    had_edit = dplyr::if_else(mode == "Execution", NA, had_edit_raw),
-    had_reject = dplyr::case_when(
-      mode == "Execution" ~ dplyr::coalesce(had_skip_exec, FALSE),
-      TRUE                ~ had_reject_raw
-    ),
-    had_override = dplyr::case_when(
-      mode == "Execution" ~ dplyr::coalesce(had_nonskip_override, FALSE),
-      TRUE                ~ had_override_raw
-    )
-  ) |>
-  dplyr::select(session_id, mode, started, had_edit, had_override, had_reject)
+    mode         = factor(mode, levels = c("Manual", "Assistance", "Execution")),
+    had_edit     = dplyr::if_else(mode == "Execution", NA, had_edit),
+    # In Execution, OVERRIDE is the only intervention mechanism —
+    # it covers both Override and Suggestion Rejection semantics
+    had_override = had_override_raw,
+    had_reject   = dplyr::if_else(mode == "Execution", had_override_raw, had_reject_raw)
+  )
 
 intervention_types_data <- intervention_types_raw |>
   tidyr::pivot_longer(
-    cols = c(had_edit, had_override, had_reject),
+    cols      = c(had_edit, had_override, had_reject),
     names_to  = "intervention_type",
     values_to = "present"
   ) |>
@@ -1757,8 +1736,7 @@ intervention_types_data <- intervention_types_raw |>
 #| fig-height: 4.5
 
 plot_data_it <- intervention_types_data |>
-  dplyr::filter(!is.na(proportion)) |>
-  dplyr::filter(!(mode == "Execution" & intervention_type == "Override"))
+  dplyr::filter(!is.na(proportion), proportion > 0)
 na_data_it   <- intervention_types_data |> dplyr::filter(is.na(proportion))
 
 ggplot(plot_data_it, aes(x = intervention_type, y = proportion, fill = mode)) +
